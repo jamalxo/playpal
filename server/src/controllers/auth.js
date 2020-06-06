@@ -51,6 +51,11 @@ const register = async (req,res) => {
         error: 'Bad Request',
         message: 'The request body must contain a username property'
     });
+    if (!Object.prototype.hasOwnProperty.call(req.body, 'email')) return res.status(400).json({
+        error: 'Bad Request',
+        message: 'The request body must contain a email property'
+    });
+
 
     const user = Object.assign(req.body, {password: bcrypt.hashSync(req.body.password, 8)});
 
