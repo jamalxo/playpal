@@ -3,7 +3,6 @@
 import React from 'react';
 import { Toolbar } from 'react-md';
 import { withRouter } from 'react-router-dom'
-import Button from './Button'
 import Primarybar from './PrimarySearchAppBar'
 
 import KebabMenu from './KebabMenu';
