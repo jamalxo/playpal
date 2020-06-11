@@ -31,19 +31,6 @@ export const MovieList = ({data, onDelete}) => (
                 {data.map((movie, i) => <MovieListRow key={i} movie={movie} onDelete={(id) => onDelete(id)} />)}
             </TableBody>
         </DataTable>
-        <Fab color="primary" aria-label="add">
-            <AddIcon />
-        </Fab>
-        <Fab color="secondary" aria-label="edit">
-            <EditIcon />
-        </Fab>
-        <Fab variant="extended">
-            <NavigationIcon />
-            Navigate
-        </Fab>
-        <Fab disabled aria-label="like">
-            <FavoriteIcon />
-        </Fab>
     </Page>
 );
 
