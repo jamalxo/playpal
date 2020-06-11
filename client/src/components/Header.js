@@ -1,9 +1,10 @@
 "use strict";
 
 import React from 'react';
-import { Toolbar, Button } from 'react-md';
+import { Toolbar } from 'react-md';
 import { withRouter } from 'react-router-dom'
-//import {Button} from './Button'
+import Button from './Button'
+import Primarybar from './PrimarySearchAppBar'
 
 import KebabMenu from './KebabMenu';
 
@@ -16,7 +17,9 @@ class Header extends React.Component {
 
     render() {
         return (
-            <div>test</div>
+            <div>
+                <Primarybar></Primarybar>
+            </div>
         );
     }
 };
