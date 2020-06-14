@@ -23,6 +23,7 @@ class UserSignup extends React.Component {
             usertype: 'professional',
             firstname: '',
             lastname: '',
+            description: '',
         };
 
         this.handleChangeInput = this.handleChangeInput.bind(this);
@@ -30,10 +31,11 @@ class UserSignup extends React.Component {
     }
 
 
-    handleChangeInput(evt) {
-        const value = evt.target.value;
-        setState({
-            [evt.target.name]: value
+    handleChangeInput(target, value) {
+        console.log(target)
+        console.log(value)
+        this.setState({
+            [target]: value
         });
     }
 
@@ -41,7 +43,7 @@ class UserSignup extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        let user = {state};
+        let user = this.state;
 
         this.props.onSubmit(user);
     }
@@ -59,7 +61,7 @@ class UserSignup extends React.Component {
                             className="md-row"
                             required={true}
                             value={this.state.email}
-                            onChange={this.handleChangeInput}
+                            onChange={(inp) => this.handleChangeInput('email', inp)}
                             errorText="e-mail is required"/>
 
                         <TextField
@@ -70,7 +72,7 @@ class UserSignup extends React.Component {
                             className="md-row"
                             required={true}
                             value={this.state.username}
-                            onChange={this.handleChangeInput}
+                            onChange={(inp) => this.handleChangeInput('username', inp)}
                             errorText="Username is required"/>
                         <TextField
                             label="Password"
@@ -80,7 +82,7 @@ class UserSignup extends React.Component {
                             className="md-row"
                             required={true}
                             value={this.state.password}
-                            onChange={this.handleChangeInput}
+                            onChange={(inp) => this.handleChangeInput('password', inp)}
                             errorText="Password is required"/>
                         <TextField
                             label="FirstName"
@@ -90,7 +92,7 @@ class UserSignup extends React.Component {
                             className="md-row"
                             required={true}
                             value={this.state.firstname}
-                            onChange={this.handleChangeInput}
+                            onChange={(inp) => this.handleChangeInput('firstname', inp)}
                             errorText="First name is required"/>
                         <TextField
                             label="LastName"
@@ -100,10 +102,22 @@ class UserSignup extends React.Component {
                             className="md-row"
                             required={true}
                             value={this.state.lastname}
-                            onChange={this.handleChangeInput}
+                            onChange={(inp) => this.handleChangeInput('lastname', inp)}
                             errorText="Last name is required"/>
+                        <TextField
+                            label="Description"
+                            id="DescriptionField"
+                            name="description"
+                            type="text"
+                            className="md-row"
+                            required={true}
+                            multiline
+                            rows={4}
+                            value={this.state.description}
+                            onChange={(inp) => this.handleChangeInput('description', inp)}
+                            errorText="Username is required"/>
 
-                        <select value={this.state.usertype} onChange={this.handleChange} name="usertype">
+                        <select value={this.state.usertype} onChange={(inp) => this.handleChangeInput('usertype', inp.target.value)} name="usertype">
                             <option value="professional">Professional</option>
                             <option value="casual">Casual</option>
                         </select>
