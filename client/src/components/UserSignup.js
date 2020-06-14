@@ -21,43 +21,27 @@ class UserSignup extends React.Component {
             password : '',
             email: '',
             usertype: 'professional',
+            firstname: '',
+            lastname: '',
         };
 
-        this.handleChangeUsername = this.handleChangeUsername.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.handleChangeEmail = this.handleChangeEmail.bind(this);
-        this.handleChangeUserType = this.handleChangeUserType.bind(this);
-
+        this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChangeUserType(event)
-    {
-        this.setState(Object.assign({}, this.state, {usertype: event.target.value}));
 
+    handleChangeInput(evt) {
+        const value = evt.target.value;
+        setState({
+            [evt.target.name]: value
+        });
     }
 
-    handleChangeUsername(value) {
-        this.setState(Object.assign({}, this.state, {username: value}));
-    }
-    handleChangeEmail(value) {
-        this.setState(Object.assign({}, this.state, {email: value}));
-    }
-
-
-    handleChangePassword(value) {
-        this.setState(Object.assign({}, this.state, {password: value}));
-    }
 
     handleSubmit(event) {
         event.preventDefault();
 
-        let user = {
-            username: this.state.username,
-            password: this.state.password,
-            email: this.state.email,
-            usertype: this.state.usertype,
-        };
+        let user = {state};
 
         this.props.onSubmit(user);
     }
@@ -71,31 +55,55 @@ class UserSignup extends React.Component {
                             label="Email"
                             id="emailField"
                             type="text"
+                            name="email"
                             className="md-row"
                             required={true}
                             value={this.state.email}
-                            onChange={this.handleChangeEmail}
+                            onChange={this.handleChangeInput}
                             errorText="e-mail is required"/>
 
                         <TextField
                             label="Username"
                             id="UsernameField"
+                            name="username"
                             type="text"
                             className="md-row"
                             required={true}
                             value={this.state.username}
-                            onChange={this.handleChangeUsername}
+                            onChange={this.handleChangeInput}
                             errorText="Username is required"/>
                         <TextField
                             label="Password"
                             id="PasswordField"
                             type="password"
+                            name="password"
                             className="md-row"
                             required={true}
                             value={this.state.password}
-                            onChange={this.handleChangePassword}
+                            onChange={this.handleChangeInput}
                             errorText="Password is required"/>
-                        <select value={this.state.usertype} onChange={this.handleChangeUserType}>
+                        <TextField
+                            label="FirstName"
+                            id="FirstNameField"
+                            type="text"
+                            name="firstname"
+                            className="md-row"
+                            required={true}
+                            value={this.state.firstname}
+                            onChange={this.handleChangeInput}
+                            errorText="First name is required"/>
+                        <TextField
+                            label="LastName"
+                            id="LastNameField"
+                            type="text"
+                            name="lastname"
+                            className="md-row"
+                            required={true}
+                            value={this.state.lastname}
+                            onChange={this.handleChangeInput}
+                            errorText="Last name is required"/>
+
+                        <select value={this.state.usertype} onChange={this.handleChange} name="usertype">
                             <option value="professional">Professional</option>
                             <option value="casual">Casual</option>
                         </select>

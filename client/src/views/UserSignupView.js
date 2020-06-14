@@ -18,7 +18,7 @@ export class UserSignupView extends React.Component {
         try {
             console.log(user.usertype)
             console.log(user.email)
-            let ret = await UserService.register(user.username, user.password, user.email, user.usertype);
+            let ret = await UserService.register({user:state});
             this.props.history.push('/');
         } catch(err) {
             console.error(err);
