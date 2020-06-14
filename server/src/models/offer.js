@@ -10,7 +10,8 @@ const OfferSchema  = new mongoose.Schema({
         required: true
     },
     game: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Game',
         required: true,
     },
     server: {
@@ -35,6 +36,13 @@ const OfferSchema  = new mongoose.Schema({
         required: true
     }
 });
+
+const GameSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    }
+})
 
 OfferSchema.set('versionKey', false);
 
