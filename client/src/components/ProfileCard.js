@@ -30,6 +30,16 @@ class ProfileCard extends React.Component {
         super(props);
     }
 
+    getAvg() {
+        const ratings = this.props.profile.reviews;
+        var sum = 0;
+        for( var i = 0; i < ratings.length; i++ ){
+             sum += parseInt( ratings[i].rating, 10 ); //don't forget to add the base
+        }
+        const avg = (sum / ratings.length) || 0;
+        return avg;
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -49,7 +59,7 @@ class ProfileCard extends React.Component {
                         <Typography gutterBottom variant="h5" component="h2">
                             {this.props.profile.firstname} {this.props.profile.lastname}
                         </Typography>
-                        <Rating name="read-only" value={2} readOnly />
+                        <Rating name="read-only" value={this.getAvg()} readOnly />
                     </CardContent>
                     <CardContent align="left">
                         <Typography variant="body2" color="textSecondary" component="p">
