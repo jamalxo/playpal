@@ -8,7 +8,7 @@ import { MovieDetailView }   from './views/MovieDetailView';
 import { MovieFormView }   from './views/MovieFormView';
 import { UserLoginView } from "./views/UserLoginView";
 import { UserSignupView } from "./views/UserSignupView";
-
+import {CreateOfferView} from "./views/CreateOfferView"
 import UserService from "./services/UserService";
 
 
@@ -22,6 +22,7 @@ export default class App extends React.Component {
             routes: [
                 { component: MovieListView , path: '/', exact: true},
                 { component: MovieDetailView , path: '/show/:id'},
+                { component: CreateOfferView, path: '/create/'},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
                             return (<MovieFormView {... props} />)
