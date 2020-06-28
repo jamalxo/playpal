@@ -1,9 +1,8 @@
 "use strict";
 
 import React from 'react';
-import { Toolbar, Button } from 'react-md';
+import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import KebabMenu from '../KebabMenu';
 import Toolbar2 from "@material-ui/core/Toolbar/Toolbar";
@@ -41,11 +40,11 @@ class Header extends React.Component {
                 <div className={classes.root}>
                     <AppBar position="static">
                         <Toolbar2>
-                            <Typography variant="h6" className={classes.title}>
+                            <Typography color="inherit" variant="h6" className={classes.title}>
                                 PlayPal
                             </Typography>
-                            <Button onClick={() => this.props.history.push('/')} icon>home</Button>
-                            <KebabMenu id="toolbar-colored-kebab-menu" />
+                            <Button color="inherit" onClick={() => this.props.history.push('/')} icon>home</Button>
+                            <KebabMenu color="inherit" id="toolbar-colored-kebab-menu" />
                         </Toolbar2>
                     </AppBar>
                 </div>
