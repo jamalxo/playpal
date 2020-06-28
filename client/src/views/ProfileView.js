@@ -36,6 +36,7 @@ export class ProfileView extends React.Component {
         (async () => {
             try {
                 let user = await ProfileService.getProfile(id);
+                console.log(user);
                 this.setState({
                     user: user,
                     loading: false

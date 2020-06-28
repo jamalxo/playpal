@@ -23,9 +23,6 @@ const User = require('../models/user');
 
 const postReview = function(req, res, next) {
     var review = new Review(req.body);
-    console.log('a');
-    console.log(review.ratedUser);
-    console.log('b');
 
     //if (address.validateSync()) return next(commuteError.BadRequest(LOG_LABEL));
 

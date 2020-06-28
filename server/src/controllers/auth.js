@@ -124,7 +124,13 @@ const getProfiles = async (req, res) => {
 
 const getProfile = async (req, res) => {
     try {
-        let user = await UserModel.findById(req.params.id).exec();
+        let user = await UserModel.findById(req.params.id)
+            .populate({
+                path: 'reviews',
+                select: 'rating review'
+            })
+            .exec();
+        console.log(user);
 
         let agg = await ReviewModel.aggregate([{
             $group: {

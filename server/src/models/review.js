@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 
 // Define the user schema
-const ReviewSchema  = new mongoose.Schema({
+const Review  = new mongoose.Schema({
     ratedUser:
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -30,8 +30,8 @@ const ReviewSchema  = new mongoose.Schema({
         }
 });
 
-ReviewSchema.set('versionKey', false);
+Review.set('versionKey', false);
 
 
 // Export the Movie model
-module.exports = mongoose.model('Review', ReviewSchema);
+module.exports = mongoose.model('Review', Review);
