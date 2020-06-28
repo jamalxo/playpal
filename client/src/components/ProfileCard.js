@@ -59,6 +59,7 @@ class ProfileCard extends React.Component {
                         <Typography gutterBottom variant="h5" component="h2">
                             {this.props.profile.firstname} {this.props.profile.lastname}
                         </Typography>
+                        <div> {this.getAvg().toFixed(2)} </div>
                         <Rating name="read-only" value={this.getAvg()} readOnly />
                     </CardContent>
                     <CardContent align="left">

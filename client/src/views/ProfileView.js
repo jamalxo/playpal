@@ -11,8 +11,8 @@ import UserSignup from "../components/UserSignup";
 import UserService from "../services/UserService";
 import ReviewService from "../services/ReviewService";
 import {MovieListRow} from "../components/MovieListRow";
-import {TableBody} from "react-md";
-import {ReviewData} from "../components/ReviewData";
+import {Button, TableBody} from "react-md";
+import {ReviewData} from "../components/ReviewData/ReviewData";
 
 const gridElement = {
     padding: '30px',
@@ -81,12 +81,15 @@ export class ProfileView extends React.Component {
                         <ProfileCard profile={this.state.user} />
                     </Grid>
                     <Grid item xs={4}>
-                        <ReviewField onSubmit={(review) => this.createReview(review)} error={this.state.error} />
-                    </Grid>
-                    <div>
+                        <ReviewField
+                            onSubmit={(review) => {
+                                this.createReview(review);
+                                this.componentWillMount();
+                            }}
+                            error={this.state.error}
+                        />
                         {this.state.user.reviews.map((review, i) => <ReviewData key={i} review={review}/>)}
-                        {/*<MovieListRow key={i} movie={movie} onDelete={(id) => onDelete(id)} />*/}
-                    </div>
+                    </Grid>
                 </Grid>
             </Page>
         );
