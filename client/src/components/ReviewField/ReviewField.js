@@ -77,7 +77,7 @@ export class ReviewField extends React.Component {
                                 onChange={(inp) => this.handleChangeInput('review', inp.target.value)}
                             />
                         </Grid>
-                        <Grid item xs={12} align={"right"} className="grid">
+                        <Grid item xs={12} align={"right"}>
                             <Button
                                 id="submit"
                                 type="submit"
