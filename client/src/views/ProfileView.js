@@ -10,6 +10,9 @@ import {ReviewField} from "../components/ReviewField";
 import UserSignup from "../components/UserSignup";
 import UserService from "../services/UserService";
 import ReviewService from "../services/ReviewService";
+import {MovieListRow} from "../components/MovieListRow";
+import {TableBody} from "react-md";
+import {ReviewData} from "../components/ReviewData";
 
 const gridElement = {
     padding: '30px',
@@ -36,11 +39,11 @@ export class ProfileView extends React.Component {
         (async () => {
             try {
                 let user = await ProfileService.getProfile(id);
-                console.log(user);
                 this.setState({
                     user: user,
                     loading: false
                 });
+                console.log(this.state);
             } catch(err) {
                 console.error(err);
             }
@@ -53,7 +56,7 @@ export class ProfileView extends React.Component {
                 ratedUser: this.state.user._id,
                 rating: review.rating,
                 review: review.review
-            }
+            };
 
             let ret = await ReviewService.createReview(reviewWithId);
 
@@ -80,6 +83,10 @@ export class ProfileView extends React.Component {
                     <Grid item xs={4}>
                         <ReviewField onSubmit={(review) => this.createReview(review)} error={this.state.error} />
                     </Grid>
+                    <div>
+                        {this.state.user.reviews.map((review, i) => <ReviewData key={i} review={review}/>)}
+                        {/*<MovieListRow key={i} movie={movie} onDelete={(id) => onDelete(id)} />*/}
+                    </div>
                 </Grid>
             </Page>
         );

@@ -21,7 +21,7 @@ export class ReviewField extends React.Component {
         this.state = {
             rating: 0,
             review: ''
-        }
+        };
 
         this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
