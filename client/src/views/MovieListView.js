@@ -3,8 +3,8 @@
 import React from 'react';
 
 import { MovieList } from '../components/MovieList';
-
 import MovieService from '../services/MovieService';
+
 
 
 export class MovieListView extends React.Component {

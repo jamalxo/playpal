@@ -5,7 +5,8 @@ const bcrypt     = require('bcryptjs');
 
 const config     = require('../config');
 const UserModel  = require('../models/user');
-
+const ReviewModel = require('../models/review');
+const find = require('array.prototype.find');
 
 const login = async (req,res) => {
     if (!Object.prototype.hasOwnProperty.call(req.body, 'password')) return res.status(400).json({
@@ -51,6 +52,11 @@ const register = async (req,res) => {
         error: 'Bad Request',
         message: 'The request body must contain a username property'
     });
+    if (!Object.prototype.hasOwnProperty.call(req.body, 'email')) return res.status(400).json({
+        error: 'Bad Request',
+        message: 'The request body must contain a email property'
+    });
+
 
     const user = Object.assign(req.body, {password: bcrypt.hashSync(req.body.password, 8)});
 
@@ -102,10 +108,53 @@ const logout = (req, res) => {
     res.status(200).send({ token: null });
 };
 
+const getProfiles = async (req, res) => {
+    try {
+        let users = await UserModel.find({ usertype: "professional" }).select('username').select('firstname').select('lastname').select('description').exec();
+        //let users = await UserModel.find({ usertype: "professional" }).select('username').exec();
+        //let users = await UserModel.find({ }).exec();
+        return res.status(200).json(users);
+    } catch(err) {
+        return res.status(500).json({
+            error: 'Internal server error',
+            message: err.message
+        });
+    }
+};
+
+const getProfile = async (req, res) => {
+    try {
+        let user = await UserModel.findById(req.params.id).exec();
+
+        let agg = await ReviewModel.aggregate([{
+            $group: {
+                _id: "$ratedUser",
+                avgAmount: {
+                    $avg: "$rating"
+                }
+            }
+        }]);
+        console.log(find(agg, function(x) { return x._id == req.params.id }).avgAmount);
+
+        if (!user) return res.status(404).json({
+            error: 'Not Found',
+            message: `Profile not found`
+        });
+
+        return res.status(200).json(user);
+    } catch(err) {
+        return res.status(500).json({
+            error: 'Internal server error',
+            message: err.message
+        });
+    }
+};
 
 module.exports = {
     login,
     register,
     logout,
-    me
+    me,
+    getProfile,
+    getProfiles
 };

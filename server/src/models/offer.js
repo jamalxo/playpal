@@ -1,3 +1,4 @@
+
 "use strict";
 
 const mongoose = require('mongoose');
@@ -10,7 +11,8 @@ const OfferSchema  = new mongoose.Schema({
         required: true
     },
     game: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Game',
         required: true,
     },
     server: {

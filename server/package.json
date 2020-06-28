@@ -20,6 +20,7 @@
     "devstart": "nodemon ./index.js"
   },
   "dependencies": {
+    "array.prototype.find": "2.1.1",
     "bcryptjs": "2.4.3",
     "body-parser": "1.18.2",
     "express": "4.16.2",

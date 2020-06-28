@@ -132,7 +132,7 @@ export default class HttpService {
                 onSuccess(resp);
             }
         } catch(err) {
-            onError(e.message);
+            onError(err.message);
         }
     }
 
