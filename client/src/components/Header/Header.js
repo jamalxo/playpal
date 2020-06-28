@@ -10,8 +10,12 @@ import Toolbar2 from "@material-ui/core/Toolbar/Toolbar";
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Typography from '@material-ui/core/Typography';
 
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import {theme} from '../../theme';
+
 const useStyles = (theme) => ({
     root: {
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
         flexGrow: 1,
     },
     menuButton: {
@@ -22,6 +26,8 @@ const useStyles = (theme) => ({
     },
 });
 
+
+
 class Header extends React.Component {
 
     constructor(props) {
@@ -31,17 +37,19 @@ class Header extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className={classes.root}>
-                <AppBar position="static">
-                    <Toolbar2>
-                        <Typography variant="h6" className={classes.title}>
-                            News
-                        </Typography>
-                        <Button onClick={() => this.props.history.push('/')} icon>home</Button>
-                        <KebabMenu id="toolbar-colored-kebab-menu" />
-                    </Toolbar2>
-                </AppBar>
-            </div>
+            <MuiThemeProvider theme={theme}>
+                <div className={classes.root}>
+                    <AppBar position="static">
+                        <Toolbar2>
+                            <Typography variant="h6" className={classes.title}>
+                                News
+                            </Typography>
+                            <Button onClick={() => this.props.history.push('/')} icon>home</Button>
+                            <KebabMenu id="toolbar-colored-kebab-menu" />
+                        </Toolbar2>
+                    </AppBar>
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
