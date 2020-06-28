@@ -68,7 +68,7 @@ export class ProfileView extends React.Component {
         return (
             <Page>
                 <Grid container className="grid">
-                    <Grid item xs={4} align={"right"} style={{paddingRight: '20px'}}>
+                    <Grid item xs={4} align={"right"} className="profileCard">
                         <ProfileCard profile={this.state.user} />
                     </Grid>
                     <Grid item xs={4} >
