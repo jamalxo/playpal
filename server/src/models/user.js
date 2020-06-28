@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 
 // Define the user schema
-const UserSchema  = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     username:
         {
             type: String,
@@ -47,7 +47,11 @@ const UserSchema  = new mongoose.Schema({
         {
             type: String,
             required: false,
-        }
+        },
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
+    }],
 
 });
 
