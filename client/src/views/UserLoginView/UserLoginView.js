@@ -2,9 +2,9 @@
 
 import React from 'react';
 
-import UserLogin from '../components/UserLogin';
+import UserLogin from '../../components/UserLogin/UserLogin';
 
-import UserService from '../services/UserService';
+import UserService from '../../services/UserService';
 
 
 export class UserLoginView extends React.Component {

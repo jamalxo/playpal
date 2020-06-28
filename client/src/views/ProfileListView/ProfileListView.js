@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import { ProfileList } from '../components/ProfileList';
-import ProfileService from '../services/ProfileService';
+import { ProfileList } from '../../components/ProfileList/ProfileList';
+import ProfileService from '../../services/ProfileService';
 
 export class ProfileListView extends React.Component {
 

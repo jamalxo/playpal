@@ -1,23 +1,14 @@
 "use strict";
 
 import React from 'react';
-
-import ProfileService from '../services/ProfileService';
-import ProfileCard from "../components/ProfileCard";
-import Page from '../components/Page';
+import ProfileService from '../../services/ProfileService';
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
+import Page from '../../components/Page/Page';
 import Grid from "@material-ui/core/Grid";
-import {ReviewField} from "../components/ReviewField";
-import UserSignup from "../components/UserSignup";
-import UserService from "../services/UserService";
-import ReviewService from "../services/ReviewService";
-import {MovieListRow} from "../components/MovieListRow";
-import {Button, TableBody} from "react-md";
-import {ReviewData} from "../components/ReviewData/ReviewData";
-
-const gridElement = {
-    padding: '30px',
-    //display: 'flex'
-};
+import {ReviewField} from "../../components/ReviewField/ReviewField";
+import ReviewService from "../../services/ReviewService";
+import {ReviewData} from "../../components/ReviewData/ReviewData";
+import './ProfileView.css'
 
 export class ProfileView extends React.Component {
 
@@ -76,11 +67,11 @@ export class ProfileView extends React.Component {
 
         return (
             <Page>
-                <Grid container style={gridElement}>
-                    <Grid item xs={4} align={"center"}>
+                <Grid container className="grid">
+                    <Grid item xs={4} align={"right"} style={{paddingRight: '20px'}}>
                         <ProfileCard profile={this.state.user} />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} >
                         <ReviewField
                             onSubmit={(review) => {
                                 this.createReview(review);
@@ -95,5 +86,3 @@ export class ProfileView extends React.Component {
         );
     }
 }
-
-//export default withStyles(useStyles)(ProfileView)

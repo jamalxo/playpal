@@ -1,30 +1,10 @@
 "use strict";
 
 import React from 'react';
-import { DataTable, TableHeader, TableBody, TableRow, TableColumn, Button } from 'react-md';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 
-import Page from './Page'
-import ProfileCard from "./ProfileCard";
-
-const dataTableStyle = {
-    'marginBottom': '36px'
-};
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        height: 140,
-        width: 100,
-    },
-    control: {
-        padding: theme.spacing(2),
-    },
-}));
-
+import Page from '../Page/Page'
+import ProfileCard from "../ProfileCard/ProfileCard";
 
 export const ProfileList = ({data}) => (
     <Page>
