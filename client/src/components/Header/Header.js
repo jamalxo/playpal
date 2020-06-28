@@ -42,7 +42,7 @@ class Header extends React.Component {
                     <AppBar position="static">
                         <Toolbar2>
                             <Typography variant="h6" className={classes.title}>
-                                News
+                                PlayPal
                             </Typography>
                             <Button onClick={() => this.props.history.push('/')} icon>home</Button>
                             <KebabMenu id="toolbar-colored-kebab-menu" />
