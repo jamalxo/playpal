@@ -10,9 +10,18 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import Truncate from 'react-truncate';
+import Avatar from '@material-ui/core/Avatar';
 import './ProfileCard.css';
+import Divider from "@material-ui/core/Divider";
+import { withStyles } from '@material-ui/core/styles';
 
-export default class ProfileCard extends React.Component {
+const styles = {
+    root: {
+        backgroundColor: '#eedfef'
+    }
+};
+
+class ProfileCard extends React.Component {
 
     constructor(props) {
         super(props);
@@ -28,42 +37,49 @@ export default class ProfileCard extends React.Component {
         return avg;
     }
 
+/*<Avatar alt="Remy Sharp" src="/broken-image.jpg">
+{this.props.profile.firstname.charAt(0)}
+</Avatar>
+<Truncate lines={2} ellipsis={"..."}> {this.props.profile.description == null? 'No Synopsis available' : `${this.props.profile.description}`}</Truncate>
+
+*/
     render() {
+        const { classes } = this.props;
         return (
-            <Card className="profileCard" key={this.props.key}>
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        alt="Con templative Reptile"
-                        height="140"
-                        image="http://resizing.flixster.com/AeDB8hgaGed_TMCcIF1P_gubGwA=/54x81/dkpu1ddg7pbsk.cloudfront.net/movie/11/27/63/11276344_ori.jpg"
-                        title="Contemplative Reptile"
-                    />
-                    <CardContent align="center">
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {this.props.profile.username}
+            <Card classes={{root: classes.root }} className="profileCard" key={this.props.key}>
+                <CardContent align="center">
+                    <Avatar
+                        className="profilePicture"
+                        alt={this.props.profile.username}
+                        title={this.props.profile.username}
+                        src="http://resizing.flixster.com/AeDB8hgaGed_TMCcIF1P_gubGwA=/54x81/dkpu1ddg7pbsk.cloudfront.net/movie/11/27/63/11276344_ori.jpg"/>
+                    <Typography variant="h2" component="h2">
+                        {this.props.profile.username}
+                    </Typography>
+                </CardContent>
+                <Divider variant="middle" />
+                <CardContent className="container">
+                    <Typography variant="h3" component="h2">
+                        {this.getAvg().toFixed(2)}
+                    </Typography>
+                    <div>
+                        <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
+                        <Typography variant="h5" align="left" className="amountReviews">
+                            {this.props.profile.reviews.length} Reviews
                         </Typography>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {this.props.profile.firstname} {this.props.profile.lastname}
-                        </Typography>
-                        <div> {this.getAvg().toFixed(2)} </div>
-                        <Rating name="read-only" value={this.getAvg()} readOnly />
-                    </CardContent>
-                    <CardContent align="left">
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            <Truncate lines={2} ellipsis={"..."}> {this.props.profile.description == null? 'No Synopsis available' : `${this.props.profile.description}`}</Truncate>
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    <Button size="small" color="primary">
-                        Share
-                    </Button>
-                    <Button size="small" color="primary">
-                        Learn More
-                    </Button>
-                </CardActions>
+                    </div>
+                </CardContent>
+                <Divider variant="middle" />
+                <CardContent align="center">
+                    <Typography variant="h6">
+                        About
+                    </Typography>
+                    <Typography variant="body1" color="textPrimary" component="p">
+                        {this.props.profile.description == null? 'No description available.' : `${this.props.profile.description}`}
+                    </Typography>
+                </CardContent>
             </Card>
         );
     }
 }
+export default withStyles(styles)(ProfileCard);

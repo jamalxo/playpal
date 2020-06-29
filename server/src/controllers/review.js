@@ -21,13 +21,13 @@ const User = require('../models/user');
 //     }
 // };
 
-const postReview = function(req, res, next) {
+const postReview = function(req, res) {
+    if (Object.keys(req.body).length === 0) return res.status(400).json({
+         error: 'Bad Request',
+         message: 'The request body is empty'
+    });
+
     var review = new Review(req.body);
-
-    //if (address.validateSync()) return next(commuteError.BadRequest(LOG_LABEL));
-
-    // if (req.body.name && req.body.name == 'WORK') return next(commuteError.Forbidden(LOG_LABEL, 'User not allowed to create address of type WORK'));
-
 
     User.findById(review.ratedUser, function(err, user) {
         if (err) return console.log("err");

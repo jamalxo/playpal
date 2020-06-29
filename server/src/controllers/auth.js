@@ -5,8 +5,6 @@ const bcrypt     = require('bcryptjs');
 
 const config     = require('../config');
 const UserModel  = require('../models/user');
-const ReviewModel = require('../models/review');
-const find = require('array.prototype.find');
 
 const login = async (req,res) => {
     if (!Object.prototype.hasOwnProperty.call(req.body, 'password')) return res.status(400).json({
@@ -111,8 +109,6 @@ const logout = (req, res) => {
 const getProfiles = async (req, res) => {
     try {
         let users = await UserModel.find({ usertype: "professional" }).select('username').select('firstname').select('lastname').select('description').exec();
-        //let users = await UserModel.find({ usertype: "professional" }).select('username').exec();
-        //let users = await UserModel.find({ }).exec();
         return res.status(200).json(users);
     } catch(err) {
         return res.status(500).json({
@@ -130,17 +126,6 @@ const getProfile = async (req, res) => {
                 select: 'rating review'
             })
             .exec();
-        console.log(user);
-
-        let agg = await ReviewModel.aggregate([{
-            $group: {
-                _id: "$ratedUser",
-                avgAmount: {
-                    $avg: "$rating"
-                }
-            }
-        }]);
-        console.log(find(agg, function(x) { return x._id == req.params.id }).avgAmount);
 
         if (!user) return res.status(404).json({
             error: 'Not Found',
