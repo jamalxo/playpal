@@ -10,9 +10,9 @@
 
 .container {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: column;
 }
 .amountReviews {
-    padding-left: 5px;
+    padding-left: 10px;
 }

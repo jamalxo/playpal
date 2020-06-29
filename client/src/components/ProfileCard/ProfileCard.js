@@ -14,6 +14,7 @@ import Avatar from '@material-ui/core/Avatar';
 import './ProfileCard.css';
 import Divider from "@material-ui/core/Divider";
 import { withStyles } from '@material-ui/core/styles';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 
 const styles = {
     root: {
@@ -55,19 +56,21 @@ class ProfileCard extends React.Component {
                         src="http://resizing.flixster.com/AeDB8hgaGed_TMCcIF1P_gubGwA=/54x81/dkpu1ddg7pbsk.cloudfront.net/movie/11/27/63/11276344_ori.jpg"/>
                     <Typography variant="h2" component="h2">
                         {this.props.profile.username}
+                        {this.props.profile.usertype === "professional" ? <VerifiedUserIcon fontSize="small"/> : '' }
                     </Typography>
                 </CardContent>
                 <Divider variant="middle" />
-                <CardContent className="container">
-                    <Typography variant="h3" component="h2">
+                <CardContent align="center">
+
+
+                    <Typography variant="body1" component="h2">
+                        <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
                         {this.getAvg().toFixed(2)}
                     </Typography>
-                    <div>
-                        <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
-                        <Typography variant="h5" align="left" className="amountReviews">
-                            {this.props.profile.reviews.length} Reviews
-                        </Typography>
-                    </div>
+                    <Typography variant="h5">
+                        {this.props.profile.reviews.length} Reviews
+                    </Typography>
+
                 </CardContent>
                 <Divider variant="middle" />
                 <CardContent align="center">

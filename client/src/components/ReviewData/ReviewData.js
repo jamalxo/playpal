@@ -21,6 +21,14 @@ export class ReviewData extends React.Component {
         return (
             <div className="data">
                 <Card>
+
+                </Card>
+            </div>
+        );
+    }
+}
+/*
+
                     <CardContent>
                         <Grid container>
                             <Grid item xs={3}>
@@ -51,8 +59,4 @@ export class ReviewData extends React.Component {
                             </Grid>
                         </Grid>
                     </CardContent>
-                </Card>
-            </div>
-        );
-    }
-}
+ */
