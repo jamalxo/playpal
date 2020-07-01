@@ -12,8 +12,9 @@ export default class Page extends React.Component {
         super(props);
 
         this.state = {
-            title: ''
+            title: '',
         }
+
     }
 
     componentDidMount(){
@@ -25,7 +26,7 @@ export default class Page extends React.Component {
     render() {
         return (
             <section>
-                <Header title={this.state.title} />
+                <Header title={this.state.title}/>
                 {this.props.children}
                 <Footer />
             </section>
