@@ -2,14 +2,9 @@
 
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
-import Truncate from 'react-truncate';
 import Avatar from '@material-ui/core/Avatar';
 import './ProfileCard.css';
 import Divider from "@material-ui/core/Divider";
@@ -17,7 +12,6 @@ import {withStyles} from '@material-ui/core/styles';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
-import {withRouter} from "react-router-dom";
 
 const useStyles = (theme) => ({
     root: {
@@ -67,11 +61,11 @@ class ProfileCard extends React.Component {
                     <Divider variant="middle"/>
                     <CardContent align="center">
                         <Typography variant="body1" component="h2">
-                            <div>
+                            <div className="reviewRating">
                                 <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
-                                <span>
-                                        {this.getAvg().toFixed(2)}
-                                    </span>
+                                <span className="fontAverage">
+                                    {this.getAvg().toFixed(2)}
+                                </span>
                             </div>
                         </Typography>
                         <Typography variant="h5">

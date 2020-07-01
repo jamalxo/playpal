@@ -17,10 +17,13 @@
     padding-left: 10px;
 }
 
-.parent {
-    position: relative;
+.reviewRating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
 }
 
-.child {
-    position: absolute;
+.fontAverage {
+    font-size: medium;
 }
