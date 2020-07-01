@@ -2,9 +2,9 @@
 
 import React from 'react';
 
-import UserSignup from '../components/UserSignup';
+import UserSignup from '../../components/UserSignup/UserSignup';
 
-import UserService from '../services/UserService';
+import UserService from '../../services/UserService';
 
 
 export class UserSignupView extends React.Component {
@@ -16,7 +16,9 @@ export class UserSignupView extends React.Component {
 
     async signup(user) {
         try {
-            let ret = await UserService.register(user.username, user.password);
+            console.log(user.usertype)
+            console.log(user.email)
+            let ret = await UserService.register(user);
             this.props.history.push('/');
         } catch(err) {
             console.error(err);

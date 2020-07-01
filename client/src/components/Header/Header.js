@@ -1,16 +1,16 @@
 "use strict";
 
 import React from 'react';
-import { Toolbar, Button } from 'react-md';
-import { withRouter } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/core/styles';
+import {Toolbar, Button} from 'react-md';
+import {withRouter} from 'react-router-dom'
+import {makeStyles} from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import KebabMenu from '../KebabMenu';
 import Toolbar2 from "@material-ui/core/Toolbar/Toolbar";
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Typography from '@material-ui/core/Typography';
 
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import {theme} from '../../theme';
 
 const useStyles = (theme) => ({
@@ -27,7 +27,6 @@ const useStyles = (theme) => ({
 });
 
 
-
 class Header extends React.Component {
 
     constructor(props) {
@@ -35,17 +34,19 @@ class Header extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={classes.root}>
                     <AppBar position="static">
                         <Toolbar2>
+
                             <Typography variant="h6" className={classes.title}>
                                 PlayPal
                             </Typography>
+
                             <Button onClick={() => this.props.history.push('/')} icon>home</Button>
-                            <KebabMenu id="toolbar-colored-kebab-menu" />
+                            <KebabMenu id="toolbar-colored-kebab-menu"/>
                         </Toolbar2>
                     </AppBar>
                 </div>
