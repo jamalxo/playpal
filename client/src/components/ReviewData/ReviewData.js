@@ -7,6 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import Avatar from '@material-ui/core/Avatar';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import "./ReviewData.css";
 
 
@@ -14,49 +16,52 @@ export class ReviewData extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = props;
     }
 
     render() {
+        let date = new Date(this.props.review.createdAt);
         return (
-            <div className="data">
+            <div className="card">
                 <Card>
-
+                    <Grid container wrap alignItems="center">
+                        <Grid item xs={2}>
+                            <CardContent>
+                                <Avatar
+                                    className="profilePic"
+                                    alt={this.props.review.postedBy.username}
+                                    title={this.props.review.postedBy.username}
+                                    src="/broken-image.jpg"
+                                > {this.props.review.postedBy.username.charAt(0)}
+                                </Avatar>
+                            </CardContent>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <CardContent>
+                                <div>
+                                    <Typography variant="h5">
+                                        {this.props.review.postedBy.username}
+                                    </Typography>
+                                    <Typography variant="body1">
+                                        {date.getDate()}.{date.getMonth() + 1}.{date.getFullYear()}
+                                    </Typography>
+                                </div>
+                            </CardContent>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <CardContent align="right">
+                                <Rating name="read-only" value={this.props.review.rating} readOnly size="large"/>
+                            </CardContent>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <CardContent>
+                                <Typography variant="body1">
+                                    {this.props.review.text}
+                                </Typography>
+                            </CardContent>
+                        </Grid>
+                    </Grid>
                 </Card>
             </div>
         );
     }
 }
-/*
-
-                    <CardContent>
-                        <Grid container>
-                            <Grid item xs={3}>
-                                <Typography variant={"h5"} className="reviewTitle">
-                                    Your Review
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={9}>
-                                <Rating
-                                    value={this.state.review.rating}
-                                    size={"large"}
-                                    disabled
-                                    className="rating"
-                                />
-                            </Grid>
-                            <Grid item xs={12} className="grid">
-                                <TextField
-                                    id="outlined-basic"
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                    variant="filled"
-                                    fullWidth
-                                    multiline={true}
-                                    rows={3}
-                                    value={this.state.review.review}
-                                />
-                            </Grid>
-                        </Grid>
-                    </CardContent>
- */

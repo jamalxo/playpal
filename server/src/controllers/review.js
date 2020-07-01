@@ -27,7 +27,7 @@ const postReview = function(req, res) {
          message: 'The request body is empty'
     });
 
-    var review = new Review(req.body);
+    let review = new Review(req.body);
 
     User.findById(review.ratedUser, function(err, user) {
         if (err) return console.log("err");
@@ -36,10 +36,9 @@ const postReview = function(req, res) {
         user.reviews.push(review);
         user.save(function(err) {
             if (err) return console.log('err review');
-
-            review.save(function(err, xd) {
+            review.save(function(err, rev) {
                 if (err) return console.log('err review ref');
-                res.status(201).json(xd);
+                res.status(201).json(rev);
             });
         });
     });

@@ -123,7 +123,12 @@ const getProfile = async (req, res) => {
         let user = await UserModel.findById(req.params.id)
             .populate({
                 path: 'reviews',
-                select: 'rating review'
+                select: 'rating text createdAt',
+                populate: {
+                    path: 'postedBy',
+                    model: 'User',
+                    select: 'username'
+                }
             })
             .exec();
 

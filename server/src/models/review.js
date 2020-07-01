@@ -11,27 +11,27 @@ const Review  = new mongoose.Schema({
             ref: 'User',
             required: true
         },
-    /*postedBy:
+    postedBy:
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true
-        },*/
+        },
     rating:
         {
             type: Number,
             enum: [0,1,2,3,4,5],
             required: true
         },
-    review:
+    text:
         {
             type: String,
             required: true
-        }
+        },
 });
 
 Review.set('versionKey', false);
-
+Review.set('timestamps', true);
 
 // Export the Movie model
 module.exports = mongoose.model('Review', Review);

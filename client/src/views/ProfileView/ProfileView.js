@@ -9,6 +9,7 @@ import {ReviewField} from "../../components/ReviewField/ReviewField";
 import ReviewService from "../../services/ReviewService";
 import {ReviewData} from "../../components/ReviewData/ReviewData";
 import './ProfileView.css'
+import UserService from "../../services/UserService";
 
 export class ProfileView extends React.Component {
 
@@ -34,7 +35,25 @@ export class ProfileView extends React.Component {
                     user: user,
                     loading: false
                 });
-                console.log(this.state);
+            } catch(err) {
+                console.error(err);
+            }
+        })();
+    }
+
+    waitForNewReview() {
+        this.setState({
+            loading: true
+        });
+
+        let id = this.props.match.params.id;
+
+        (async () => {
+            try {
+                let user = await ProfileService.getProfile(id);
+                this.setState({
+                    loading: false
+                });
             } catch(err) {
                 console.error(err);
             }
@@ -45,10 +64,11 @@ export class ProfileView extends React.Component {
         try {
             let reviewWithId = {
                 ratedUser: this.state.user._id,
+                postedBy: UserService.getCurrentUser().id,
                 rating: review.rating,
-                review: review.review
+                text: review.text
             };
-
+            console.log(reviewWithId);
             let ret = await ReviewService.createReview(reviewWithId);
 
         } catch(err) {
@@ -75,7 +95,7 @@ export class ProfileView extends React.Component {
                         <ReviewField
                             onSubmit={(review) => {
                                 this.createReview(review);
-                                this.componentWillMount();
+                                this.waitForNewReview();
                             }}
                             error={this.state.error}
                         />
@@ -86,3 +106,4 @@ export class ProfileView extends React.Component {
         );
     }
 }
+

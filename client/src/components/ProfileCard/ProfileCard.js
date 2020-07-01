@@ -38,9 +38,7 @@ class ProfileCard extends React.Component {
         return avg;
     }
 
-/*<Avatar alt="Remy Sharp" src="/broken-image.jpg">
-{this.props.profile.firstname.charAt(0)}
-</Avatar>
+/*
 <Truncate lines={2} ellipsis={"..."}> {this.props.profile.description == null? 'No Synopsis available' : `${this.props.profile.description}`}</Truncate>
 
 */
@@ -61,8 +59,6 @@ class ProfileCard extends React.Component {
                 </CardContent>
                 <Divider variant="middle" />
                 <CardContent align="center">
-
-
                     <Typography variant="body1" component="h2">
                         <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
                         {this.getAvg().toFixed(2)}
@@ -70,7 +66,6 @@ class ProfileCard extends React.Component {
                     <Typography variant="h5">
                         {this.props.profile.reviews.length} Reviews
                     </Typography>
-
                 </CardContent>
                 <Divider variant="middle" />
                 <CardContent align="center">

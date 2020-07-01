@@ -1,16 +1,7 @@
-.data {
-    padding-top: 30px;
+.card {
+    padding-top: 20px;
 }
-
-.reviewTitle {
-    padding-left: 15px;
-    padding-top: 10px;
-}
-
-.rating {
-    padding-top: 10px;
-}
-
-.grid {
-    padding: 10px;
+.profilePic {
+    width: 50px !important;
+    height: 50px !important;
 }

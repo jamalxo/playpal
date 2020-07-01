@@ -1,12 +1,7 @@
 .reviewTitle {
     padding-left: 15px;
-    padding-top: 10px;
 }
 
-.rating {
-    padding-top: 10px;
-}
-
-.grid {
-    padding: 10px;
+.reviewTextField {
+    padding: 5px;
 }

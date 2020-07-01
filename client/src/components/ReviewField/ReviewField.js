@@ -17,7 +17,7 @@ export class ReviewField extends React.Component {
 
         this.state = {
             rating: 0,
-            review: ''
+            text: ''
         };
 
         this.handleChangeInput = this.handleChangeInput.bind(this);
@@ -41,7 +41,7 @@ export class ReviewField extends React.Component {
 
         this.setState({
             rating: 0,
-            review: ''
+            text: ''
         });
     }
 
@@ -49,7 +49,7 @@ export class ReviewField extends React.Component {
         return (
             <Card>
                 <CardContent>
-                    <Grid container>
+                    <Grid container alignItems="center">
                         <Grid item xs={3}>
                             <Typography variant={"h5"} className="reviewTitle">
                                 Your Review
@@ -62,10 +62,9 @@ export class ReviewField extends React.Component {
                                 onChange={(event, newValue) => {
                                     this.setState( {rating: newValue});
                                 }}
-                                className="rating"
                             />
                         </Grid>
-                        <Grid item xs={12} className="grid">
+                        <Grid item xs={12} className="reviewTextField">
                             <TextField
                                 id="outlined-basic"
                                 label="Write your Review..."
@@ -73,8 +72,8 @@ export class ReviewField extends React.Component {
                                 fullWidth
                                 multiline={true}
                                 rows={3}
-                                value={this.state.review}
-                                onChange={(inp) => this.handleChangeInput('review', inp.target.value)}
+                                value={this.state.text}
+                                onChange={(inp) => this.handleChangeInput('text', inp.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} align={"right"}>
@@ -82,7 +81,7 @@ export class ReviewField extends React.Component {
                                 id="submit"
                                 type="submit"
                                 onClick={this.handleSubmit}
-                                disabled={this.state.review == undefined || this.state.review == ''}
+                                disabled={this.state.text == undefined || this.state.text == ''}
                                 raised
                                 primary
                                 className="md-cell md-cell--2"
