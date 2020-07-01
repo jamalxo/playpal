@@ -60,8 +60,12 @@ class ProfileCard extends React.Component {
                 <Divider variant="middle" />
                 <CardContent align="center">
                     <Typography variant="body1" component="h2">
-                        <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
-                        {this.getAvg().toFixed(2)}
+                            <div>
+                                <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
+                                <span>
+                                    {this.getAvg().toFixed(2)}
+                                </span>
+                            </div>
                     </Typography>
                     <Typography variant="h5">
                         {this.props.profile.reviews.length} Reviews

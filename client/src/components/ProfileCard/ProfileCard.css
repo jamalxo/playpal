@@ -16,3 +16,11 @@
 .amountReviews {
     padding-left: 10px;
 }
+
+.parent {
+    position: relative;
+}
+
+.child {
+    position: absolute;
+}
