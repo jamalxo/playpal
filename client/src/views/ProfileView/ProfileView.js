@@ -10,6 +10,7 @@ import ReviewService from "../../services/ReviewService";
 import {ReviewData} from "../../components/ReviewData/ReviewData";
 import './ProfileView.css'
 import UserService from "../../services/UserService";
+import {withRouter} from "react-router-dom";
 
 export class ProfileView extends React.Component {
 
@@ -41,25 +42,6 @@ export class ProfileView extends React.Component {
         })();
     }
 
-    waitForNewReview() {
-        this.setState({
-            loading: true
-        });
-
-        let id = this.props.match.params.id;
-
-        (async () => {
-            try {
-                let user = await ProfileService.getProfile(id);
-                this.setState({
-                    loading: false
-                });
-            } catch(err) {
-                console.error(err);
-            }
-        })();
-    }
-
     async createReview(review) {
         try {
             let reviewWithId = {
@@ -70,6 +52,7 @@ export class ProfileView extends React.Component {
             };
             console.log(reviewWithId);
             let ret = await ReviewService.createReview(reviewWithId);
+
 
         } catch(err) {
             console.error(err);
@@ -95,7 +78,9 @@ export class ProfileView extends React.Component {
                         <ReviewField
                             onSubmit={(review) => {
                                 this.createReview(review);
-                                this.waitForNewReview();
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 100);
                             }}
                             error={this.state.error}
                         />
