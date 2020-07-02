@@ -52,7 +52,10 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Review'
     }],
-
+    profileImage: {
+        type: String,
+        required: false,
+    }
 });
 
 UserSchema.set('versionKey', false);
