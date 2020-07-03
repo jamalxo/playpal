@@ -11,7 +11,7 @@ export default class UserService {
 
     static register(st) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${UserService.baseURL()}/register`, st, function(data) {
+            HttpService.postFormData(`${UserService.baseURL()}/register`, st, function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);

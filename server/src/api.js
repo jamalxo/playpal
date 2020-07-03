@@ -8,6 +8,7 @@ const middlewares = require('./middlewares');
 
 const auth  = require('./routes/auth');
 const movie = require('./routes/movie');
+const review = require('./routes/review');
 const offer = require('./routes/offer.js')
 
 const api = express();
@@ -17,7 +18,7 @@ api.use(helmet());
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: false }));
 api.use(middlewares.allowCrossDomain);
-
+api.use('/uploads', express.static('uploads'));
 
 // Basic route
 api.get('/', (req, res) => {
@@ -30,5 +31,6 @@ api.get('/', (req, res) => {
 api.use('/auth'  , auth);
 api.use('/movies', movie);
 api.use('/offer', offer);
+api.use('/reviews', review);
 
 module.exports = api;

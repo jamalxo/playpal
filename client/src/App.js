@@ -9,16 +9,21 @@ import { MovieFormView }   from './views/MovieFormView';
 import { UserLoginView } from "./views/UserLoginView";
 import { UserSignupView } from "./views/UserSignupView";
 import {CreateOfferView} from "./views/CreateOfferView"
+import { UserLoginView } from "./views/UserLoginView/UserLoginView";
+import { UserSignupView } from "./views/UserSignupView/UserSignupView";
+
 import UserService from "./services/UserService";
+import {ProfileListView} from "./views/ProfileListView/ProfileListView";
+import {ProfileView} from "./views/ProfileView/ProfileView";
 
 
 export default class App extends React.Component {
 
-
     constructor(props) {
         super(props);
+
         this.state = {
-            title: 'Movie Example App',
+            title: 'PlayPal',
             routes: [
                 { component: MovieListView , path: '/', exact: true},
                 { component: MovieDetailView , path: '/show/:id'},
@@ -38,7 +43,9 @@ export default class App extends React.Component {
                         return (<Redirect to={'/login'}/>)
                     }}, path: '/add',},
                 { component: UserLoginView, path: '/login'},
-                { component: UserSignupView, path: '/register'}
+                { component: UserSignupView, path: '/register'},
+                { component: ProfileListView, path: '/users'},
+                { component: ProfileView, path: '/user/:id'},
             ]
         };
     }

@@ -4,16 +4,18 @@ const mongoose = require('mongoose');
 
 
 // Define the user schema
-const UserSchema  = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true,
-    },
+const UserSchema = new mongoose.Schema({
+    username:
+        {
+            type: String,
+            required: true,
+            unique: true
+        },
+    password:
+        {
+            type: String,
+            required: true,
+        },
     email:
         {
             type: String,
@@ -45,8 +47,15 @@ const UserSchema  = new mongoose.Schema({
         {
             type: String,
             required: false,
-        }
-
+        },
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
+    }],
+    profileImage: {
+        type: String,
+        required: false,
+    }
 });
 
 UserSchema.set('versionKey', false);
