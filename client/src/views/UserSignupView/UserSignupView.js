@@ -5,7 +5,6 @@ import React from 'react';
 import UserSignup from '../../components/UserSignup/UserSignup';
 
 import UserService from '../../services/UserService';
-import axios from 'axios';
 
 export class UserSignupView extends React.Component {
 
@@ -16,8 +15,7 @@ export class UserSignupView extends React.Component {
 
     async signup(user) {
         try {
-            //let ret = await UserService.register(user);
-            let ret = axios.post("http://localhost:3000/auth/register", user, {}).then( res => { console.log(res.statusText)})
+            let ret = await UserService.register(user);
             this.props.history.push('/');
         } catch(err) {
             console.error(err);

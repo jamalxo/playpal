@@ -44,8 +44,6 @@ class UserSignup extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        // let user = this.state;
-
         const user = new FormData();
         user.append('username', this.state.username);
         user.append('password', this.state.password);
