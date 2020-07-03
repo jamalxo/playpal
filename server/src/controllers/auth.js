@@ -55,9 +55,16 @@ const register = async (req,res) => {
         message: 'The request body must contain a email property'
     });
 
-
-    const user = Object.assign(req.body, {password: bcrypt.hashSync(req.body.password, 8)});
-
+    const user = {
+        username: req.body.username,
+        password: bcrypt.hashSync(req.body.password, 8),
+        email: req.body.email,
+        usertype: req.body.usertype,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        description: req.body.description,
+        profileImage: "http://localhost:3000/" + req.file.path
+    }
     try {
         let retUser = await UserModel.create(user);
 

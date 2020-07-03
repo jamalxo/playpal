@@ -52,7 +52,7 @@ class ProfileCard extends React.Component {
                             className="profilePicture"
                             alt={this.props.profile.username}
                             title={this.props.profile.username}
-                            src="http://resizing.flixster.com/AeDB8hgaGed_TMCcIF1P_gubGwA=/54x81/dkpu1ddg7pbsk.cloudfront.net/movie/11/27/63/11276344_ori.jpg"/>
+                            src={this.props.profile.profileImage}/>
                         <Typography variant="h2" component="h2">
                             {this.props.profile.username}
                             {this.props.profile.usertype === "professional" ? <VerifiedUserIcon fontSize="small"/> : ''}

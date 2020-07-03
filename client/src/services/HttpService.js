@@ -135,6 +135,41 @@ export default class HttpService {
             onError(err.message);
         }
     }
+    static async postFormData(url, data, onSuccess, onError) {
+        let token = window.localStorage['jwtToken'];
+        let header = new Headers();
+        if(token) {
+            header.append('Authorization', `JWT ${token}`);
+        }
+
+        try {
+            let resp = await fetch(url, {
+                method: 'POST',
+                headers: header,
+                body: data
+            });
+
+            if(this.checkIfUnauthorized(resp)) {
+                window.location = '/#login';
+                return;
+            }
+            else {
+                resp = await resp.json();
+            }
+
+            if(resp.error) {
+                onError(resp.error);
+            }
+            else {
+                if(resp.hasOwnProperty('token')) {
+                    window.localStorage['jwtToken'] = resp.token;
+                }
+                onSuccess(resp);
+            }
+        } catch(err) {
+            onError(err.message);
+        }
+    }
 
     static async remove(url, onSuccess, onError) {
         let token = window.localStorage['jwtToken'];
