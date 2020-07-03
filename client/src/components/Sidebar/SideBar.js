@@ -10,6 +10,11 @@ import {withStyles} from "@material-ui/core/styles";
 const drawerWidth = 240;
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'react-router-dom';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import IconButton from '@material-ui/core/IconButton';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = (theme) => ({
     hide: {
@@ -80,6 +85,14 @@ const NAV_ITEMS = [
 
 ]
 
+const GAME_LIST = [
+    {title: "DotA 2", url:"dota2"},
+    {title: "League of Legends", url:"league"},
+    {title: "Minecraft", url:"minecraft"},
+    {title: "Overwatch", url:"overwatch"},
+    {title: "Fortnite", url:"fortnite"},
+    {title: "Osu!", url:"osu"},
+]
 
 class SideBar extends React.Component{
 
@@ -104,22 +117,45 @@ class SideBar extends React.Component{
 
         >
             <div className={classes.drawerHeader}>
-            <Button variant="contained" onClick={() => this.props.toggleDrawer(false)}>Return</Button>
+                <IconButton onClick={() => this.props.toggleDrawer(false)}>
+                    <ChevronLeftIcon />
+                </IconButton>
+
             </div>
             <Divider/>
-            <Link to='/'>
-            <div className={classes.profileSection}>
-            <div className={classes.Avatar} >
-            <Avatar/>
-            </div>
-            <div className={classes.Username}>
-            UserName
-            </div>
-            </div>
-            </Link>
-            <Divider/>
+            <Autocomplete
+                id="free-solo-demo"
+                freeSolo
+                options={GAME_LIST.map((option) => option.title)}
+                renderInput={(params) => (
+                    <TextField {...params} label="Choose a Game" margin="normal" variant="outlined" />
+                )}
+                onChange={(e, value, reason) =>{ if(reason==="select-option")
+                {
+                    let el = GAME_LIST.find( element => element.title === value)
+                    this.props.history.push("/game/"+el.url)
+                }
+
+                }}
+
+            />
+
+            {/*<Link to='/'>*/}
+            {/*<div className={classes.profileSection}>*/}
+            {/*<div className={classes.Avatar} >*/}
+            {/*<Avatar/>*/}
+            {/*</div>*/}
+            {/*<div className={classes.Username}>*/}
+            {/*UserName*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*</Link>*/}
+            {/*<Divider/>*/}
+            {/*<List>*/}
+            {/*    {NAV_ITEMS}*/}
+            {/*</List>*/}
             <List>
-                {NAV_ITEMS}
+                {GAME_LIST.map((option) => <ListItem primaryText={option.title} component={Link} to={"/game/"+ option.url } />)}
             </List>
         </Drawer>
     }

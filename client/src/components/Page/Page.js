@@ -2,13 +2,11 @@
 
 import React from 'react';
 
-import Header from './Header/Header';
-import { Footer } from './Footer';
-import SideBar from "./Sidebar/SideBar";
+import Header from '../Header/Header';
+import {Footer} from '../Footer';
+import SideBar from "../Sidebar/SideBar";
 
 import "./Page.css"
-import Header from "../Header/Header";
-import {Footer} from "../Footer";
 
 
 export default class Page extends React.Component {

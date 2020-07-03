@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import {theme} from '../../theme';
 import SideBar from "../Sidebar/SideBar";
 import clsx from "clsx";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from '@material-ui/icons/Menu';
 
 const drawerWidth = 240;
 
@@ -64,9 +66,16 @@ class Header extends React.Component {
 
                     >
                         <Toolbar2>
-
-                            <Typography variant="h6" className={classes.title}>
-                            <Typography variant="h6" className={classes.title} onClick={() => this.props.toggleDrawer(true)}>
+                            <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={() => this.props.toggleDrawer(true)}
+                                edge="start"
+                                className={clsx(classes.menuButton, this.props.sideBarOpen && classes.hide)}
+                            >
+                                <MenuIcon style={{color:'black'}} />
+                            </IconButton>
+                            <Typography variant="h6" className={classes.title} >
                                 PlayPal
                             </Typography>
 

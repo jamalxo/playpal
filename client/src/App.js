@@ -1,16 +1,14 @@
 "use strict";
 
 import React from 'react';
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 
-import { MovieListView } from './views/MovieListView';
-import { MovieDetailView }   from './views/MovieDetailView';
-import { MovieFormView }   from './views/MovieFormView';
-import { UserLoginView } from "./views/UserLoginView";
-import { UserSignupView } from "./views/UserSignupView";
+import {MovieListView} from './views/MovieListView';
+import {MovieDetailView} from './views/MovieDetailView';
+import {MovieFormView} from './views/MovieFormView';
 import {CreateOfferView} from "./views/CreateOfferView"
-import { UserLoginView } from "./views/UserLoginView/UserLoginView";
-import { UserSignupView } from "./views/UserSignupView/UserSignupView";
+import {UserLoginView} from "./views/UserLoginView/UserLoginView";
+import {UserSignupView} from "./views/UserSignupView/UserSignupView";
 
 import UserService from "./services/UserService";
 import {ProfileListView} from "./views/ProfileListView/ProfileListView";
