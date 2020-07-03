@@ -10,5 +10,5 @@ const GameSchema = new mongoose.Schema({
     date:{
         type: mongoose.Schema.Date
     }
-})
+});
 module.exports = mongoose.model('Game', GameSchema);

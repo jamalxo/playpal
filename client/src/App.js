@@ -12,6 +12,8 @@ import {ProfileView} from "./views/ProfileView/ProfileView";
 import HomePageView from "./views/HomePageView/HomePageView";
 import SignInSide from "./components/SignInSide/SignInSide";
 import SignUp from "./components/UserSignUp/SignUp";
+import OfferForm from "./components/Offer/OfferForm";
+import {OfferFormView} from "./views/OfferFormView";
 
 
 export default class App extends React.Component {
@@ -39,6 +41,16 @@ export default class App extends React.Component {
                     else {
                         return (<Redirect to={'/login'}/>)
                     }}, path: '/add',},
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<OfferFormView {... props} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }}, path: '/offer',},
+                { component: UserLoginView, path: '/login'},
+                { component: UserSignupView, path: '/register'},
+                { component: ProfileListView, path: '/users'},
                 { component: SignInSide, path: '/login'},
                 { component: SignUp, path: '/register'},
                 { component: ProfileView, path: '/user/:id'},
