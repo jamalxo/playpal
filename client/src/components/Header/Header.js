@@ -12,14 +12,35 @@ import Typography from '@material-ui/core/Typography';
 
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import {theme} from '../../theme';
+import SideBar from "../Sidebar/SideBar";
+import clsx from "clsx";
+
+const drawerWidth = 240;
 
 const useStyles = (theme) => ({
     root: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
         flexGrow: 1,
     },
+    appBar: {
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+    },
+    appBarShift: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
     menuButton: {
         marginRight: theme.spacing(2),
+    },
+    hide: {
+        display: 'none',
     },
     title: {
         flexGrow: 1,
@@ -32,6 +53,7 @@ class Header extends React.Component {
 
     constructor(props) {
         super(props);
+
     }
 
     render() {
@@ -39,9 +61,15 @@ class Header extends React.Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={classes.root}>
-                    <AppBar position="static">
+
+                    <AppBar position="fixed"
+                            className={clsx(classes.appBar, {
+                                [classes.appBarShift]: this.props.sideBarOpen,
+                            })}
+
+                    >
                         <Toolbar2>
-                            <Typography variant="h6" className={classes.title}>
+                            <Typography variant="h6" className={classes.title} onClick={() => this.props.toggleDrawer(true)}>
                                 PlayPal
                             </Typography>
                             <Button onClick={() => this.props.history.push('/')} icon>home</Button>
