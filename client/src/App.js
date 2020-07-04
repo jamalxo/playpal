@@ -13,6 +13,7 @@ import {UserSignupView} from "./views/UserSignupView/UserSignupView";
 import UserService from "./services/UserService";
 import {ProfileListView} from "./views/ProfileListView/ProfileListView";
 import {ProfileView} from "./views/ProfileView/ProfileView";
+import SignInSide from "./components/SignInSide/SignInSide";
 
 
 export default class App extends React.Component {
@@ -40,7 +41,7 @@ export default class App extends React.Component {
                     else {
                         return (<Redirect to={'/login'}/>)
                     }}, path: '/add',},
-                { component: UserLoginView, path: '/login'},
+                { component: SignInSide, path: '/login'},
                 { component: UserSignupView, path: '/register'},
                 { component: ProfileListView, path: '/users'},
                 { component: ProfileView, path: '/user/:id'},
