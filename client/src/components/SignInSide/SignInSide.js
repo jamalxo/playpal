@@ -13,6 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import UserService from "../../services/UserService";
+import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
+import {theme} from "../../theme";
 
 function Copyright() {
     return (
@@ -78,6 +80,8 @@ export default function SignInSide(props) {
     }
 
     return (
+        <MuiThemeProvider theme={theme}>
+
         <Grid container component="main" className={classes.root}>
             <CssBaseline/>
             <Grid item xs={false} sm={4} md={7} className={classes.image}/>
@@ -149,5 +153,6 @@ export default function SignInSide(props) {
                 </div>
             </Grid>
         </Grid>
+        </MuiThemeProvider>
     );
 }
