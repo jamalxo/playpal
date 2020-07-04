@@ -73,6 +73,6 @@ export class OfferFormView extends React.Component {
         //     return (<h2>Loading...</h2>);
         // }
 
-        return (<OfferForm movie={this.state.offer} onSubmit={(offer) => this.updateMovie(offer)} error={this.state.error} />);
+        return (<OfferForm open={false} offer={this.state.offer} onSubmit={(offer) => this.updateMovie(offer)} error={this.state.error} />);
     }
 }
