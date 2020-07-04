@@ -6,6 +6,7 @@ const bcrypt     = require('bcryptjs');
 const config     = require('../config');
 const UserModel  = require('../models/user');
 
+
 const login = async (req,res) => {
     if (!Object.prototype.hasOwnProperty.call(req.body, 'password')) return res.status(400).json({
         error: 'Bad Request',
@@ -50,6 +51,11 @@ const register = async (req,res) => {
         error: 'Bad Request',
         message: 'The request body must contain a username property'
     });
+    if (!Object.prototype.hasOwnProperty.call(req.body, 'email')) return res.status(400).json({
+        error: 'Bad Request',
+        message: 'The request body must contain a email property'
+    });
+
     if (!Object.prototype.hasOwnProperty.call(req.body, 'email')) return res.status(400).json({
         error: 'Bad Request',
         message: 'The request body must contain a email property'

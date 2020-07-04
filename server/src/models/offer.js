@@ -38,6 +38,13 @@ const OfferSchema  = new mongoose.Schema({
     }
 });
 
+const GameSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    }
+})
+
 OfferSchema.set('versionKey', false);
 
 

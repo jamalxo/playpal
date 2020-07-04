@@ -1,0 +1,14 @@
+{
+  "name": "seba",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd server && yarn run devstart\" \"cd client && yarn start\" "
+  },
+  "repository": "https://github.com/jamalxo/seba.git",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  }
+}
