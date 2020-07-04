@@ -130,30 +130,13 @@ class SideBar extends React.Component{
                 renderInput={(params) => (
                     <TextField {...params} label="Choose a Game" margin="normal" variant="outlined" />
                 )}
-                onChange={(e, value, reason) =>{ if(reason==="select-option")
-                {
+                onChange={(e, value, reason) =>{ if(reason==="select-option") {
                     let el = GAME_LIST.find( element => element.title === value)
                     this.props.history.push("/game/"+el.url)
                 }
 
                 }}
-
             />
-
-            {/*<Link to='/'>*/}
-            {/*<div className={classes.profileSection}>*/}
-            {/*<div className={classes.Avatar} >*/}
-            {/*<Avatar/>*/}
-            {/*</div>*/}
-            {/*<div className={classes.Username}>*/}
-            {/*UserName*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*</Link>*/}
-            {/*<Divider/>*/}
-            {/*<List>*/}
-            {/*    {NAV_ITEMS}*/}
-            {/*</List>*/}
             <List>
                 {GAME_LIST.map((option) => <ListItem primaryText={option.title} component={Link} to={"/game/"+ option.url } />)}
             </List>
