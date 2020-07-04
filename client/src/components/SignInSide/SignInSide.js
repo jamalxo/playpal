@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import UserService from "../../services/UserService";
-import { useHistory } from 'react-router-dom';
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -64,12 +64,13 @@ export default function SignInSide(props) {
     const [password, setPassword] = useState("");
     const history = props.history
 
-    const login = async () => {
+    const login = async (e) => {
+        e.preventDefault()
         try {
             let ret = await UserService.login(username, password)
             setTimeout(function() {
                 history.push('/')
-            }, 100);
+           }, 100);
 
         } catch (err) {
             console.error(err);
@@ -88,7 +89,7 @@ export default function SignInSide(props) {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={classes.form} noValidate onSubmit={login}>
+                    <form className={classes.form} noValidate onSubmit={login} >
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -136,7 +137,7 @@ export default function SignInSide(props) {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="/#/register" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
