@@ -261,9 +261,7 @@ class OfferForm extends React.Component {
         offer.price = this.state.price;
         offer.game = this.state.game;
         offer.server = this.state.server;
-        offer.startTime = this.state.startTime;
-        offer.endTime = this.state.endTime;
-        offer.days = this.state.days;
+        offer.availability = this.state.availability;
 
         this.props.onSubmit(offer);
     }

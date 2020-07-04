@@ -1,9 +1,7 @@
 
 import React from 'react';
 
-import MovieForm from './../components/MovieForm';
-
-import MovieService from '../services/MovieService';
+import OfferService from '../services/OfferService';
 import OfferForm from "../components/Offer/OfferForm";
 
 
@@ -48,15 +46,18 @@ export class OfferFormView extends React.Component {
         // }
     }
 
-    async updateMovie(movie) {
-        // if(this.state.movie == undefined) {
-        //     try {
-        //         let ret = await MovieService.createMovie(movie);
-        //         this.props.history.push('/');
-        //     } catch(err) {
-        //         console.error(err);
-        //         this.setState(Object.assign({}, this.state, {error: 'Error while creating movie'}));
-        //     }
+    async updateOffer(offer) {
+        if(this.state.offer == undefined) {
+            try {
+                let ret = await OfferService.createoffer(offer);
+                //this.props.history.push('/');
+            } catch (err) {
+                console.error(err);
+                this.setState(Object.assign({}, this.state, {error: 'Error while creating offer'}));
+            }
+        } else {
+            console.log('wtf');
+        }
         // } else {
         //     try {
         //         let ret = await MovieService.updateMovie(movie);
@@ -73,6 +74,6 @@ export class OfferFormView extends React.Component {
         //     return (<h2>Loading...</h2>);
         // }
 
-        return (<OfferForm open={false} offer={this.state.offer} onSubmit={(offer) => this.updateMovie(offer)} error={this.state.error} />);
+        return (<OfferForm open={false} offer={this.state.offer} onSubmit={(offer) => this.updateOffer(offer)} error={this.state.error} />);
     }
 }
