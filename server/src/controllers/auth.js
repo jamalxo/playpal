@@ -122,7 +122,18 @@ const logout = (req, res) => {
 
 const getProfiles = async (req, res) => {
     try {
-        let users = await UserModel.find({ usertype: "professional" }).select('username').select('firstname').select('lastname').select('description').exec();
+        let users = await UserModel.find({ usertype: "professional" })
+            .populate({
+                path: 'reviews',
+                select: 'rating text createdAt',
+                populate: {
+                    path: 'postedBy',
+                    model: 'User',
+                    select: 'username profileImage'
+                }
+            })
+            .exec();
+
         return res.status(200).json(users);
     } catch(err) {
         return res.status(500).json({
@@ -141,7 +152,7 @@ const getProfile = async (req, res) => {
                 populate: {
                     path: 'postedBy',
                     model: 'User',
-                    select: 'username'
+                    select: 'username profileImage'
                 }
             })
             .exec();

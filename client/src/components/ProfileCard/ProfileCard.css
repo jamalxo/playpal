@@ -1,6 +1,6 @@
 .profileCard {
-    max-width: 300px;
-    max-height: 450px;
+    width: 280px;
+    height: 425px;
 }
 
 .profilePicture {
@@ -13,6 +13,7 @@
     align-content: center;
     flex-direction: column;
 }
+
 .amountReviews {
     padding-left: 10px;
 }
@@ -26,4 +27,8 @@
 
 .fontAverage {
     font-size: medium;
+}
+
+.verifiedIcon {
+    color: #1b9bea
 }

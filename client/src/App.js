@@ -3,16 +3,13 @@
 import React from 'react';
 import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 
-import {MovieListView} from './views/MovieListView';
 import {MovieDetailView} from './views/MovieDetailView';
 import {MovieFormView} from './views/MovieFormView';
 import {CreateOfferView} from "./views/CreateOfferView"
-import {UserLoginView} from "./views/UserLoginView/UserLoginView";
-import {UserSignupView} from "./views/UserSignupView/UserSignupView";
 
 import UserService from "./services/UserService";
-import {ProfileListView} from "./views/ProfileListView/ProfileListView";
 import {ProfileView} from "./views/ProfileView/ProfileView";
+import HomePageView from "./views/HomePageView/HomePageView";
 import SignInSide from "./components/SignInSide/SignInSide";
 import SignUp from "./components/UserSignUp/SignUp";
 
@@ -25,7 +22,7 @@ export default class App extends React.Component {
         this.state = {
             title: 'PlayPal',
             routes: [
-                { component: MovieListView , path: '/', exact: true},
+                { component: HomePageView, path: '/', exact: true},
                 { component: MovieDetailView , path: '/show/:id'},
                 { component: CreateOfferView, path: '/create/'},
                 { render: (props) => {
@@ -44,7 +41,6 @@ export default class App extends React.Component {
                     }}, path: '/add',},
                 { component: SignInSide, path: '/login'},
                 { component: SignUp, path: '/register'},
-                { component: ProfileListView, path: '/users'},
                 { component: ProfileView, path: '/user/:id'},
             ]
         };
