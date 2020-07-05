@@ -47,7 +47,7 @@ export default class App extends React.Component {
                         }
                         else {
                             return (<Redirect to={'/login'}/>)
-                        }}, path: '/offer',},
+                        }}, path: '/offer/create',},
                 { component: UserLoginView, path: '/login'},
                 { component: UserSignupView, path: '/register'},
                 { component: ProfileListView, path: '/users'},

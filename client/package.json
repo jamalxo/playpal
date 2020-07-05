@@ -51,6 +51,7 @@
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.55",
     "@material-ui/pickers": "latest",
+    "@unicef/material-ui-currency-textfield": "^0.8.6",
     "date-fns": "latest",
     "moment": "^2.27.0",
     "react": "latest",

@@ -24,7 +24,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Moment from "react-moment";
-
+import CurrencyTextField from '@unicef/material-ui-currency-textfield'
 
 const useStyles = (theme) => ({
     root: {
@@ -134,9 +134,9 @@ class OfferForm extends React.Component {
     constructor(props) {
         super(props);
 
-        this.setState({
+        this.state = {
             open: false,
-        });
+        };
 
         let date = new Date();
         date.setHours(0, 0, 0, 0);
@@ -181,8 +181,8 @@ class OfferForm extends React.Component {
         this.deleteAllAval = this.deleteAllAval.bind(this);
     }
 
-    handleChangePrice(value) {
-        this.setState(Object.assign({}, this.state, {price: value.target.value}));
+    handleChangePrice(e,value) {
+        this.setState(Object.assign({}, this.state, {price: value}));
     }
 
     handleChangeGame(value) {
@@ -318,6 +318,24 @@ class OfferForm extends React.Component {
                                         </Select>
                                     </FormControl>
                                 </Grid>
+                                <Grid container spacing={3} direction="column" justify="center" alignItems="center">
+
+                                    <Grid item xs={6} sm={3}>
+                                        <CurrencyTextField
+                                            label="Amount"
+                                            variant="standard"
+                                            value={this.state.price}
+                                            currencySymbol="$"
+                                            minimumValue="0"
+                                            outputFormat="string"
+                                            decialCharacter="."
+                                            digitGroupSeparator=","
+                                            onChange={this.handleChangePrice}
+                                            style={{paddingLeft:'10px'}}
+                                        />
+                                    </Grid>
+                                </Grid>
+
                                 <div>
                                     <Grid container spacing={3} direction="column" justify="center" alignItems="center">
                                     <Button className={classes.addButton} variant="outlined" color="primary" onClick={this.handleClickOpen}>
@@ -354,7 +372,7 @@ class OfferForm extends React.Component {
                                                     <KeyboardTimePicker
                                                         margin="normal"
                                                         id="time-picker"
-                                                        label="Time picker"
+                                                        label="From"
                                                         value={this.state.startTime}
                                                         onChange={this.handleChangeStartTime}
                                                         KeyboardButtonProps={{
@@ -368,7 +386,7 @@ class OfferForm extends React.Component {
                                                     <KeyboardTimePicker
                                                         margin="normal"
                                                         id="time-picker"
-                                                        label="Time picker"
+                                                        label="To"
                                                         value={this.state.endTime}
                                                         onChange={this.handleChangeEndTime}
                                                         KeyboardButtonProps={{
