@@ -14,7 +14,7 @@ import './HomePageView.css'
 
 const useStyles = (theme) => ({
     container: {
-        paddingTop: '30px',
+        paddingTop: '100px',
     },
     image: {
         backgroundImage: 'url(https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80)',
