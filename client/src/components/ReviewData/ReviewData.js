@@ -4,11 +4,9 @@ import React from 'react';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from '@material-ui/core/Avatar';
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import "./ReviewData.css";
 
 
@@ -30,7 +28,7 @@ export class ReviewData extends React.Component {
                                     className="profilePic"
                                     alt={this.props.review.postedBy.username}
                                     title={this.props.review.postedBy.username}
-                                    src="/broken-image.jpg"
+                                    src={this.props.review.postedBy.profileImage}
                                 > {this.props.review.postedBy.username.charAt(0)}
                                 </Avatar>
                             </CardContent>

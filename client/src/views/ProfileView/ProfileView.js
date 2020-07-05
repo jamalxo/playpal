@@ -10,7 +10,8 @@ import ReviewService from "../../services/ReviewService";
 import {ReviewData} from "../../components/ReviewData/ReviewData";
 import './ProfileView.css'
 import UserService from "../../services/UserService";
-import {withRouter} from "react-router-dom";
+import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export class ProfileView extends React.Component {
 
@@ -36,7 +37,7 @@ export class ProfileView extends React.Component {
                     user: user,
                     loading: false
                 });
-            } catch(err) {
+            } catch (err) {
                 console.error(err);
             }
         })();
@@ -54,7 +55,7 @@ export class ProfileView extends React.Component {
             let ret = await ReviewService.createReview(reviewWithId);
 
 
-        } catch(err) {
+        } catch (err) {
             console.error(err);
             this.setState({
                 error: err
@@ -65,28 +66,30 @@ export class ProfileView extends React.Component {
     render() {
 
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
+            return (<CircularProgress/>);
         }
 
         return (
             <Page>
-                <Grid container className="grid">
-                    <Grid item xs={4} align={"right"} className="profileCard">
-                        <ProfileCard profile={this.state.user} />
+                <Container maxWidth="lg">
+                    <Grid container className="grid">
+                        <Grid item xs={4} align={"right"} className="profileCard">
+                            <ProfileCard profile={this.state.user}/>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <ReviewField
+                                onSubmit={(review) => {
+                                    this.createReview(review);
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 100);
+                                }}
+                                error={this.state.error}
+                            />
+                            {this.state.user.reviews.map((review, i) => <ReviewData key={i} review={review}/>)}
+                        </Grid>
                     </Grid>
-                    <Grid item xs={4} >
-                        <ReviewField
-                            onSubmit={(review) => {
-                                this.createReview(review);
-                                setTimeout(function() {
-                                    window.location.reload();
-                                }, 100);
-                            }}
-                            error={this.state.error}
-                        />
-                        {this.state.user.reviews.map((review, i) => <ReviewData key={i} review={review}/>)}
-                    </Grid>
-                </Grid>
+                </Container>
             </Page>
         );
     }
