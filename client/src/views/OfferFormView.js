@@ -34,8 +34,6 @@ export class OfferFormView extends React.Component {
 
             let id = this.props.match.params.id;
 
-            console.log(id)
-
             OfferService.getOffer(id).then((data) => {
                 this.setState({
                     offer: data,
@@ -73,17 +71,17 @@ export class OfferFormView extends React.Component {
     }
 
     render() {
-        // if (this.state.loading) {
-        //     return (<h2>Loading...</h2>);
-        // }
-        const show = this.state.openRes;
-        console.log(this.state.offer);
-
+        // THIS IS IMPORTANT
+        if (this.state.loading) {
+            return (<h2>Loading...</h2>);
+        }
 
         return (
             <div>
                 {/*{show ? <GlobalError> </GlobalError> : null}*/}
-                <OfferForm open={false} offer={this.state.offer} onSubmit={(offer) => this.updateOffer(offer)}
+                <OfferForm open={false}
+                           offer={this.state.offer}
+                           onSubmit={(offer) => this.updateOffer(offer)}
                            error={this.state.error}/>
             </div>
 
