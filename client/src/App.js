@@ -24,9 +24,14 @@ export default class App extends React.Component {
         this.state = {
             title: 'PlayPal',
             routes: [
-                { component: HomePageView, path: '/', exact: true},
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<HomePageView {... props} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }} , path: '/', exact: true},
                 { component: MovieDetailView , path: '/show/:id'},
-                // { component: CreateOfferView, path: '/create/'},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
                             return (<MovieFormView {... props} />)

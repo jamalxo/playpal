@@ -4,7 +4,7 @@ import React from 'react';
 import ProfileService from '../../services/ProfileService';
 import Page from '../../components/Page/Page';
 import Grid from "@material-ui/core/Grid";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import ProfileList from "../../components/ProfileList/ProfileList";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
