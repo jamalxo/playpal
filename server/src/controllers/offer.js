@@ -28,7 +28,7 @@ const read = async (req, res) => {
 
         if (!offer) return res.status(404).json({
             error: 'Not Found',
-            message: `Movie not found`
+            message: `Offer not found`
         });
 
         return res.status(200).json(offer)

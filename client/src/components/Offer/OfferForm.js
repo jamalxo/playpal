@@ -137,10 +137,13 @@ class OfferForm extends React.Component {
             open: false,
         };
 
+        console.log('props')
+        console.log(this.props.offer)
+
         let date = new Date();
         date.setHours(0, 0, 0, 0);
 
-        if (this.props.offer != undefined) {
+        if (this.props.offer !== undefined) {
             this.state = {
                 price: props.offer.price,
                 game: props.offer.game,
@@ -163,6 +166,9 @@ class OfferForm extends React.Component {
                 availability: [],
             };
         }
+
+        console.log('state')
+        console.log(this.state);
 
         this.handleChangePrice = this.handleChangePrice.bind(this);
         this.handleChangeGame = this.handleChangeGame.bind(this);
@@ -269,6 +275,8 @@ class OfferForm extends React.Component {
         const {classes} = this.props;
         const avalShow = this.state.availability.length != 0;
         const avalList = this.state.availability;
+
+        console.log(this.state.game);
         return (
             <MuiThemeProvider theme={theme}>
                 <Page>

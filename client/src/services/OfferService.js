@@ -30,4 +30,29 @@ export default class OfferService {
             });
         });
     }
+
+    static getOffer(id) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${OfferService.baseURL()}/${id}`, function(data) {
+                if(data != undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                }
+                else {
+                    reject('Error while retrieving offer');
+                }
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static getOffers(){
+        return new Promise((resolve, reject) => {
+            HttpService.get(this.baseURL(), function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
 }
