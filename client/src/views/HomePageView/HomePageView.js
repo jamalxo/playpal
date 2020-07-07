@@ -146,8 +146,8 @@ class HomePageView extends React.Component {
                             </Typography>
                             <div>
                                 {this.state.dataOffers.map((item, index) => (
-                                    <Link className="linkDecoration" to={`/offer/${item._id}`}>
-                                        <p key={item}> xd </p>
+                                    <Link key={index} className="linkDecoration" to={`/offer/${item._id}`}>
+                                        <p key={index}> xd </p>
                                     </Link>
                                 ))}
                             </div>

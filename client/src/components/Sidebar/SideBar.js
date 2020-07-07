@@ -138,7 +138,7 @@ class SideBar extends React.Component{
                 }}
             />
             <List>
-                {GAME_LIST.map((option) => <ListItem primaryText={option.title} component={Link} to={"/game/"+ option.url } />)}
+                {GAME_LIST.map((option, index) => <ListItem key={index} primaryText={option.title} component={Link} to={"/game/"+ option.url } />)}
             </List>
         </Drawer>
     }

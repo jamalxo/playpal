@@ -25,7 +25,7 @@ export default class ProfileList extends React.Component {
 
     render() {
         return (
-            <Grid container justify="left">
+            <Grid container justify="center">
                 {this.props.data.sort((a, b) => this.getAvg(b) - this.getAvg(a)).slice(0, 8).map((profile, i) => (
                     <Grid key={i} item className="profileList">
                         <Link className="linkDecoration" to={`/user/${profile._id}`}>
