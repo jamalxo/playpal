@@ -1,8 +1,12 @@
-
 import React from 'react';
 
 import OfferService from '../services/OfferService';
 import OfferForm from "../components/Offer/OfferForm";
+import GlobalError from "../components/GlobalError/GlobalError";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import List from "@material-ui/core/List";
+import Button from "@material-ui/core/Button";
 
 
 export class OfferFormView extends React.Component {
@@ -11,13 +15,16 @@ export class OfferFormView extends React.Component {
         super(props);
     }
 
-    componentWillMount(){
+    componentWillMount() {
         // if(this.props.history.location.pathname == '/add') {
-            this.setState({
-                loading: false,
-                offer: undefined,
-                error: undefined
-            });
+        this.setState({
+            loading: false,
+            offer: undefined,
+            error: undefined,
+            openRes: false,
+            successRes: false,
+            test: true
+        });
         // }
         // else if(this.props.location.state != undefined && this.props.location.state.movie != undefined) {
         //     this.setState({
@@ -47,13 +54,17 @@ export class OfferFormView extends React.Component {
     }
 
     async updateOffer(offer) {
-        if(this.state.offer == undefined) {
+        if (this.state.offer === undefined) {
             try {
-                let ret = await OfferService.createoffer(offer);
-                //this.props.history.push('/');
+                let ret = await OfferService.createoffer(offer)
+                    .then(res => {
+                        this.setState(Object.assign({}, this.state, {openRes: true}));
+                    });
             } catch (err) {
                 console.error(err);
                 this.setState(Object.assign({}, this.state, {error: 'Error while creating offer'}));
+                this.setState(Object.assign({}, this.state, {openRes: true}));
+
             }
         } else {
             console.log('wtf');
@@ -73,7 +84,17 @@ export class OfferFormView extends React.Component {
         // if (this.state.loading) {
         //     return (<h2>Loading...</h2>);
         // }
+        const show = this.state.openRes;
+        console.log(show);
 
-        return (<OfferForm open={false} offer={this.state.offer} onSubmit={(offer) => this.updateOffer(offer)} error={this.state.error} />);
+
+        return (
+            <div>
+                {/*{show ? <GlobalError> </GlobalError> : null}*/}
+                <OfferForm open={false} offer={this.state.offer} onSubmit={(offer) => this.updateOffer(offer)}
+                           error={this.state.error}/>
+            </div>
+
+        );
     }
 }

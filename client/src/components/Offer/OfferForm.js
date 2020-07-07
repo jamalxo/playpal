@@ -105,7 +105,6 @@ function generate(array) {
 }
 
 function moment(date, dateEnd) {
-    console.log(date);
     return (
         <div>
             <Moment format="HH:mm">

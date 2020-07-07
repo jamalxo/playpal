@@ -5,7 +5,7 @@ import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 
 import {MovieDetailView} from './views/MovieDetailView';
 import {MovieFormView} from './views/MovieFormView';
-import {CreateOfferView} from "./views/CreateOfferView"
+// import {CreateOfferView} from "./views/CreateOfferView"
 
 import UserService from "./services/UserService";
 import {ProfileView} from "./views/ProfileView/ProfileView";
@@ -26,7 +26,7 @@ export default class App extends React.Component {
             routes: [
                 { component: HomePageView, path: '/', exact: true},
                 { component: MovieDetailView , path: '/show/:id'},
-                { component: CreateOfferView, path: '/create/'},
+                // { component: CreateOfferView, path: '/create/'},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
                             return (<MovieFormView {... props} />)
@@ -48,9 +48,9 @@ export default class App extends React.Component {
                         else {
                             return (<Redirect to={'/login'}/>)
                         }}, path: '/offer/create',},
-                { component: UserLoginView, path: '/login'},
-                { component: UserSignupView, path: '/register'},
-                { component: ProfileListView, path: '/users'},
+                // { component: UserLoginView, path: '/login'},
+                // { component: UserSignupView, path: '/register'},
+                // { component: ProfileListView, path: '/users'},
                 { component: SignInSide, path: '/login'},
                 { component: SignUp, path: '/register'},
                 { component: ProfileView, path: '/user/:id'},
