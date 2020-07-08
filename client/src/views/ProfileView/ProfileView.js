@@ -12,6 +12,7 @@ import './ProfileView.css'
 import UserService from "../../services/UserService";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ProfileBio from "../../components/ProfileBio/ProfileBio";
 
 export class ProfileView extends React.Component {
 
@@ -73,8 +74,9 @@ export class ProfileView extends React.Component {
             <Page>
                 <Container maxWidth="lg">
                     <Grid container className="grid">
-                        <Grid item xs={4} align={"right"} className="profileCard">
-                            <ProfileCard profile={this.state.user}/>
+                        <Grid item xs={12} align={"right"} className="profileCard">
+                            {/*<ProfileCard profile={this.state.user}/>*/}
+                            <ProfileBio profile={this.state.user} />
                         </Grid>
                         <Grid item xs={6}>
                             <ReviewField
