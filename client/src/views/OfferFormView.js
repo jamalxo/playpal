@@ -3,7 +3,6 @@ import React from 'react';
 import OfferService from '../services/OfferService';
 import OfferForm from "../components/Offer/OfferForm";
 
-
 export class OfferFormView extends React.Component {
 
     constructor(props) {
@@ -61,8 +60,11 @@ export class OfferFormView extends React.Component {
             }
         } else {
             try {
-                let ret = await OfferService.updateOffer(offer);
-                this.props.history.goBack();
+                let ret = await OfferService.updateOffer(offer)
+                    .then(res => {
+                        this.setState(Object.assign({}, this.state, {openRes: true}));
+                    });
+                //this.props.history.goBack();
             } catch(err) {
                 console.error(err);
                 this.setState(Object.assign({}, this.state, {error: 'Error while creating movie'}));
@@ -71,6 +73,7 @@ export class OfferFormView extends React.Component {
     }
 
     render() {
+        console.log(this.state.openRes);
         // THIS IS IMPORTANT
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
@@ -78,7 +81,6 @@ export class OfferFormView extends React.Component {
 
         return (
             <div>
-                {/*{show ? <GlobalError> </GlobalError> : null}*/}
                 <OfferForm open={false}
                            offer={this.state.offer}
                            onSubmit={(offer) => this.updateOffer(offer)}
