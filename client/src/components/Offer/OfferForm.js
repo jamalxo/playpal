@@ -137,9 +137,6 @@ class OfferForm extends React.Component {
             open: false,
         };
 
-        console.log('props')
-        console.log(this.props.offer)
-
         let date = new Date();
         date.setHours(0, 0, 0, 0);
 

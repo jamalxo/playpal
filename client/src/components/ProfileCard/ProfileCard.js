@@ -17,7 +17,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = (theme) => ({
     root: {
-        background: 'linear-gradient(45deg, rgba(200,138,255,0.9878151944371498) 0%, rgba(255,97,97,0.154) 100%)',
+        background: 'theme.palette.primary.dark',
         flexGrow: 1,
     },
     menuButton: {
@@ -82,7 +82,7 @@ class ProfileCard extends React.Component {
                                 alt={this.props.profile.username}
                                 title={this.props.profile.username}
                                 src={this.props.profile.profileImage}/>
-                            <Typography variant="h2" component="h2">
+                            <Typography variant="h2" component="h2" color={'inherit'}>
                                 {this.props.profile.username}
                                 {this.displayVerifiedIcon()}
                             </Typography>
@@ -106,7 +106,7 @@ class ProfileCard extends React.Component {
                             <Typography variant="h6">
                                 About
                             </Typography>
-                            <Typography variant="body1" color="textPrimary" component="p">
+                            <Typography variant="body1" color="inherit" component="p">
                                 {this.printDescription()}
                             </Typography>
                         </CardContent>

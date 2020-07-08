@@ -16,6 +16,9 @@ import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import OfferCard from "../../components/Offer/OfferCard";
 import OfferList from "../../components/Offer/OfferList";
 
+import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
+import {theme} from "../../theme";
+
 const useStyles = (theme) => ({
     container: {
         paddingTop: '100px',
@@ -34,7 +37,7 @@ const useStyles = (theme) => ({
         width: '100%',
     },
     welcomeFont: {
-        color: '#9c27b0',
+        color: theme.palette.primary.contrastText,
         fontWeight: '400'
     },
     welcomeSubheaderFont: {
@@ -52,7 +55,7 @@ const useStyles = (theme) => ({
     },
     headerFont: {
         fontWeight: '450',
-        color: '#2f2e49',
+        color: theme.palette.primary.contrastText,
         paddingTop: '50px'
     },
 });
