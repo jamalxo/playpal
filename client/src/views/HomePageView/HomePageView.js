@@ -18,6 +18,12 @@ import OfferList from "../../components/Offer/OfferList";
 
 import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import {theme} from "../../theme";
+import Team from "../../resources/team.svg";
+import Order from "../../resources/product.svg";
+import Search from "../../resources/search.svg";
+import Time from "../../resources/stopwatch.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 const useStyles = (theme) => ({
     container: {
@@ -41,6 +47,7 @@ const useStyles = (theme) => ({
         fontWeight: '400'
     },
     welcomeSubheaderFont: {
+        color: theme.palette.primary.contrastText,
         fontWeight: '300'
     },
     buttonsContainer: {
@@ -57,6 +64,10 @@ const useStyles = (theme) => ({
         fontWeight: '450',
         color: theme.palette.primary.contrastText,
         paddingTop: '50px'
+    },
+    imageStyle: {
+        width: 100,
+        height: 100
     },
 });
 
@@ -105,38 +116,39 @@ class HomePageView extends React.Component {
         return (
             <Page>
                 <Container maxWidth="lg">
-                    <Grid container spacing={4} classes={{root: classes.container}}>
-                        <Grid item xs={7} className={classes.image}/>
-                        <Grid item xs={5}>
-                            <div className={classes.centerContent}>
-                                <Typography variant="h1" className={classes.welcomeFont}>
-                                    PlayPal
+                    <Grid container spacing={4} classes={{root: classes.container}} direction="row"
+                          justify="center"
+                          alignItems="center">
+                        <Grid item xs={12} className={classes.image}/>
+
+                        {/*INTRO*/}
+                            <Grid item xs={3} >
+                                <img src={Search} alt="Logo" className={classes.imageStyle}/>
+                                <Typography variant="h5" className={classes.headerFont}>
+                                    SEARCH FOR OFFER
                                 </Typography>
-                            </div>
-                            <div className={classes.centerContent}>
-                                <Typography variant="h4" className={classes.welcomeSubheaderFont}>
-                                    Meet And Play With Other Gamers
+                                <FontAwesomeIcon icon="coffee"/>
+                            </Grid>
+                        <Grid item xs={3}>
+                                <img src={Order} alt="Logo" className={classes.imageStyle}/>
+                                <Typography variant="h5" className={classes.headerFont}>
+                                    ORDER AN OFFER
                                 </Typography>
-                            </div>
-                            <div className={classes.buttonsContainer}>
-                                <Link to={`/login`}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        size="large"
-                                        className={classes.button}> Login
-                                    </Button>
-                                </Link>
-                                <Link to={`/register`}>
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        size="large"
-                                        className={classes.button}> Register
-                                    </Button>
-                                </Link>
-                            </div>
-                        </Grid>
+                            </Grid>
+                            <Grid item xs={3} >
+                                <img src={Time} alt="Logo" className={classes.imageStyle}/>
+                                <Typography variant="h5" className={classes.headerFont}>
+                                    WAIT FOR RESPONSE
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <img src={Team} alt="Logo" className={classes.imageStyle}/>
+                                <Typography variant="h5" className={classes.headerFont}>
+                                    PLAY TOGETHER!
+                                </Typography>
+                            </Grid>
+                        {/*INTRO*/}
+
                         <Grid item xs={4}>
                             <Typography variant="h3" className={classes.headerFont}>
                                 Best Play-Pals

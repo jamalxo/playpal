@@ -3,7 +3,6 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom'
 import {ThemeProvider as MuiThemeProvider, withStyles} from '@material-ui/core/styles';
-import KebabMenu from '../KebabMenu';
 import Toolbar2 from "@material-ui/core/Toolbar/Toolbar";
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Typography from '@material-ui/core/Typography';
@@ -34,9 +33,6 @@ const drawerWidth = 240;
 const useStyles = (theme) => ({
     grow: {
         flexGrow: 1,
-    },
-    image: {
-        backgroundImage: 'url("../../resources/joystick.svg")'
     },
     imageStyle: {
         width: 50,
