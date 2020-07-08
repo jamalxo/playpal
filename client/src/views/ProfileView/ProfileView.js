@@ -13,6 +13,8 @@ import UserService from "../../services/UserService";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ProfileBio from "../../components/ProfileBio/ProfileBio";
+import OfferService from "../../services/OfferService";
+import OfferList from "../../components/Offer/OfferList";
 
 export class ProfileView extends React.Component {
 
@@ -21,6 +23,7 @@ export class ProfileView extends React.Component {
 
         this.state = {
             loading: true,
+            dataOffers: []
         };
     }
 
@@ -42,6 +45,19 @@ export class ProfileView extends React.Component {
                 console.error(err);
             }
         })();
+
+
+        // (async () => {
+        //     try {
+        //         let data = await OfferService.getOffers();
+        //         this.setState({
+        //             dataOffers: [...data],
+        //             loading: false
+        //         });
+        //     } catch (err) {
+        //         console.error(err);
+        //     }
+        // })();
     }
 
     async createReview(review) {
@@ -74,9 +90,12 @@ export class ProfileView extends React.Component {
             <Page>
                 <Container maxWidth="lg">
                     <Grid container className="grid">
-                        <Grid item xs={12} align={"right"} className="profileCard">
+                        <Grid item xs={12} align={"right"}>
                             {/*<ProfileCard profile={this.state.user}/>*/}
                             <ProfileBio profile={this.state.user} />
+                        </Grid>
+                        <Grid item xs={12} align={"right"}>
+                            <OfferList dataOffers={this.state.dataOffers}/>
                         </Grid>
                         <Grid item xs={6}>
                             <ReviewField
