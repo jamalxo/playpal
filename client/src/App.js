@@ -1,17 +1,19 @@
 "use strict";
 
 import React from 'react';
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 
-import { MovieListView } from './views/MovieListView';
-import { MovieDetailView }   from './views/MovieDetailView';
-import { MovieFormView }   from './views/MovieFormView';
-import { UserLoginView } from "./views/UserLoginView/UserLoginView";
-import { UserSignupView } from "./views/UserSignupView/UserSignupView";
+import {MovieDetailView} from './views/MovieDetailView';
+import {MovieFormView} from './views/MovieFormView';
+// import {CreateOfferView} from "./views/CreateOfferView"
 
 import UserService from "./services/UserService";
-import {ProfileListView} from "./views/ProfileListView/ProfileListView";
 import {ProfileView} from "./views/ProfileView/ProfileView";
+import HomePageView from "./views/HomePageView/HomePageView";
+import SignInSide from "./components/SignInSide/SignInSide";
+import SignUp from "./components/UserSignUp/SignUp";
+import OfferForm from "./components/Offer/OfferForm";
+import {OfferFormView} from "./views/OfferFormView";
 
 
 export default class App extends React.Component {
@@ -22,7 +24,13 @@ export default class App extends React.Component {
         this.state = {
             title: 'PlayPal',
             routes: [
-                { component: MovieListView , path: '/', exact: true},
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<HomePageView {... props} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }} , path: '/', exact: true},
                 { component: MovieDetailView , path: '/show/:id'},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
@@ -38,11 +46,27 @@ export default class App extends React.Component {
                     else {
                         return (<Redirect to={'/login'}/>)
                     }}, path: '/add',},
-                { component: UserLoginView, path: '/login'},
-                { component: UserSignupView, path: '/register'},
-                { component: ProfileListView, path: '/users'},
-                { component: ProfileView, path: '/user/:id'},
-            ]
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<OfferFormView {... props} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }}, path: '/offer/create',},
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<OfferFormView {... props} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }}, path: '/offer/:id',},
+                // { component: UserLoginView, path: '/login'},
+                // { component: UserSignupView, path: '/register'},
+                // { component: ProfileListView, path: '/users'},
+                { component: SignInSide, path: '/login'},
+                { component: SignUp, path: '/register'},
+                { component: ProfileView, path: '/user/:id'}
+                ]
         };
     }
 

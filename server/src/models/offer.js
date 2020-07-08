@@ -8,35 +8,44 @@ const mongoose = require('mongoose');
 const OfferSchema  = new mongoose.Schema({
     price: {
         type: Number,
-        required: true
+        required: false
     },
     game: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Game',
+        type: String,
         required: true,
     },
     server: {
         type: String,
         required: true,
     },
-    startTime: {
-        type: Date,
-        required: true,
-    },
-    endTime: {
-        type: Date,
-        required: true,
-    },
-    days: {
-        type: [String],
-        required: true,
-    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: false
+    },
+    availability: [{
+        startTime: {
+            type: Date,
+            required: false,
+        },
+        endTime: {
+            type: Date,
+            required: false,
+        },
+        day: {
+            type: [String],
+            required: false,
+        },
+    }]
+
+});
+
+const GameSchema = new mongoose.Schema({
+    name: {
+        type: String,
         required: true
     }
-});
+})
 
 OfferSchema.set('versionKey', false);
 

@@ -8,7 +8,6 @@ const HtmlWebpackPlugin  = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 
-
 module.exports = {
     entry: {
         'vendor': ['react','react-dom','react-router-dom', 'babel-polyfill'],
@@ -26,8 +25,12 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', 'react']
-                    }
+                        presets: ['env', 'react', 'es2015'],
+                        plugins: [
+                            ["transform-object-rest-spread", { "useBuiltIns": true }]
+                        ]
+
+                    },
                 }
             },
             {
@@ -59,7 +62,8 @@ module.exports = {
             filename: 'index.html',
             inject: 'body'
         }),
-        new ExtractTextPlugin("styles/app.css")
+        new ExtractTextPlugin("styles/app.css"),
+
     ]
 
 };

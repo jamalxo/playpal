@@ -12,10 +12,12 @@ import {withStyles} from '@material-ui/core/styles';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = (theme) => ({
     root: {
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        background: 'linear-gradient(45deg, rgba(200,138,255,0.9878151944371498) 0%, rgba(255,97,97,0.154) 100%)',
         flexGrow: 1,
     },
     menuButton: {
@@ -24,6 +26,9 @@ const useStyles = (theme) => ({
     title: {
         flexGrow: 1,
     },
+    description: {
+        height: '100%'
+    }
 });
 
 class ProfileCard extends React.Component {
@@ -42,45 +47,70 @@ class ProfileCard extends React.Component {
         return avg;
     }
 
+    printDescription() {
+        if (this.props.profile.description == null) {
+            return 'No description available.';
+        } else if (this.props.profile.description.length > 60) {
+            return this.props.profile.description.substring(0, 60) + " ...";
+        } else {
+            return this.props.profile.description;
+        }
+    }
+
+    displayVerifiedIcon() {
+        if (this.props.profile.usertype === "professional") {
+            return (
+                <Tooltip title="Professional Gamer" aria-label="pro">
+                    <VerifiedUserIcon fontSize="small" className="verifiedIcon"/>
+                </Tooltip>
+
+            );
+        } else {
+            return '';
+        }
+    }
+
     render() {
         const {classes} = this.props;
         return (
             <MuiThemeProvider theme={theme}>
                 <Card classes={{root: classes.root}} className="profileCard" key={this.props.key}>
-                    <CardContent align="center">
-                        <Avatar
-                            className="profilePicture"
-                            alt={this.props.profile.username}
-                            title={this.props.profile.username}
-                            src={this.props.profile.profileImage}/>
-                        <Typography variant="h2" component="h2">
-                            {this.props.profile.username}
-                            {this.props.profile.usertype === "professional" ? <VerifiedUserIcon fontSize="small"/> : ''}
-                        </Typography>
-                    </CardContent>
-                    <Divider variant="middle"/>
-                    <CardContent align="center">
-                        <Typography variant="body1" component="h2">
-                            <div className="reviewRating">
-                                <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
-                                <span className="fontAverage">
+                    <CardActionArea className={classes.description}>
+                        <CardContent align="center">
+                            <Avatar
+                                className="profilePicture"
+                                alt={this.props.profile.username}
+                                title={this.props.profile.username}
+                                src={this.props.profile.profileImage}/>
+                            <Typography variant="h2" component="h2">
+                                {this.props.profile.username}
+                                {this.displayVerifiedIcon()}
+                            </Typography>
+                        </CardContent>
+                        <Divider variant="middle"/>
+                        <CardContent align="center">
+                            <Typography variant="body1" component="h2">
+                                <div className="reviewRating">
+                                    <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
+                                    <span className="fontAverage">
                                     {this.getAvg().toFixed(2)}
                                 </span>
-                            </div>
-                        </Typography>
-                        <Typography variant="h5">
-                            {this.props.profile.reviews.length} Reviews
-                        </Typography>
-                    </CardContent>
-                    <Divider variant="middle"/>
-                    <CardContent align="center">
-                        <Typography variant="h6">
-                            About
-                        </Typography>
-                        <Typography variant="body1" color="textPrimary" component="p">
-                            {this.props.profile.description == null ? 'No description available.' : `${this.props.profile.description}`}
-                        </Typography>
-                    </CardContent>
+                                </div>
+                            </Typography>
+                            <Typography variant="h5">
+                                {this.props.profile.reviews.length} Reviews
+                            </Typography>
+                        </CardContent>
+                        <Divider variant="middle"/>
+                        <CardContent align="center">
+                            <Typography variant="h6">
+                                About
+                            </Typography>
+                            <Typography variant="body1" color="textPrimary" component="p">
+                                {this.printDescription()}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
                 </Card>
             </MuiThemeProvider>
         );

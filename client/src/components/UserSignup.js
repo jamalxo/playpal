@@ -4,9 +4,9 @@ import React from 'react';
 import { Card, Button, TextField } from 'react-md';
 import { withRouter } from 'react-router-dom';
 
-import { AlertMessage } from '../AlertMessage';
-import Page from '../Page/Page';
-import './UserSignup.css';
+import { AlertMessage } from './AlertMessage';
+import Page from './Page';
+
 
 const style = { maxWidth: 500 };
 
@@ -24,7 +24,6 @@ class UserSignup extends React.Component {
             firstname: '',
             lastname: '',
             description: '',
-            profileImage: ''
         };
 
         this.handleChangeInput = this.handleChangeInput.bind(this);
@@ -44,17 +43,11 @@ class UserSignup extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        const user = new FormData();
-        user.append('username', this.state.username);
-        user.append('password', this.state.password);
-        user.append('email', this.state.email);
-        user.append('usertype', this.state.usertype);
-        user.append('firstname', this.state.firstname);
-        user.append('lastname', this.state.lastname);
-        user.append('description', this.state.description);
-        user.append('profileImage', this.state.profileImage);
+        let user = this.state;
+
         this.props.onSubmit(user);
     }
+
     render() {
         return (
             <Page>
@@ -117,27 +110,22 @@ class UserSignup extends React.Component {
                             name="description"
                             type="text"
                             className="md-row"
-                            required={false}
+                            required={true}
                             multiline
                             rows={4}
                             value={this.state.description}
                             onChange={(inp) => this.handleChangeInput('description', inp)}
                             errorText="Username is required"/>
+
                         <select value={this.state.usertype} onChange={(inp) => this.handleChangeInput('usertype', inp.target.value)} name="usertype">
                             <option value="professional">Professional</option>
                             <option value="casual">Casual</option>
                         </select>
-                        <div className="pictureInput">
-                            Profile Picture:
-                            <input type="file" name="profileImage" accept=".png, .jpg, .jpeg" onChange={(inp) => this.handleChangeInput('profileImage', inp.target.files[0])}/>
-                        </div>
-                        <div className="buttonsPadding">
-                            <Button id="submit" type="submit"
-                                    disabled={this.state.username == undefined || this.state.username == '' || this.state.password == undefined || this.state.password == '' || this.state.email == undefined || this.state.email == '' ? true : false}
-                                    raised primary className="md-cell md-cell--2">Register</Button>
-                            <Button id="reset" type="reset" raised secondary className="md-cell md-cell--2">Dismiss</Button>
-                            <AlertMessage className="md-row md-full-width" >{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
-                        </div>
+                        <Button id="submit" type="submit"
+                                disabled={this.state.username == undefined || this.state.username == '' || this.state.password == undefined || this.state.password == '' || this.state.email == undefined || this.state.email == '' ? true : false}
+                                raised primary className="md-cell md-cell--2">Register</Button>
+                        <Button id="reset" type="reset" raised secondary className="md-cell md-cell--2">Dismiss</Button>
+                        <AlertMessage className="md-row md-full-width" >{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
                     </form>
                 </Card>
             </Page>

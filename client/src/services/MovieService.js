@@ -37,7 +37,7 @@ export default class MovieService {
     static deleteMovie(id) {
         return new Promise((resolve, reject) => {
             HttpService.remove(`${MovieService.baseURL()}/${id}`, function(data) {
-                if(data.message != undefined) {
+                if(data.message !== undefined) {
                     resolve(data.message);
                 }
                 else {

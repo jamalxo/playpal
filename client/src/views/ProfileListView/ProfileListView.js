@@ -4,6 +4,9 @@ import React from 'react';
 
 import { ProfileList } from '../../components/ProfileList/ProfileList';
 import ProfileService from '../../services/ProfileService';
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import Page from "../../components/Page/Page";
 
 export class ProfileListView extends React.Component {
 
@@ -37,7 +40,9 @@ export class ProfileListView extends React.Component {
         }
 
         return (
-            <ProfileList data={this.state.data}/>
+            <Page>
+                <ProfileList data={this.state.data}/>
+            </Page>
         );
     }
 }
