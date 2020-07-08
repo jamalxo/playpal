@@ -31,8 +31,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OfferCard(props){
     const classes = useStyles();
-    const [profile, setProfile] = useState({})
-    const [ProfileCard, setProfileCard] = useState(<div>Loading</div>)
+    const [profile, setProfile] = useState({});
+    const [ProfileCard, setProfileCard] = useState(<div>Loading</div>);
+
     useEffect(() => {    // Update the profile value on mount
            async function getProfile(){
                return await ProfileService.getProfile(props.owner)
