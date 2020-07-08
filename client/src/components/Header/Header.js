@@ -19,6 +19,12 @@ import SearchIcon from '@material-ui/icons/Search';
 import {fade} from "@material-ui/core";
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import UserService from "../../services/UserService";
+import {Avatar, FontIcon, ListItem} from "react-md";
 
 
 
@@ -117,18 +123,21 @@ const useStyles = (theme) => ({
     },
 });
 
-
 class Header extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            value: 0
+            value: 0,
+            anchorEl: null,
+            isMenuOpen: false,
+            user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
         };
 
         this.handleChange = this.handleChange.bind(this);
-
+        this.handleMenuClose = this.handleMenuClose.bind(this);
+        this.handleMenuOpen = this.handleMenuOpen.bind(this);
     }
 
 
@@ -137,6 +146,37 @@ class Header extends React.Component {
             open: newValue
         });
     };
+
+    handleMenuOpen(event) {
+        this.setState({
+            anchorEl: event.currentTarget,
+            isMenuOpen: true
+        });
+    }
+
+    handleMenuClose(event) {
+        this.setState({
+            anchorEl: event.currentTarget,
+            isMenuOpen: false
+        });
+    }
+
+    logout() {
+        UserService.logout();
+        this.state = {
+            user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
+        };
+        if(this.props.location.pathname !== '/') {
+            this.props.history.push('/');
+        }
+        else {
+            window.location.reload();
+        }
+    }
+
+    getUserId() {
+        return UserService.getCurrentUser().id;
+    }
 
     render() {
         const {classes} = this.props;
@@ -201,7 +241,36 @@ class Header extends React.Component {
                                         <NotificationsIcon />
                                     </Badge>
                                 </IconButton>
-                                <KebabMenu id="toolbar-colored-kebab-menu"/>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="account of current user"
+                                    // aria-controls={menuId}
+                                    aria-haspopup="true"
+                                    onClick={this.handleMenuOpen}
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                                <Menu
+                                    anchorEl={this.state.anchorEl}
+                                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                    // id={menuId}
+                                    keepMounted
+                                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                    open={this.state.isMenuOpen}
+                                    onClose={this.handleMenuClose}
+                                >
+                                    {
+                                        this.state.user ?
+                                            <div>
+                                                <MenuItem
+                                                    onClick={() => this.props.history.push('/user/' + this.getUserId())}>Profile</MenuItem>
+                                                <MenuItem
+                                                    onClick={() => this.logout()}>Logout</MenuItem>
+                                            </div>
+                                        : <MenuItem onClick={() => this.props.history.push('/login')}/>
+                                    }
+                                </Menu>
                             </div>
                         </Toolbar2>
                     </AppBar>

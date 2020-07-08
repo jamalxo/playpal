@@ -425,7 +425,7 @@ class OfferForm extends React.Component {
                                     </div>
                                     {/*todo: styling button*/}
                                     <Button className={classes.addButton} variant="outlined" color="primary" onClick={this.deleteAllAval}>
-                                        Delete All Availability Times
+                                        Delete All Times
                                     </Button>
                                 </Grid> : null}
                             </Grid>
