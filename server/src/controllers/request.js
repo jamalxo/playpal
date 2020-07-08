@@ -29,8 +29,6 @@ const answer = async (req, res) => {
             message: err.message
         });
     }
-
-
 }
 
 const create = async (req, res) => {

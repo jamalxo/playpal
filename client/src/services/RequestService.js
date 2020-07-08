@@ -18,9 +18,9 @@ export default class UserService {
         });
 
     }
-    static createRequest(requestobj) {
+    static createRequest(requestId) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${this.baseURL()}/create`, requestobj,function(data) {
+            HttpService.post(`${this.baseURL()}/create`, {requestId:requestId},function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);
