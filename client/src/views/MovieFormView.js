@@ -73,6 +73,7 @@ export class MovieFormView extends React.Component {
             return (<h2>Loading...</h2>);
         }
 
-        return (<MovieForm movie={this.state.movie} onSubmit={(movie) => this.updateMovie(movie)} error={this.state.error} />);
+        return (<MovieForm movie={this.state.movie} onSubmit={(movie) => this.updateMovie(movie)}
+                           error={this.state.error}/>);
     }
 }

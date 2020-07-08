@@ -75,10 +75,9 @@ class Header extends React.Component {
                             >
                                 <MenuIcon style={{color:'black'}} />
                             </IconButton>
-                            <Typography variant="h6" className={classes.title} >
+                            <Typography variant="h6" className={classes.title} color={'inherit'}>
                                 PlayPal
                             </Typography>
-
                             <Button onClick={() => this.props.history.push('/')} icon>home</Button>
                             <KebabMenu id="toolbar-colored-kebab-menu"/>
                         </Toolbar2>

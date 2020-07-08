@@ -4,13 +4,15 @@ import React from 'react';
 import ProfileService from '../../services/ProfileService';
 import Page from '../../components/Page/Page';
 import Grid from "@material-ui/core/Grid";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import ProfileList from "../../components/ProfileList/ProfileList";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {withStyles} from "@material-ui/core/styles";
 import './HomePageView.css'
+import OfferService from "../../services/OfferService";
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 const useStyles = (theme) => ({
     container: {
@@ -60,7 +62,8 @@ class HomePageView extends React.Component {
 
         this.state = {
             loading: true,
-            data: []
+            data: [],
+            dataOffers:[]
         };
     }
 
@@ -72,6 +75,15 @@ class HomePageView extends React.Component {
         ProfileService.getProfiles().then((data) => {
             this.setState({
                 data: [...data],
+                loading: false
+            });
+        }).catch((e) => {
+            console.error(e);
+        });
+
+        OfferService.getOffers().then((data) => {
+            this.setState({
+                dataOffers: [...data],
                 loading: false
             });
         }).catch((e) => {
@@ -132,6 +144,14 @@ class HomePageView extends React.Component {
                             <Typography variant="h3" className={classes.headerFont}>
                                 Checkout The Offers For These Games!
                             </Typography>
+                            <div>
+                                {this.state.dataOffers.map((item, index) => (
+                                    <Link key={index} className="linkDecoration" to={`/offer/${item._id}`}>
+                                        <p key={index}> xd </p>
+                                    </Link>
+                                ))}
+                            </div>
+
                         </Grid>
                     </Grid>
                 </Container>
