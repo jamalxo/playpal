@@ -8,9 +8,9 @@ export default class UserService {
     }
     static baseURL() { return 'http://localhost:3000/request' }
 
-    static answerRequest(requestobj) {
+    static answerRequest(requestId, status) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${this.baseURL()}/answer`, requestobj,function(data) {
+            HttpService.post(`${this.baseURL()}/answer`,{requestId:requestId, status:status},function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);

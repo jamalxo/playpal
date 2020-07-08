@@ -10,7 +10,7 @@ const auth  = require('./routes/auth');
 const movie = require('./routes/movie');
 const review = require('./routes/review');
 const offer = require('./routes/offer');
-
+const request = require('./routes/request')
 const api = express();
 
 // Adding Basic Middlewares
@@ -32,5 +32,5 @@ api.use('/auth'  , auth);
 api.use('/movies', movie);
 api.use('/reviews', review);
 api.use('/offers', offer);
-
+api.use('request',request);
 module.exports = api;

@@ -56,13 +56,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    pendingOffers:[{
+    pendingRequests:[{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Offer'
+      ref: 'Request'
     }],
-    requestedOffers:[{
+    createdRequests:[{
         type: mongoose.Schema.Type.ObjectId,
-        ref:'Offer'
+        ref:'Request'
     }],
 });
 
