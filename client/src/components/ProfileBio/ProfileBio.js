@@ -11,17 +11,13 @@ import {withStyles} from '@material-ui/core/styles';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import Tooltip from "@material-ui/core/Tooltip";
 import './ProfileBio.css';
 import Grid from "@material-ui/core/Grid";
-import {ReviewField} from "../ReviewField/ReviewField";
-import {ReviewData} from "../ReviewData/ReviewData";
 
 const useStyles = (theme) => ({
     root: {
-        //height: '100%',
-        //width: '100%'
+        background: theme.palette.primary.test
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -92,7 +88,7 @@ class ProfileCard extends React.Component {
         const {classes} = this.props;
         return (
             <MuiThemeProvider theme={theme}>
-                <Card key={this.props.key}>
+                <Card key={this.props.key} className={classes.root}>
                     <CardContent align="left">
                         <Grid container spacing={2} justify="left">
                             <Grid item xs={2} className={classes.picture}>
@@ -130,41 +126,6 @@ class ProfileCard extends React.Component {
                         </Grid>
                     </CardContent>
                 </Card>
-                {/*<Card classes={{root: classes.root}} key={this.props.key}>*/}
-                {/*<CardContent align="left">*/}
-                {/*    <Avatar*/}
-                {/*        className="profilePicture"*/}
-                {/*        alt={this.props.profile.username}*/}
-                {/*        title={this.props.profile.username}*/}
-                {/*        src={this.props.profile.profileImage}/>*/}
-                {/*    <Typography variant="h2" component="h2">*/}
-                {/*        {this.props.profile.username}*/}
-                {/*        {this.displayVerifiedIcon()}*/}
-                {/*    </Typography>*/}
-                {/*</CardContent>*/}
-                {/*<Divider variant="middle"/>*/}
-                {/*<CardContent align="center">*/}
-                {/*    <Typography variant="body1" component="h2">*/}
-                {/*        <div className="reviewRating">*/}
-                {/*            <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>*/}
-                {/*            <span className="fontAverage">*/}
-                {/*            {this.getAvg().toFixed(2)}*/}
-                {/*        </span>*/}
-                {/*        </div>*/}
-                {/*    </Typography>*/}
-                {/*    <Typography variant="h5">*/}
-                {/*        {this.props.profile.reviews.length} Reviews*/}
-                {/*    </Typography>*/}
-                {/*</CardContent>*/}
-                {/*<Divider variant="middle"/>*/}
-                {/*<CardContent align="center">*/}
-                {/*    <Typography variant="h6">*/}
-                {/*        About*/}
-                {/*    </Typography>*/}
-                {/*    <Typography variant="body1" color="textPrimary" component="p">*/}
-                {/*        {this.printDescription()}*/}
-                {/*    </Typography>*/}
-                {/*</CardContent>*/}
             </MuiThemeProvider>
         );
     }

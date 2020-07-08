@@ -47,17 +47,17 @@ export class ProfileView extends React.Component {
         })();
 
 
-        // (async () => {
-        //     try {
-        //         let data = await OfferService.getOffers();
-        //         this.setState({
-        //             dataOffers: [...data],
-        //             loading: false
-        //         });
-        //     } catch (err) {
-        //         console.error(err);
-        //     }
-        // })();
+        (async () => {
+            try {
+                let data = await OfferService.getOffer(id);
+                this.setState({
+                    dataOffers: [...data],
+                    loading: false
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        })();
     }
 
     async createReview(review) {
@@ -91,11 +91,10 @@ export class ProfileView extends React.Component {
                 <Container maxWidth="lg">
                     <Grid container className="grid">
                         <Grid item xs={12} align={"right"}>
-                            {/*<ProfileCard profile={this.state.user}/>*/}
                             <ProfileBio profile={this.state.user} />
                         </Grid>
                         <Grid item xs={12} align={"right"}>
-                            {/*<OfferList dataOffers={this.state.dataOffers}/>*/}
+                            <OfferList dataOffers={this.state.dataOffers}/>
                         </Grid>
                         <Grid item xs={6}>
                             <ReviewField
