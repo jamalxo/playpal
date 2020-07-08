@@ -13,6 +13,8 @@ import {withStyles} from "@material-ui/core/styles";
 import './HomePageView.css'
 import OfferService from "../../services/OfferService";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
+import OfferCard from "../../components/Offer/OfferCard";
+import OfferList from "../../components/Offer/OfferList";
 
 const useStyles = (theme) => ({
     container: {
@@ -63,7 +65,7 @@ class HomePageView extends React.Component {
         this.state = {
             loading: true,
             data: [],
-            dataOffers:[]
+            dataOffers: []
         };
     }
 
@@ -140,18 +142,11 @@ class HomePageView extends React.Component {
                         <Grid item xs={12}>
                             <ProfileList data={this.state.data}/>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12}>
                             <Typography variant="h3" className={classes.headerFont}>
                                 Checkout The Offers For These Games!
                             </Typography>
-                            <div>
-                                {this.state.dataOffers.map((item, index) => (
-                                    <Link key={index} className="linkDecoration" to={`/offer/${item._id}`}>
-                                        <p key={index}> xd </p>
-                                    </Link>
-                                ))}
-                            </div>
-
+                            <OfferList dataOffers={this.state.dataOffers}/>
                         </Grid>
                     </Grid>
                 </Container>
