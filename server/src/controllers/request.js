@@ -15,11 +15,11 @@ const answer = async (req, res) => {
 
         UserModel.findByIdAndUpdate(
             {_id: req.userId},
-            {pull:{pendingOffers:request._id}}
+            {$pull:{pendingOffers:request._id}}
         )
         UserModel.findByIdAndUpdate(
             {_id: offer.owner},
-            {pull:{createdRequests:request._id}}
+            {$pull:{createdRequests:request._id}}
         )
 
         return res.status(201).json(request)

@@ -61,7 +61,7 @@ const UserSchema = new mongoose.Schema({
       ref: 'Request'
     }],
     createdRequests:[{
-        type: mongoose.Schema.Type.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'Request'
     }],
 });
