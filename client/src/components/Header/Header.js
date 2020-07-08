@@ -1,7 +1,6 @@
 "use strict";
 
 import React from 'react';
-import {Button} from 'react-md';
 import {withRouter} from 'react-router-dom'
 import {ThemeProvider as MuiThemeProvider, withStyles} from '@material-ui/core/styles';
 import KebabMenu from '../KebabMenu';
@@ -9,7 +8,6 @@ import Toolbar2 from "@material-ui/core/Toolbar/Toolbar";
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Typography from '@material-ui/core/Typography';
 import {theme} from '../../theme';
-import SideBar from "../Sidebar/SideBar";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
@@ -19,9 +17,9 @@ import Tab from "@material-ui/core/Tab";
 import InputBase from "@material-ui/core/InputBase"; // Tell webpack this JS file uses this image
 import SearchIcon from '@material-ui/icons/Search';
 import {fade} from "@material-ui/core";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import Badge from "@material-ui/core/Badge";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+
 
 
 
@@ -198,6 +196,11 @@ class Header extends React.Component {
                                         inputProps={{ 'aria-label': 'search' }}
                                     />
                                 </div>
+                                <IconButton aria-label="show 17 new notifications" color="inherit">
+                                    <Badge badgeContent={17} color="secondary">
+                                        <NotificationsIcon />
+                                    </Badge>
+                                </IconButton>
                                 <KebabMenu id="toolbar-colored-kebab-menu"/>
                             </div>
                         </Toolbar2>
