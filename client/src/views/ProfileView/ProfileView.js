@@ -95,7 +95,7 @@ export class ProfileView extends React.Component {
                             <ProfileBio profile={this.state.user} />
                         </Grid>
                         <Grid item xs={12} align={"right"}>
-                            <OfferList dataOffers={this.state.dataOffers}/>
+                            {/*<OfferList dataOffers={this.state.dataOffers}/>*/}
                         </Grid>
                         <Grid item xs={6}>
                             <ReviewField
