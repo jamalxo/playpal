@@ -170,6 +170,64 @@ const getProfile = async (req, res) => {
         });
     }
 };
+const addPendingOffer = async (req, res) => {
+    try{
+        UserModel.findByIdAndUpdate(
+            {_id: req.body.playerId},
+            {$push:{pendingOffers:req.body.offerId}}
+            )
+    } catch(err) {
+        return res.status(500).json({
+            error: 'Internal server error',
+            message: err.message
+        });
+}
+}
+const removePendingOffer = async (req, res) => {
+    try{
+        UserModel.findByIdAndUpdate(
+            {_id: req.body.playerId},
+            {$pull:{pendingOffers:req.body.offerId}}
+        )
+    } catch(err) {
+        return res.status(500).json({
+            error: 'Internal server error',
+            message: err.message
+        });
+    }
+}
+
+
+const addRequestedOffer = async (req, res) => {
+        try{
+            UserModel.findByIdAndUpdate(
+                {_id: req.body.playerId},
+                {$push:{requestedOffers:req.body.offerId}}
+            )
+        } catch(err) {
+            return res.status(500).json({
+                error: 'Internal server error',
+                message: err.message
+            });
+        }
+}
+
+const removeRequestedOffer = async (req, res) => {
+    try{
+        UserModel.findByIdAndUpdate(
+            {_id: req.body.playerId},
+            {$pull:{requestedOffers:req.body.offerId}}
+        )
+    } catch(err) {
+        return res.status(500).json({
+            error: 'Internal server error',
+            message: err.message
+        });
+    }
+}
+
+
+
 
 module.exports = {
     login,
@@ -177,5 +235,9 @@ module.exports = {
     logout,
     me,
     getProfile,
-    getProfiles
+    getProfiles,
+    addPendingOffer,
+    addRequestedOffer,
+    removeRequestedOffer,
+    removePendingOffer,
 };

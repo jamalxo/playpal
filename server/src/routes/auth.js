@@ -13,5 +13,4 @@ router.post('/register', middlewares.upload.single('profileImage'), AuthControll
 router.get('/me', middlewares.checkAuthentication , AuthController.me);
 router.get('/logout', middlewares.checkAuthentication, AuthController.logout);
 
-
 module.exports = router;

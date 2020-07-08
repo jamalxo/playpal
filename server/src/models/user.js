@@ -55,7 +55,15 @@ const UserSchema = new mongoose.Schema({
     profileImage: {
         type: String,
         required: false,
-    }
+    },
+    pendingRequests:[{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Request'
+    }],
+    createdRequests:[{
+        type: mongoose.Schema.Type.ObjectId,
+        ref:'Request'
+    }],
 });
 
 UserSchema.set('versionKey', false);
