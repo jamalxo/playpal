@@ -88,19 +88,6 @@ const list  = async (req, res) => {
     }
 };
 
-const listForUser  = async (req, res) => {
-    try {
-        let offers = await OfferModel.find({owner: req.params.id});
-        console.log(offers);
-        return res.status(200).json(offers);
-    } catch(err) {
-        return res.status(500).json({
-            error: 'Internal server error',
-            message: err.message
-        });
-    }
-};
-
 
 module.exports = {
     create,
@@ -108,5 +95,4 @@ module.exports = {
     update,
     remove,
     list,
-    listForUser
 };

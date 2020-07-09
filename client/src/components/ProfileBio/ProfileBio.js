@@ -85,7 +85,7 @@ class ProfileCard extends React.Component {
             <MuiThemeProvider theme={theme}>
                 <Card key={this.props.key} className={classes.root}>
                     <CardContent align="left">
-                        <Grid container spacing={2} justify="left">
+                        <Grid container spacing={2}>
                             <Grid item xs={4} className={classes.picture}>
                                 <Avatar
                                     className="profilePicture"
@@ -95,7 +95,7 @@ class ProfileCard extends React.Component {
                             </Grid>
                             <Divider orientation="vertical" flexItem/>
                             <Grid item xs={7}>
-                                <Grid container spacing={2} justify="left">
+                                <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <Typography variant="h2" component="h2">
                                             {this.props.profile.username}

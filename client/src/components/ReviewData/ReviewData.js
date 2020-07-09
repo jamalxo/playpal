@@ -42,7 +42,7 @@ class ReviewData extends React.Component {
         let date = new Date(this.props.review.createdAt);
         return (
             <Card className={classes.root}>
-                <Grid container wrap alignItems="center">
+                <Grid container alignItems="center">
                     <Grid item xs={2} className={classes.profilePicturePosition}>
                         <CardContent>
                             <Avatar

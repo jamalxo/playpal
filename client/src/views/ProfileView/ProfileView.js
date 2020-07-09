@@ -26,6 +26,7 @@ import TabContext from '@material-ui/lab/TabContext';
 import {theme} from "../../theme";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import OfferCard from "../../components/Offer/OfferCard";
 
 const useStyles = (theme) => ({
     tab: {
@@ -59,7 +60,7 @@ class ProfileView extends React.Component {
         this.state = {
             loading: true,
             dataOffers: [],
-            currentTab: 2
+            currentTab: "1"
         };
 
         this.handleChangeInput = this.handleChangeInput.bind(this);
@@ -82,7 +83,9 @@ class ProfileView extends React.Component {
         (async () => {
             try {
                 let user = await ProfileService.getProfile(id);
+                let data = await OfferService.getOffers();
                 this.setState({
+                    dataOffers: [...data],
                     user: user,
                     loading: false
                 });
@@ -90,19 +93,6 @@ class ProfileView extends React.Component {
                 console.error(err);
             }
         })();
-
-
-        // (async () => {
-        //     try {
-        //         let data = await OfferService.getOffer(id);
-        //         this.setState({
-        //             dataOffers: [...data],
-        //             loading: false
-        //         });
-        //     } catch (err) {
-        //         console.error(err);
-        //     }
-        // })();
     }
 
     async createReview(review) {
@@ -144,7 +134,6 @@ class ProfileView extends React.Component {
                         <Grid item xs={3} className={classes.reviewGrid}>
                             <ServerBox profile={this.state.user}></ServerBox>
                         </Grid>
-                        {/*<OfferList dataOffers={this.state.dataOffers}/>*/}
                     </Grid>
                     <TabContext value={this.state.currentTab}>
                         <Grid container className={classes.spaceBetweenTabs}>
@@ -158,15 +147,21 @@ class ProfileView extends React.Component {
                                     className={classes.spaceBetweenTabs}
                                 >
                                     <Tab icon={<LocalOfferIcon style={{color: 'white'}}/>} label="OFFERS"
-                                         style={{color: 'white'}} value={1}/>
+                                         style={{color: 'white'}} value={"1"}/>
                                     <Tab icon={<RateReviewIcon style={{color: 'white'}}/>} label="REVIEWS"
-                                         style={{color: 'white'}} value={2}/>
+                                         style={{color: 'white'}} value={"2"}/>
                                 </Tabs>
-                                <TabPanel value={1} classes={{root: classes.tab}}>
-
-
+                                <TabPanel value={"1"} classes={{root: classes.tab}}>
+                                    <Typography variant="h4"
+                                                className={classes.commentHeader}>My Offers</Typography>
+                                    <Grid container spacing={2}>
+                                        {this.state.user.offers.map((offer, i) =>
+                                            <Grid item xs={3} key={i}>
+                                                <OfferCard key={i} price={offer.price} game={offer.game} profile={offer.owner}/>
+                                            </Grid>)}
+                                    </Grid>
                                 </TabPanel>
-                                <TabPanel value={2} classes={{root: classes.tab}}>
+                                <TabPanel value={"2"} classes={{root: classes.tab}}>
                                     <Typography variant="h4"
                                                 className={classes.commentHeader}>{this.state.user.reviews.length} Reviews</Typography>
                                     <Grid container spacing={2}>
@@ -186,7 +181,7 @@ class ProfileView extends React.Component {
                                                 <Grid item xs={6}>
                                                 </Grid>
                                                 {this.state.user.reviews.map((review, i) =>
-                                                    <Grid item xs={6}>
+                                                    <Grid item xs={6} key={i}>
                                                         <ReviewData key={i} review={review}/>
                                                     </Grid>)}
                                             </Grid>

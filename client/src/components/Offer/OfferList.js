@@ -5,7 +5,6 @@ import OfferCard from "./OfferCard";
 
 export default function OfferList(props) {
     return <Grid container justify="center">
-
         {props.dataOffers.map((item, index) => (
             <Grid key={index} item className="profileList">
 

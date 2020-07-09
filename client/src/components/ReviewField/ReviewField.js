@@ -71,6 +71,7 @@ class ReviewField extends React.Component {
                         </Grid>
                         <Grid item xs={9}>
                             <Rating
+                                name={"review"}
                                 value={this.state.rating}
                                 size={"large"}
                                 onChange={(event, newValue) => {
