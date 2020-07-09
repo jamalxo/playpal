@@ -9,8 +9,21 @@ import {Button} from "react-md";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import "./ReviewField.css";
+import {withStyles} from "@material-ui/core/styles";
 
-export class ReviewField extends React.Component {
+const useStyles = (theme) => ({
+    root: {
+        background: theme.palette.cardColor
+    },
+    reviewTitle: {
+        paddingLeft: 15
+    },
+    reviewTextField: {
+        padding: 5
+    }
+});
+
+class ReviewField extends React.Component {
 
     constructor(props) {
         super(props);
@@ -46,12 +59,13 @@ export class ReviewField extends React.Component {
     }
 
     render() {
+        const {classes} = this.props;
         return (
-            <Card>
+            <Card className={classes.root}>
                 <CardContent>
                     <Grid container alignItems="center">
                         <Grid item xs={3}>
-                            <Typography variant={"h5"} className="reviewTitle">
+                            <Typography variant={"h5"} className={classes.reviewTitle}>
                                 Your Review
                             </Typography>
                         </Grid>
@@ -64,7 +78,7 @@ export class ReviewField extends React.Component {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12} className="reviewTextField">
+                        <Grid item xs={12} className={classes.reviewTextField}>
                             <TextField
                                 id="outlined-basic"
                                 label="Write your Review..."
@@ -94,3 +108,4 @@ export class ReviewField extends React.Component {
         );
     }
 }
+export default withStyles(useStyles)(ReviewField);

@@ -12,7 +12,6 @@ export const theme = createMuiTheme({
             light: grey[800],
             contrastText: grey[50],
             white: purple[50],
-            test: grey[400]
         },
         secondary: {
             main: '#90caf9',
@@ -28,5 +27,6 @@ export const theme = createMuiTheme({
             contrastText: purple[50],
         },
         indicatorColor: blue[500],
+        cardColor: grey[400]
     },
 });

@@ -6,7 +6,7 @@ import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import {MovieDetailView} from './views/MovieDetailView';
 import {MovieFormView} from './views/MovieFormView';
 import UserService from "./services/UserService";
-import {ProfileView} from "./views/ProfileView/ProfileView";
+import ProfileView from "./views/ProfileView/ProfileView";
 import HomePageView from "./views/HomePageView/HomePageView";
 import SignInSide from "./components/SignInSide/SignInSide";
 import SignUp from "./components/UserSignUp/SignUp";

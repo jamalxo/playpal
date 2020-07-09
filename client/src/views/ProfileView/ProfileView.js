@@ -5,9 +5,9 @@ import ProfileService from '../../services/ProfileService';
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import Page from '../../components/Page/Page';
 import Grid from "@material-ui/core/Grid";
-import {ReviewField} from "../../components/ReviewField/ReviewField";
+import ReviewField from "../../components/ReviewField/ReviewField";
 import ReviewService from "../../services/ReviewService";
-import {ReviewData} from "../../components/ReviewData/ReviewData";
+import ReviewData from "../../components/ReviewData/ReviewData";
 import './ProfileView.css'
 import UserService from "../../services/UserService";
 import Container from "@material-ui/core/Container";
@@ -15,17 +15,53 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import ProfileBio from "../../components/ProfileBio/ProfileBio";
 import OfferService from "../../services/OfferService";
 import OfferList from "../../components/Offer/OfferList";
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import TabPanel from '@material-ui/lab/TabPanel';
+import TabContext from '@material-ui/lab/TabContext';
+import {theme} from "../../theme";
+import {withStyles} from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 
-export class ProfileView extends React.Component {
+const useStyles = (theme) => ({
+    tab: {
+        padding: 0
+    },
+    grid: {
+        paddingTop: 56
+    },
+    spaceUnderTabs: {
+        paddingBottom: 8
+    },
+    commentHeader: {
+        color: theme.palette.common.white,
+        paddingBottom: 15,
+        paddingTop: 15
+    }
+});
+
+class ProfileView extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             loading: true,
-            dataOffers: []
+            dataOffers: [],
+            currentTab: 2
         };
+
+        this.handleChangeInput = this.handleChangeInput.bind(this);
     }
+
+    handleChangeInput(target, value) {
+        this.setState({
+            [target]: value
+        });
+    }
+
 
     componentWillMount() {
         this.setState({
@@ -47,17 +83,17 @@ export class ProfileView extends React.Component {
         })();
 
 
-        (async () => {
-            try {
-                let data = await OfferService.getOffer(id);
-                this.setState({
-                    dataOffers: [...data],
-                    loading: false
-                });
-            } catch (err) {
-                console.error(err);
-            }
-        })();
+        // (async () => {
+        //     try {
+        //         let data = await OfferService.getOffer(id);
+        //         this.setState({
+        //             dataOffers: [...data],
+        //             loading: false
+        //         });
+        //     } catch (err) {
+        //         console.error(err);
+        //     }
+        // })();
     }
 
     async createReview(review) {
@@ -81,7 +117,7 @@ export class ProfileView extends React.Component {
     }
 
     render() {
-
+        const {classes} = this.props;
         if (this.state.loading) {
             return (<CircularProgress/>);
         }
@@ -89,29 +125,63 @@ export class ProfileView extends React.Component {
         return (
             <Page>
                 <Container maxWidth="lg">
-                    <Grid container className="grid">
-                        <Grid item xs={12} align={"right"}>
-                            <ProfileBio profile={this.state.user} />
+                    <TabContext value={this.state.currentTab}>
+                        <Grid container className={classes.grid}>
+                            <Grid item xs={12}>
+                                <Tabs
+                                    value={this.state.currentTab}
+                                    onChange={(e, newValue) => (this.handleChangeInput('currentTab', newValue))}
+                                    variant="fullWidth"
+                                    indicatorColor="secondary"
+                                    textColor="secondary"
+                                    className={classes.spaceUnderTabs}
+                                >
+                                    <Tab icon={<LocalOfferIcon style={{color: 'white'}}/>} label="OFFERS"
+                                         style={{color: 'white'}} value={1}/>
+                                    <Tab icon={<RateReviewIcon style={{color: 'white'}}/>} label="REVIEWS"
+                                         style={{color: 'white'}} value={2}/>
+                                </Tabs>
+                                <TabPanel value={1} classes={{root: classes.tab}}>
+
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <ProfileBio profile={this.state.user}/>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                        </Grid>
+                                    </Grid>
+
+
+
+                                </TabPanel>
+                                <TabPanel value={2} classes={{root: classes.tab}}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <ProfileBio profile={this.state.user}/>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <Typography variant="h4" className={classes.commentHeader}>{this.state.user.reviews.length} Reviews</Typography>
+                                            <ReviewField
+                                                onSubmit={(review) => {
+                                                    this.createReview(review);
+                                                    setTimeout(function () {
+                                                        window.location.reload();
+                                                    }, 100);
+                                                }}
+                                                error={this.state.error}
+                                            />
+                                            {this.state.user.reviews.map((review, i) => <ReviewData key={i} review={review}/>)}
+                                        </Grid>
+                                    </Grid>
+                                </TabPanel>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} align={"right"}>
-                            <OfferList dataOffers={this.state.dataOffers}/>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <ReviewField
-                                onSubmit={(review) => {
-                                    this.createReview(review);
-                                    setTimeout(function () {
-                                        window.location.reload();
-                                    }, 100);
-                                }}
-                                error={this.state.error}
-                            />
-                            {this.state.user.reviews.map((review, i) => <ReviewData key={i} review={review}/>)}
-                        </Grid>
-                    </Grid>
+                    </TabContext>
+                    {/*<OfferList dataOffers={this.state.dataOffers}/>*/}
                 </Container>
             </Page>
         );
     }
 }
 
+export default withStyles(useStyles)(ProfileView);

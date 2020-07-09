@@ -17,31 +17,26 @@ import Grid from "@material-ui/core/Grid";
 
 const useStyles = (theme) => ({
     root: {
-        background: theme.palette.primary.test
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
+        background: theme.palette.cardColor
     },
     star: {
         height: 60,
         width: 60
     },
-    nameAndRating: {
-        alignContent: "center"
-    },
     container: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        fontSize: 16
     },
     picture: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center"
+    },
+    about: {
+        fontSize: 16
     }
 });
 
@@ -64,8 +59,8 @@ class ProfileCard extends React.Component {
     printDescription() {
         if (this.props.profile.description == null) {
             return 'No description available.';
-        } else if (this.props.profile.description.length > 60) {
-            return this.props.profile.description.substring(0, 60) + " ...";
+        } else if (this.props.profile.description.length > 300) {
+            return this.props.profile.description.substring(0, 300) + " ...";
         } else {
             return this.props.profile.description;
         }
@@ -91,7 +86,7 @@ class ProfileCard extends React.Component {
                 <Card key={this.props.key} className={classes.root}>
                     <CardContent align="left">
                         <Grid container spacing={2} justify="left">
-                            <Grid item xs={2} className={classes.picture}>
+                            <Grid item xs={4} className={classes.picture}>
                                 <Avatar
                                     className="profilePicture"
                                     alt={this.props.profile.username}
@@ -99,26 +94,28 @@ class ProfileCard extends React.Component {
                                     src={this.props.profile.profileImage}/>
                             </Grid>
                             <Divider orientation="vertical" flexItem/>
-                            <Grid item xs={9}>
+                            <Grid item xs={7}>
                                 <Grid container spacing={2} justify="left">
-                                    <Grid item xs={12} className={classes.container}>
+                                    <Grid item xs={12}>
                                         <Typography variant="h2" component="h2">
                                             {this.props.profile.username}
                                             {this.displayVerifiedIcon()}
                                         </Typography>
-                                        <Rating name="read-only" value={this.getAvg()} readOnly className="rating"/>
-                                        <span>
-                                            {this.getAvg().toFixed(2)}
-                                        </span>
+                                        <div className={classes.container}>
+                                            <Rating name="read-only" value={this.getAvg()} readOnly className="rating"/>
+                                            <span>
+                                                {this.getAvg().toFixed(2)}
+                                            </span>
+                                        </div>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <div>
-                                            <Typography variant="h6">
+                                            <Typography variant="h5">
                                                 About
                                             </Typography>
-                                            <Typography variant="body1" color="textPrimary" component="p">
+                                            <span className={classes.about}>
                                                 {this.printDescription()}
-                                            </Typography>
+                                            </span>
                                         </div>
                                     </Grid>
                                 </Grid>
