@@ -78,10 +78,6 @@ export default class App extends React.Component {
         return(
             <MuiThemeProvider theme={theme}>
                 <div
-                    style={{
-                        backgroundColor: theme.palette.primary.dark,
-                        margin: 0
-                    }}
                 >
                     <Router>
                         <Switch>
