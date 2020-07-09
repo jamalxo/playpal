@@ -85,6 +85,7 @@ const useStyles = (theme) => ({
             marginLeft: theme.spacing(3),
             width: 'auto',
         },
+        height: '100%',
     },
     searchIcon: {
         padding: theme.spacing(0, 2),
@@ -109,6 +110,7 @@ const useStyles = (theme) => ({
         },
     },
     sectionDesktop: {
+        alignItems: "center",
         display: 'none',
         [theme.breakpoints.up('md')]: {
             display: 'flex',
@@ -224,7 +226,7 @@ class Header extends React.Component {
                                         <SearchIcon />
                                     </div>
                                     <InputBase
-                                        placeholder="Search…"
+                                        placeholder="Search…" //todo: FIX THIS
                                         classes={{
                                             root: classes.inputRoot,
                                             input: classes.inputInput,
