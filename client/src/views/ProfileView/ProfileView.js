@@ -8,6 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import ReviewField from "../../components/ReviewField/ReviewField";
 import ReviewService from "../../services/ReviewService";
 import ReviewData from "../../components/ReviewData/ReviewData";
+import AvailabilityBox from "../../components/AvailabilityBox/AvailabilityBox";
+import ServerBox from "../../components/ServerBox/ServerBox";
 import './ProfileView.css'
 import UserService from "../../services/UserService";
 import Container from "@material-ui/core/Container";
@@ -41,11 +43,12 @@ const useStyles = (theme) => ({
         paddingTop: 15
     },
     reviewGrid: {
+        paddingBottom: 15,
         display: "flex",
         flexDirection: "row",
-        alignItems: "flex-start",
-        fontSize: 16
-    }
+        alignItems: "flex-end",
+        alignSelf: "stretch"
+    },
 });
 
 class ProfileView extends React.Component {
@@ -131,14 +134,18 @@ class ProfileView extends React.Component {
         return (
             <Page>
                 <Container maxWidth="lg" className={classes.grid}>
-
-                    <Grid item xs={6}>
-                        <ProfileBio profile={this.state.user}/>
+                    <Grid container spacing={2} className={classes.reviewGrid}>
+                        <Grid item xs={6}>
+                            <ProfileBio profile={this.state.user}/>
+                        </Grid>
+                        <Grid item xs={3} className={classes.reviewGrid}>
+                            <AvailabilityBox profile={this.state.user}></AvailabilityBox>
+                        </Grid>
+                        <Grid item xs={3} className={classes.reviewGrid}>
+                            <ServerBox profile={this.state.user}></ServerBox>
+                        </Grid>
+                        {/*<OfferList dataOffers={this.state.dataOffers}/>*/}
                     </Grid>
-                    <Grid item xs={6}>
-                    </Grid>
-
-
                     <TabContext value={this.state.currentTab}>
                         <Grid container className={classes.spaceBetweenTabs}>
                             <Grid item xs={12}>
@@ -189,7 +196,6 @@ class ProfileView extends React.Component {
                             </Grid>
                         </Grid>
                     </TabContext>
-                    {/*<OfferList dataOffers={this.state.dataOffers}/>*/}
                 </Container>
             </Page>
         );
