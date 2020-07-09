@@ -52,6 +52,10 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Review'
     }],
+    offers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Offer'
+    }],
     profileImage: {
         type: String,
         required: false,

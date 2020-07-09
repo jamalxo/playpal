@@ -4,8 +4,7 @@ import {Link} from "react-router-dom";
 import OfferCard from "./OfferCard";
 
 export default function OfferList(props) {
-    return <Grid container justify="center">
-
+    return <Grid container spacing={2} justify="center">
         {props.dataOffers.map((item, index) => (
             <Grid key={index} item className="profileList">
 

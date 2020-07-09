@@ -1,0 +1,18 @@
+.profilePicture {
+    width: 150px !important;
+    height: 150px !important;
+}
+
+.reviewRating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.fontAverage {
+    font-size: 20px;
+}
+.rating {
+    font-size: 35px !important;
+}
