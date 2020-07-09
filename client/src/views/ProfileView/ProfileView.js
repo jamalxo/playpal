@@ -176,6 +176,8 @@ class ProfileView extends React.Component {
                                                         error={this.state.error}
                                                     />
                                                 </Grid>
+                                                <Grid item xs={6}>
+                                                </Grid>
                                                 {this.state.user.reviews.map((review, i) =>
                                                     <Grid item xs={6}>
                                                         <ReviewData key={i} review={review}/>
