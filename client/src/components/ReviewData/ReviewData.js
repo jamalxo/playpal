@@ -14,7 +14,6 @@ import Divider from "@material-ui/core/Divider";
 const useStyles = (theme) => ({
     root: {
         background: theme.palette.cardColor,
-        marginTop: 15
     },
     profilePicture: {
         width: 50,

@@ -30,15 +30,21 @@ const useStyles = (theme) => ({
         padding: 0
     },
     grid: {
-        paddingTop: 56
+        paddingTop: 75
     },
-    spaceUnderTabs: {
-        paddingBottom: 8
+    spaceBetweenTabs: {
+        paddingBottom: 15
     },
     commentHeader: {
         color: theme.palette.common.white,
         paddingBottom: 15,
         paddingTop: 15
+    },
+    reviewGrid: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "flex-start",
+        fontSize: 16
     }
 });
 
@@ -124,9 +130,17 @@ class ProfileView extends React.Component {
 
         return (
             <Page>
-                <Container maxWidth="lg">
+                <Container maxWidth="lg" className={classes.grid}>
+
+                    <Grid item xs={6}>
+                        <ProfileBio profile={this.state.user}/>
+                    </Grid>
+                    <Grid item xs={6}>
+                    </Grid>
+
+
                     <TabContext value={this.state.currentTab}>
-                        <Grid container className={classes.grid}>
+                        <Grid container className={classes.spaceBetweenTabs}>
                             <Grid item xs={12}>
                                 <Tabs
                                     value={this.state.currentTab}
@@ -134,7 +148,7 @@ class ProfileView extends React.Component {
                                     variant="fullWidth"
                                     indicatorColor="secondary"
                                     textColor="secondary"
-                                    className={classes.spaceUnderTabs}
+                                    className={classes.spaceBetweenTabs}
                                 >
                                     <Tab icon={<LocalOfferIcon style={{color: 'white'}}/>} label="OFFERS"
                                          style={{color: 'white'}} value={1}/>
@@ -143,34 +157,30 @@ class ProfileView extends React.Component {
                                 </Tabs>
                                 <TabPanel value={1} classes={{root: classes.tab}}>
 
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={6}>
-                                            <ProfileBio profile={this.state.user}/>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                        </Grid>
-                                    </Grid>
-
-
 
                                 </TabPanel>
                                 <TabPanel value={2} classes={{root: classes.tab}}>
+                                    <Typography variant="h4"
+                                                className={classes.commentHeader}>{this.state.user.reviews.length} Reviews</Typography>
                                     <Grid container spacing={2}>
-                                        <Grid item xs={6}>
-                                            <ProfileBio profile={this.state.user}/>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Typography variant="h4" className={classes.commentHeader}>{this.state.user.reviews.length} Reviews</Typography>
-                                            <ReviewField
-                                                onSubmit={(review) => {
-                                                    this.createReview(review);
-                                                    setTimeout(function () {
-                                                        window.location.reload();
-                                                    }, 100);
-                                                }}
-                                                error={this.state.error}
-                                            />
-                                            {this.state.user.reviews.map((review, i) => <ReviewData key={i} review={review}/>)}
+                                        <Grid item xs={12}>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={6}>
+                                                    <ReviewField
+                                                        onSubmit={(review) => {
+                                                            this.createReview(review);
+                                                            setTimeout(function () {
+                                                                window.location.reload();
+                                                            }, 100);
+                                                        }}
+                                                        error={this.state.error}
+                                                    />
+                                                </Grid>
+                                                {this.state.user.reviews.map((review, i) =>
+                                                    <Grid item xs={6}>
+                                                        <ReviewData key={i} review={review}/>
+                                                    </Grid>)}
+                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </TabPanel>
