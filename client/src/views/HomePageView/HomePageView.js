@@ -65,6 +65,10 @@ const useStyles = (theme) => ({
         color: theme.palette.primary.contrastText,
         paddingTop: '50px'
     },
+    headerInfo: {
+        fontWeight: '450',
+        color: theme.palette.primary.contrastText
+    },
     imageStyle: {
         width: 100,
         height: 100
@@ -124,26 +128,28 @@ class HomePageView extends React.Component {
                         {/*INTRO*/}
                             <Grid item xs={3} >
                                 <img src={Search} alt="Logo" className={classes.imageStyle}/>
-                                <Typography variant="h5" className={classes.headerFont}>
+                                <Typography variant="h5" className={classes.headerInfo}>
                                     SEARCH FOR OFFER
                                 </Typography>
-                                <FontAwesomeIcon icon="coffee"/>
+                                <Typography variant="h6" className={classes.headerInfo}>
+                                    SEARCH FOR OFFER
+                                </Typography>
                             </Grid>
                         <Grid item xs={3}>
                                 <img src={Order} alt="Logo" className={classes.imageStyle}/>
-                                <Typography variant="h5" className={classes.headerFont}>
+                                <Typography variant="h5" className={classes.headerInfo}>
                                     ORDER AN OFFER
                                 </Typography>
                             </Grid>
                             <Grid item xs={3} >
                                 <img src={Time} alt="Logo" className={classes.imageStyle}/>
-                                <Typography variant="h5" className={classes.headerFont}>
+                                <Typography variant="h5" className={classes.headerInfo}>
                                     WAIT FOR RESPONSE
                                 </Typography>
                             </Grid>
                             <Grid item xs={3}>
                                 <img src={Team} alt="Logo" className={classes.imageStyle}/>
-                                <Typography variant="h5" className={classes.headerFont}>
+                                <Typography variant="h5" className={classes.headerInfo}>
                                     PLAY TOGETHER!
                                 </Typography>
                             </Grid>
