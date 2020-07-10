@@ -33,23 +33,26 @@ export default function OfferCard(props){
     const classes = useStyles();
     const [profile, setProfile] = useState({})
     const [ProfileCard, setProfileCard] = useState(<div>Loading</div>)
-    useEffect(() => {    // Update the profile value on mount
-           async function getProfile(){
-               return await ProfileService.getProfile(props.owner)
-               }
-           setProfile(getProfile())
-           setProfileCard(
-               <div>
-           <Avatar
-               className="profilePicture"
-               alt={profile.username}
-               title={profile.username}
-               src={profile.profileImage}/>
-           <Typography variant="h2" component="h2">
-               {profile.username}
-           </Typography>
-               </div>
-           )
+    useEffect( () => {    // Update the profile value on mount
+        const fetchdata = async () =>
+        {
+            const newprof = await ProfileService.getProfile(props.owner)
+            setTimeout(function(){setProfile(newprof)},100)
+            setProfileCard(
+                <div>
+                    <Avatar
+                        className="profilePicture"
+                        alt={profile.username}
+                        title={profile.username}
+                        src={profile.profileImage}/>
+                    <Typography variant="h2" component="h2">
+                        {profile.username}
+                    </Typography>
+                </div>
+            )
+
+        }
+        fetchdata()
 
     },[]);
 

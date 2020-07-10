@@ -25,6 +25,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Moment from "react-moment";
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
+import UserService from "../../services/UserService";
 
 const useStyles = (theme) => ({
     root: {
@@ -264,7 +265,7 @@ class OfferForm extends React.Component {
         offer.game = this.state.game;
         offer.server = this.state.server;
         offer.availability = this.state.availability;
-
+        offer.owner = UserService.getCurrentUser().id
         this.props.onSubmit(offer);
     }
 

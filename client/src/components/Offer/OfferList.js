@@ -9,8 +9,8 @@ export default function OfferList(props) {
         {props.dataOffers.map((item, index) => (
             <Grid key={index} item className="profileList">
 
-                <Link key={index} className="linkDecoration" to={`/user/${item._id}`}>
-                    <OfferCard key={index} price={item.price} game={item.game} profile={item.owner}/>
+                <Link key={index} className="linkDecoration" to={`/user/${item.owner}`}>
+                    <OfferCard key={index} price={item.price} game={item.game} owner={item.owner}/>
                 </Link>
             </Grid>
         ))}
