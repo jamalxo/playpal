@@ -1,7 +1,7 @@
 "use strict";
 
 const OfferModel = require('../models/offer');
-
+const UserModel = require('../models/user');
 
 const create = async (req, res) => {
     //req.body.owner = req.user.id;
@@ -14,6 +14,14 @@ const create = async (req, res) => {
         let offerObj = req.body
         offerObj.owner = req.userId
         let offer = await OfferModel.create(offerObj);
+
+        UserModel.findById(req.userId, function(err, user) {
+            if (err) return console.log("err");
+            if (!user) return console.log("no user");
+
+            user.offers.push(offer);
+            user.save(function(err) {});
+        });
 
         return res.status(201).json(offer)
     } catch(err) {

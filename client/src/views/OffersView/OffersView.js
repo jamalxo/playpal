@@ -9,7 +9,6 @@ import {withRouter} from "react-router-dom";
 import OfferList from "../../components/Offer/OfferList";
 import Grid from "@material-ui/core/Grid";
 import OfferService from "../../services/OfferService";
-import OfferCard from "../../components/Offer/OfferCard";
 import Page from "../../components/Page/Page";
 import New from "../../resources/neu.svg";
 import Typography from "@material-ui/core/Typography";
@@ -69,8 +68,6 @@ class OffersView extends React.Component {
 
         let id = UserService.getCurrentUser().id;
 
-        console.log(id);
-
         (async () => {
             try {
                 let user = await ProfileService.getProfile(id);
@@ -79,6 +76,7 @@ class OffersView extends React.Component {
                     user: user,
                     loading: false
                 });
+                console.log(user);
             } catch (err) {
                 console.error(err);
             }
