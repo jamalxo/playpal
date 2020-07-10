@@ -26,7 +26,7 @@ import TabContext from '@material-ui/lab/TabContext';
 import {theme} from "../../theme";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import OfferCard from "../../components/Offer/OfferCard";
+import OfferCard from "../../components/OfferCard/OfferCard";
 
 const useStyles = (theme) => ({
     tab: {

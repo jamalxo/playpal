@@ -264,7 +264,6 @@ class OfferForm extends React.Component {
         offer.game = this.state.game;
         offer.server = this.state.server;
         offer.availability = this.state.availability;
-        offer.owner = UserService.getCurrentUser().id
         this.props.onSubmit(offer);
     }
 

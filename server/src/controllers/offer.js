@@ -11,7 +11,9 @@ const create = async (req, res) => {
     });
 
     try {
-        let offer = await OfferModel.create(req.body);
+        let offerObj = req.body
+        offerObj.owner = req.userId
+        let offer = await OfferModel.create(offerObj);
 
         return res.status(201).json(offer)
     } catch(err) {
