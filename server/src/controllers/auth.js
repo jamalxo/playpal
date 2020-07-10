@@ -132,7 +132,12 @@ const getProfiles = async (req, res) => {
                     select: 'username profileImage'
                 }
             })
-            .exec();
+            .populate({
+                path: 'offers',
+                model: 'Offer',
+                select: 'price game server availability'
+            });
+        console.log(users);
 
         return res.status(200).json(users);
     } catch(err) {
@@ -155,8 +160,11 @@ const getProfile = async (req, res) => {
                     select: 'username profileImage'
                 }
             })
-            .exec();
-
+            .populate({
+                path: 'offers',
+                model: 'Offer',
+                select: 'price game server availability'
+            });
         if (!user) return res.status(404).json({
             error: 'Not Found',
             message: `Profile not found`

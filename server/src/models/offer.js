@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 
 // Define the user schema
-const OfferSchema  = new mongoose.Schema({
+const  Offer  = new mongoose.Schema({
     price: {
         type: Number,
         required: false
@@ -40,15 +40,8 @@ const OfferSchema  = new mongoose.Schema({
 
 });
 
-const GameSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    }
-})
-
-OfferSchema.set('versionKey', false);
+Offer.set('versionKey', false);
 
 
 // Export the Movie model
-module.exports = mongoose.model('Offer', OfferSchema);
+module.exports = mongoose.model('Offer', Offer);
