@@ -133,7 +133,7 @@ class Header extends React.Component {
         //add more when more tabs
         if (path === '/offers') {
             currentTab = 1
-        } else {
+        } else if (path === '/') {
             currentTab = 0
         }
 

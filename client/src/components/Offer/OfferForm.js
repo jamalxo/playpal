@@ -136,6 +136,12 @@ class OfferForm extends React.Component {
     constructor(props) {
         super(props);
 
+        let editMode = false;
+
+        if (this.props.history.location.pathname.includes('edit')) {
+            editMode = true;
+        }
+
         this.state = {
             open: false,
         };
@@ -151,6 +157,7 @@ class OfferForm extends React.Component {
                 days: props.offer.days,
                 day: props.offer.day,
                 availability: props.offer.availability,
+                editMode: editMode
             };
         } else {
             this.state = {
@@ -160,6 +167,7 @@ class OfferForm extends React.Component {
                 days: [],
                 day: '',
                 availability: [],
+                editMode: editMode
             };
         }
 
@@ -282,7 +290,7 @@ class OfferForm extends React.Component {
                         <main className={classes.layout}>
                             <Paper className={classes.paper}>
                                 <Typography component="h1" variant="h4" align="center">
-                                    Create Offer
+                                    { !this.state.editMode ? <h1>Create Offer</h1> : <h1>Edit Offer</h1>}
                                 </Typography>
                                 <Grid container spacing={3} direction="column" justify="center" alignItems="center">
                                     {/*todo: add icon*/}
@@ -442,7 +450,7 @@ class OfferForm extends React.Component {
                                         onClick={this.handleSubmit}
                                         className={classes.button}
                                     >
-                                        Create
+                                        { !this.state.editMode ? <div>Create</div> : <div>Update</div>}
                                     </Button>
                                 </div>
                             </Paper>
