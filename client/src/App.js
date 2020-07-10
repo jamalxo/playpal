@@ -14,7 +14,7 @@ import {OfferFormView} from "./views/OfferFormView";
 
 import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import {theme} from "./theme";
-import {OffersView} from "./views/OffersView/OffersView";
+import OffersView from "./views/OffersView/OffersView";
 import {ProfileListView} from "./views/ProfileListView/ProfileListView";
 
 

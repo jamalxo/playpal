@@ -131,8 +131,8 @@ class Header extends React.Component {
         let currentTab = undefined;
 
         //add more when more tabs
-        if (path === '/offer/create') {
-            currentTab = 2
+        if (path === '/offers') {
+            currentTab = 1
         } else {
             currentTab = 0
         }
@@ -230,10 +230,6 @@ class Header extends React.Component {
                             >
                                 <Tab label="Home"
                                      onClick={() => this.props.history.push('/')} />
-                                <Tab label="Browse"
-                                     />
-                                <Tab label="Create Offer"
-                                     onClick={() => this.props.history.push('/offer/create')} />
                                 <Tab label="Offers"
                                      onClick={() => this.props.history.push('/offers')} />
                             </Tabs>

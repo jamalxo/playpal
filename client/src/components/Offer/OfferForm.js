@@ -148,8 +148,6 @@ class OfferForm extends React.Component {
                 price: props.offer.price,
                 game: props.offer.game,
                 server: props.offer.server,
-                startTime: props.offer.startTime,
-                endTime: props.offer.endTime,
                 days: props.offer.days,
                 day: props.offer.day,
                 availability: props.offer.availability,
@@ -159,8 +157,6 @@ class OfferForm extends React.Component {
                 price: 0,
                 game: '',
                 server: '',
-                startTime: date,
-                endTime: date,
                 days: [],
                 day: '',
                 availability: [],
@@ -265,6 +261,7 @@ class OfferForm extends React.Component {
         offer.server = this.state.server;
         offer.availability = this.state.availability;
         this.props.onSubmit(offer);
+        this.props.history.push('/offers')
     }
 
     render() {

@@ -20,6 +20,7 @@ export default class ProfileService {
     }
 
     static getProfile(id) {
+        console.log(id);
         return new Promise((resolve, reject) => {
             HttpService.get(`${ProfileService.baseURL()}/${id}`, function(data) {
                 if(data != undefined || Object.keys(data).length !== 0) {
