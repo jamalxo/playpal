@@ -10,7 +10,7 @@ export class OfferFormView extends React.Component {
     }
 
     componentWillMount() {
-        if (this.props.history.location.pathname === '/offer/create') {
+        if (this.props.history.location.pathname ==='/offer/create') {
             this.setState({
                 loading: false,
                 offer: undefined,
@@ -73,7 +73,6 @@ export class OfferFormView extends React.Component {
     }
 
     render() {
-        console.log(this.state.openRes);
         // THIS IS IMPORTANT
         if (this.state.loading) {
             return (<h2>Loading...</h2>);

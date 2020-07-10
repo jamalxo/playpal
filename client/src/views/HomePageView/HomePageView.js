@@ -92,7 +92,8 @@ const useStyles = (theme) => ({
     paper: {
         backgroundColor: theme.palette.primary.dark,
         marginTop: 50,
-        padding: 20
+        padding: 20,
+        marginBottom: 50
     },
 });
 

@@ -126,12 +126,26 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
 
+        let path = this.props.history.location.pathname;
+
+        let currentTab = undefined;
+
+        //add more when more tabs
+        if (path === '/offer/create') {
+            currentTab = 2
+        } else {
+            currentTab = 0
+        }
+
+
         this.state = {
-            value: 0,
+            loading: false,
+            value: currentTab,
             anchorEl: null,
             isMenuOpen: false,
             user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
         };
+
 
         this.handleChange = this.handleChange.bind(this);
         this.handleMenuClose = this.handleMenuClose.bind(this);
@@ -139,10 +153,8 @@ class Header extends React.Component {
     }
 
 
-    handleChange(event, newValue) {
-        this.setState({
-            open: newValue
-        });
+    handleChange(event, value) {
+        this.setState(Object.assign({}, this.state, {value: value}));
     };
 
     handleMenuOpen(event) {
@@ -178,6 +190,10 @@ class Header extends React.Component {
 
     render() {
         const {classes} = this.props;
+        if (this.state.loading) {
+            return (<h2>Loading...</h2>);
+        }
+
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={classes.root}>
@@ -216,8 +232,8 @@ class Header extends React.Component {
                                      onClick={() => this.props.history.push('/')} />
                                 <Tab label="Browse"
                                      />
-                                <Tab label="Third Tab"
-                                     />
+                                <Tab label="Create Offer"
+                                     onClick={() => this.props.history.push('/offer/create')} />
                             </Tabs>
                             <div className={classes.grow} />
                             <div className={classes.sectionDesktop}>

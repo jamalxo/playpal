@@ -1,0 +1,8 @@
+.fill-window {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    height: 100vh;
+    min-height : 100vh
+}

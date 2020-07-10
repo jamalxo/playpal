@@ -75,7 +75,9 @@ const useStyles = (theme) => ({
         display: 'flex',
         justifyContent: 'flex-end',
     },
-
+    grid: {
+        marginTop: 50
+    }
 });
 
 const ITEM_HEIGHT = 48;
@@ -164,9 +166,6 @@ class OfferForm extends React.Component {
             };
         }
 
-        console.log('state')
-        console.log(this.state);
-
         this.handleChangePrice = this.handleChangePrice.bind(this);
         this.handleChangeGame = this.handleChangeGame.bind(this);
         this.handleChangeServer = this.handleChangeServer.bind(this);
@@ -183,7 +182,7 @@ class OfferForm extends React.Component {
         this.deleteAllAval = this.deleteAllAval.bind(this);
     }
 
-    handleChangePrice(e,value) {
+    handleChangePrice(e, value) {
         this.setState(Object.assign({}, this.state, {price: value}));
     }
 
@@ -273,175 +272,186 @@ class OfferForm extends React.Component {
         const avalShow = this.state.availability.length != 0;
         const avalList = this.state.availability;
 
-        console.log(this.state.game);
         return (
             <MuiThemeProvider theme={theme}>
-                <Page>
-                    <main className={classes.layout}>
-                        <Paper className={classes.paper}>
-                            <Typography component="h1" variant="h4" align="center">
-                                Create Offer
-                            </Typography>
-                            <Grid container spacing={3} direction="column" justify="center" alignItems="center">
-                                {/*todo: add icon*/}
-                                <Grid item xs={6} sm={3}>
-                                    <FormControl className={classes.formControl}>
-                                        <InputLabel id="demo-mutiple-name-label">Game</InputLabel>
-                                        <Select
-                                            labelId="demo-mutiple-name-label"
-                                            id="demo-mutiple-name"
-                                            value={this.state.game}
-                                            onChange={this.handleChangeGame}
-                                            input={<Input/>}
-                                            MenuProps={MenuProps}
-                                        >
-                                            {games.map((game) => (
-                                                <MenuItem key={game} value={game}>
-                                                    {game}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={6} sm={3}>
-                                    <FormControl className={classes.formControl}>
-                                        <InputLabel id="demo-mutiple-name-label">Server</InputLabel>
-                                        <Select
-                                            labelId="demo-mutiple-name-label"
-                                            id="demo-mutiple-name"
-                                            value={this.state.server}
-                                            onChange={this.handleChangeServer}
-                                            input={<Input/>}
-                                            MenuProps={MenuProps}
-                                        >
-                                            {server.map((server) => (
-                                                <MenuItem key={server} value={server}>
-                                                    {server}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    className={classes.grid}
+                >
+                    <Page>
+                        <main className={classes.layout}>
+                            <Paper className={classes.paper}>
+                                <Typography component="h1" variant="h4" align="center">
+                                    Create Offer
+                                </Typography>
                                 <Grid container spacing={3} direction="column" justify="center" alignItems="center">
-
+                                    {/*todo: add icon*/}
                                     <Grid item xs={6} sm={3}>
-                                        <CurrencyTextField
-                                            label="Amount"
-                                            variant="standard"
-                                            value={this.state.price}
-                                            currencySymbol="$"
-                                            minimumValue="0"
-                                            outputFormat="string"
-                                            decialCharacter="."
-                                            digitGroupSeparator=","
-                                            onChange={this.handleChangePrice}
-                                            style={{paddingLeft:'10px'}}
-                                        />
+                                        <FormControl className={classes.formControl}>
+                                            <InputLabel id="demo-mutiple-name-label">Game</InputLabel>
+                                            <Select
+                                                labelId="demo-mutiple-name-label"
+                                                id="demo-mutiple-name"
+                                                value={this.state.game}
+                                                onChange={this.handleChangeGame}
+                                                input={<Input/>}
+                                                MenuProps={MenuProps}
+                                            >
+                                                {games.map((game) => (
+                                                    <MenuItem key={game} value={game}>
+                                                        {game}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
-                                </Grid>
-
-                                <div>
+                                    <Grid item xs={6} sm={3}>
+                                        <FormControl className={classes.formControl}>
+                                            <InputLabel id="demo-mutiple-name-label">Server</InputLabel>
+                                            <Select
+                                                labelId="demo-mutiple-name-label"
+                                                id="demo-mutiple-name"
+                                                value={this.state.server}
+                                                onChange={this.handleChangeServer}
+                                                input={<Input/>}
+                                                MenuProps={MenuProps}
+                                            >
+                                                {server.map((server) => (
+                                                    <MenuItem key={server} value={server}>
+                                                        {server}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
                                     <Grid container spacing={3} direction="column" justify="center" alignItems="center">
-                                    <Button className={classes.addButton} variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                                        Add Time
-                                    </Button>
-                                    <Dialog open={this.state.open || false} onClose={this.handleClose}
-                                            aria-labelledby="form-dialog-title">
-                                        <DialogTitle id="form-dialog-title">Add</DialogTitle>
-                                        <DialogContent>
-                                            <DialogContentText>
-                                                Please add the day and time you are available in.
-                                            </DialogContentText>
-                                            <Grid item xs={12} sm={6}>
-                                                <FormControl className={classes.formControl}>
-                                                    <InputLabel id="demo-mutiple-name-label">Available Days</InputLabel>
-                                                    <Select
-                                                        labelId="demo-mutiple-name-label"
-                                                        id="demo-mutiple-name"
-                                                        value={this.state.day}
-                                                        onChange={this.handleChangeDayAvailable}
-                                                        input={<Input/>}
-                                                        MenuProps={MenuProps}
-                                                    >
-                                                        {days.map((day) => (
-                                                            <MenuItem key={day} value={day}>
-                                                                {day}
-                                                            </MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </FormControl>
-                                            </Grid>
-                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                <Grid item xs={12} sm={6}>
-                                                    <KeyboardTimePicker
-                                                        margin="normal"
-                                                        id="time-picker"
-                                                        label="From"
-                                                        value={this.state.startTime}
-                                                        onChange={this.handleChangeStartTime}
-                                                        KeyboardButtonProps={{
-                                                            'aria-label': 'change time',
-                                                        }}
-                                                    />
-                                                </Grid>
-                                            </MuiPickersUtilsProvider>
-                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                <Grid item xs={12} sm={6}>
-                                                    <KeyboardTimePicker
-                                                        margin="normal"
-                                                        id="time-picker"
-                                                        label="To"
-                                                        value={this.state.endTime}
-                                                        onChange={this.handleChangeEndTime}
-                                                        KeyboardButtonProps={{
-                                                            'aria-label': 'change time',
-                                                        }}
-                                                    />
-                                                </Grid>
-                                            </MuiPickersUtilsProvider>
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button onClick={this.handleClose} color="primary">
-                                                Cancel
-                                            </Button>
-                                            <Button onClick={this.handleChangeAvailability} color="primary">
-                                                Add
-                                            </Button>
-                                        </DialogActions>
-                                    </Dialog>
+
+                                        <Grid item xs={6} sm={3}>
+                                            <CurrencyTextField
+                                                label="Amount"
+                                                variant="standard"
+                                                value={this.state.price}
+                                                currencySymbol="$"
+                                                minimumValue="0"
+                                                outputFormat="string"
+                                                decialCharacter="."
+                                                digitGroupSeparator=","
+                                                onChange={this.handleChangePrice}
+                                                style={{paddingLeft: '10px'}}
+                                            />
+                                        </Grid>
                                     </Grid>
-                                </div>
-                                {/*dont show if no elements in availability*/}
-                                {avalShow ? <Grid item xs={6} sm={3}>
-                                    <Typography component="h1" variant="h6" align="center">
-                                        Availabilities
-                                    </Typography>
-                                    <div className={classes.demo}>
-                                        <List dense={true}>
-                                            {generate(
-                                                avalList
-                                            )}
-                                        </List>
+
+                                    <div>
+                                        <Grid container spacing={3} direction="column" justify="center"
+                                              alignItems="center">
+                                            <Button className={classes.addButton} variant="outlined" color="primary"
+                                                    onClick={this.handleClickOpen}>
+                                                Add Time
+                                            </Button>
+                                            <Dialog open={this.state.open || false} onClose={this.handleClose}
+                                                    aria-labelledby="form-dialog-title">
+                                                <DialogTitle id="form-dialog-title">Add</DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText>
+                                                        Please add the day and time you are available in.
+                                                    </DialogContentText>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <FormControl className={classes.formControl}>
+                                                            <InputLabel id="demo-mutiple-name-label">Available
+                                                                Days</InputLabel>
+                                                            <Select
+                                                                labelId="demo-mutiple-name-label"
+                                                                id="demo-mutiple-name"
+                                                                value={this.state.day}
+                                                                onChange={this.handleChangeDayAvailable}
+                                                                input={<Input/>}
+                                                                MenuProps={MenuProps}
+                                                            >
+                                                                {days.map((day) => (
+                                                                    <MenuItem key={day} value={day}>
+                                                                        {day}
+                                                                    </MenuItem>
+                                                                ))}
+                                                            </Select>
+                                                        </FormControl>
+                                                    </Grid>
+                                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                        <Grid item xs={12} sm={6}>
+                                                            <KeyboardTimePicker
+                                                                margin="normal"
+                                                                id="time-picker"
+                                                                label="From"
+                                                                value={this.state.startTime}
+                                                                onChange={this.handleChangeStartTime}
+                                                                KeyboardButtonProps={{
+                                                                    'aria-label': 'change time',
+                                                                }}
+                                                            />
+                                                        </Grid>
+                                                    </MuiPickersUtilsProvider>
+                                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                        <Grid item xs={12} sm={6}>
+                                                            <KeyboardTimePicker
+                                                                margin="normal"
+                                                                id="time-picker"
+                                                                label="To"
+                                                                value={this.state.endTime}
+                                                                onChange={this.handleChangeEndTime}
+                                                                KeyboardButtonProps={{
+                                                                    'aria-label': 'change time',
+                                                                }}
+                                                            />
+                                                        </Grid>
+                                                    </MuiPickersUtilsProvider>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={this.handleClose} color="primary">
+                                                        Cancel
+                                                    </Button>
+                                                    <Button onClick={this.handleChangeAvailability} color="primary">
+                                                        Add
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
+                                        </Grid>
                                     </div>
-                                    {/*todo: styling button*/}
-                                    <Button className={classes.addButton} variant="outlined" color="primary" onClick={this.deleteAllAval}>
-                                        Delete All Times
+                                    {/*dont show if no elements in availability*/}
+                                    {avalShow ? <Grid item xs={6} sm={3}>
+                                        <Typography component="h1" variant="h6" align="center">
+                                            Availabilities
+                                        </Typography>
+                                        <div className={classes.demo}>
+                                            <List dense={true}>
+                                                {generate(
+                                                    avalList
+                                                )}
+                                            </List>
+                                        </div>
+                                        {/*todo: styling button*/}
+                                        <Button className={classes.addButton} variant="outlined" color="primary"
+                                                onClick={this.deleteAllAval}>
+                                            Delete All Times
+                                        </Button>
+                                    </Grid> : null}
+                                </Grid>
+                                <div className={classes.buttons}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={this.handleSubmit}
+                                        className={classes.button}
+                                    >
+                                        Create
                                     </Button>
-                                </Grid> : null}
-                            </Grid>
-                            <div className={classes.buttons}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={this.handleSubmit}
-                                    className={classes.button}
-                                >
-                                    Create
-                                </Button>
-                            </div>
-                        </Paper>
-                    </main>
-                </Page>
+                                </div>
+                            </Paper>
+                        </main>
+                    </Page>
+                </Grid>
             </MuiThemeProvider>
         );
     }

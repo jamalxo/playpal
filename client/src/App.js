@@ -77,8 +77,7 @@ export default class App extends React.Component {
     render() {
         return(
             <MuiThemeProvider theme={theme}>
-                <div
-                >
+                <div>
                     <Router>
                         <Switch>
                             {this.state.routes.map((route, i) => (<Route key={i} {...route}/>))}
