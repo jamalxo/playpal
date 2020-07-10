@@ -1,15 +1,12 @@
 "use strict";
 
 import React from 'react';
-import {Button} from 'react-md';
 import {withRouter} from 'react-router-dom'
 import {ThemeProvider as MuiThemeProvider, withStyles} from '@material-ui/core/styles';
-import KebabMenu from '../KebabMenu';
 import Toolbar2 from "@material-ui/core/Toolbar/Toolbar";
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Typography from '@material-ui/core/Typography';
 import {theme} from '../../theme';
-import SideBar from "../Sidebar/SideBar";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
@@ -19,9 +16,15 @@ import Tab from "@material-ui/core/Tab";
 import InputBase from "@material-ui/core/InputBase"; // Tell webpack this JS file uses this image
 import SearchIcon from '@material-ui/icons/Search';
 import {fade} from "@material-ui/core";
+import Badge from "@material-ui/core/Badge";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import Badge from "@material-ui/core/Badge";
+import UserService from "../../services/UserService";
+import {Avatar, FontIcon, ListItem} from "react-md";
+
 
 
 
@@ -30,9 +33,6 @@ const drawerWidth = 240;
 const useStyles = (theme) => ({
     grow: {
         flexGrow: 1,
-    },
-    image: {
-        backgroundImage: 'url("../../resources/joystick.svg")'
     },
     imageStyle: {
         width: 50,
@@ -85,6 +85,7 @@ const useStyles = (theme) => ({
             marginLeft: theme.spacing(3),
             width: 'auto',
         },
+        height: '100%',
     },
     searchIcon: {
         padding: theme.spacing(0, 2),
@@ -109,6 +110,7 @@ const useStyles = (theme) => ({
         },
     },
     sectionDesktop: {
+        alignItems: "center",
         display: 'none',
         [theme.breakpoints.up('md')]: {
             display: 'flex',
@@ -119,29 +121,79 @@ const useStyles = (theme) => ({
     },
 });
 
-
 class Header extends React.Component {
 
     constructor(props) {
         super(props);
 
+        let path = this.props.history.location.pathname;
+
+        let currentTab = undefined;
+
+        //add more when more tabs
+        if (path === '/offer/create') {
+            currentTab = 2
+        } else {
+            currentTab = 0
+        }
+
+
         this.state = {
-            value: 0
+            loading: false,
+            value: currentTab,
+            anchorEl: null,
+            isMenuOpen: false,
+            user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
         };
 
-        this.handleChange = this.handleChange.bind(this);
 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleMenuClose = this.handleMenuClose.bind(this);
+        this.handleMenuOpen = this.handleMenuOpen.bind(this);
     }
 
 
-    handleChange(event, newValue) {
-        this.setState({
-            open: newValue
-        });
+    handleChange(event, value) {
+        this.setState(Object.assign({}, this.state, {value: value}));
     };
+
+    handleMenuOpen(event) {
+        this.setState({
+            anchorEl: event.currentTarget,
+            isMenuOpen: true
+        });
+    }
+
+    handleMenuClose(event) {
+        this.setState({
+            anchorEl: event.currentTarget,
+            isMenuOpen: false
+        });
+    }
+
+    logout() {
+        UserService.logout();
+        this.state = {
+            user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
+        };
+        if(this.props.location.pathname !== '/') {
+            this.props.history.push('/');
+        }
+        else {
+            window.location.reload();
+        }
+    }
+
+    getUserId() {
+        return UserService.getCurrentUser().id;
+    }
 
     render() {
         const {classes} = this.props;
+        if (this.state.loading) {
+            return (<h2>Loading...</h2>);
+        }
+
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={classes.root}>
@@ -180,8 +232,8 @@ class Header extends React.Component {
                                      onClick={() => this.props.history.push('/')} />
                                 <Tab label="Browse"
                                      />
-                                <Tab label="Third Tab"
-                                     />
+                                <Tab label="Create Offer"
+                                     onClick={() => this.props.history.push('/offer/create')} />
                             </Tabs>
                             <div className={classes.grow} />
                             <div className={classes.sectionDesktop}>
@@ -190,7 +242,7 @@ class Header extends React.Component {
                                         <SearchIcon />
                                     </div>
                                     <InputBase
-                                        placeholder="Search…"
+                                        placeholder="Search…" //todo: FIX THIS
                                         classes={{
                                             root: classes.inputRoot,
                                             input: classes.inputInput,
@@ -198,7 +250,41 @@ class Header extends React.Component {
                                         inputProps={{ 'aria-label': 'search' }}
                                     />
                                 </div>
-                                <KebabMenu id="toolbar-colored-kebab-menu"/>
+                                <IconButton aria-label="show 17 new notifications" color="inherit">
+                                    <Badge badgeContent={17} color="secondary">
+                                        <NotificationsIcon />
+                                    </Badge>
+                                </IconButton>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="account of current user"
+                                    // aria-controls={menuId}
+                                    aria-haspopup="true"
+                                    onClick={this.handleMenuOpen}
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                                <Menu
+                                    anchorEl={this.state.anchorEl}
+                                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                    // id={menuId}
+                                    keepMounted
+                                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                    open={this.state.isMenuOpen}
+                                    onClose={this.handleMenuClose}
+                                >
+                                    {
+                                        this.state.user ?
+                                            <div>
+                                                <MenuItem
+                                                    onClick={() => this.props.history.push('/user/' + this.getUserId())}>Profile</MenuItem>
+                                                <MenuItem
+                                                    onClick={() => this.logout()}>Logout</MenuItem>
+                                            </div>
+                                        : <MenuItem onClick={() => this.props.history.push('/login')}/>
+                                    }
+                                </Menu>
                             </div>
                         </Toolbar2>
                     </AppBar>

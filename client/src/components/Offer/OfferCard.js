@@ -14,7 +14,7 @@ import ProfileService from "../../services/ProfileService";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        background: 'linear-gradient(45deg, rgba(200,138,255,0.9878151944371498) 0%, rgba(255,97,97,0.154) 100%)',
+        background: 'theme.palette.primary.dark',
         flexGrow: 1,
     },
     menuButton: {
@@ -31,8 +31,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OfferCard(props){
     const classes = useStyles();
-    const [profile, setProfile] = useState({})
-    const [ProfileCard, setProfileCard] = useState(<div>Loading</div>)
+    const [profile, setProfile] = useState({});
+    const [ProfileCard, setProfileCard] = useState(<div>Loading</div>);
+
     useEffect(() => {    // Update the profile value on mount
            async function getProfile(){
                return await ProfileService.getProfile(props.owner)

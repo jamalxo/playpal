@@ -12,10 +12,8 @@ import SignInSide from "./components/SignInSide/SignInSide";
 import SignUp from "./components/UserSignUp/SignUp";
 import {OfferFormView} from "./views/OfferFormView";
 
-import {ThemeProvider as MuiThemeProvider, withStyles} from '@material-ui/core/styles';
+import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import {theme} from "./theme";
-
-// import {CreateOfferView} from "./views/CreateOfferView"
 
 
 export default class App extends React.Component {
@@ -79,11 +77,7 @@ export default class App extends React.Component {
     render() {
         return(
             <MuiThemeProvider theme={theme}>
-                <div
-                    style={{
-                        backgroundColor: theme.palette.primary.dark
-                    }}
-                >
+                <div>
                     <Router>
                         <Switch>
                             {this.state.routes.map((route, i) => (<Route key={i} {...route}/>))}
