@@ -234,6 +234,8 @@ class Header extends React.Component {
                                      />
                                 <Tab label="Create Offer"
                                      onClick={() => this.props.history.push('/offer/create')} />
+                                <Tab label="Offers"
+                                     onClick={() => this.props.history.push('/offers')} />
                             </Tabs>
                             <div className={classes.grow} />
                             <div className={classes.sectionDesktop}>
