@@ -76,7 +76,6 @@ class OffersView extends React.Component {
                     user: user,
                     loading: false
                 });
-                console.log(user);
             } catch (err) {
                 console.error(err);
             }
