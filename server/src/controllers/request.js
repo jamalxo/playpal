@@ -56,7 +56,7 @@ const create = async (req, res) => {
 
         UserModel.findByIdAndUpdate(
             {_id: offer.owner},
-            {$push:{"pendingOffers":request}},
+            {$push:{"pendingRequests":request}},
             {safe: true, upsert: true},
             function(err, model) {
                 console.log(err);
