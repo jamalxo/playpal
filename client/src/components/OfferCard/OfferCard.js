@@ -21,7 +21,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Tooltip from "@material-ui/core/Tooltip";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import {Link} from "react-router-dom";
 import BookingDialog from "../BookingDialog/BookingDialog";
 import RequestService from "../../services/RequestService";
 import {getGameIcon} from "../../services/IconService";
