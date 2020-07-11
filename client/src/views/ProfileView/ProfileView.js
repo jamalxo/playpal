@@ -154,10 +154,7 @@ class ProfileView extends React.Component {
                                     <Typography variant="h4"
                                                 className={classes.commentHeader}>My Offers</Typography>
                                     <Grid container spacing={2}>
-                                        {this.state.user.offers.map((offer, i) =>
-                                            <Grid item xs={3} key={i}>
-                                                <OfferCard key={i} price={offer.price} game={offer.game} profile={offer.owner}/>
-                                            </Grid>)}
+                                        <OfferList dataOffers={this.state.user.offers}/> :
                                     </Grid>
                                 </TabPanel>
                                 <TabPanel value={"2"} classes={{root: classes.tab}}>

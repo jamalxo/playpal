@@ -87,7 +87,7 @@ const useStyles = (theme) => ({
         paddingRight: 10
     },
     paper: {
-        backgroundColor: theme.palette.primary.dark,
+        backgroundColor: theme.palette.primary.light,
         marginTop: 50,
         padding: 20,
         marginBottom: 50

@@ -13,7 +13,7 @@ import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import Grid from "@material-ui/core/Grid";
 import './OfferCard.css';
-import LoL from '../../resources/games/LoL.png'
+import LoL from '../../resources/games/lol.png'
 import Dota from '../../resources/games/dota2.png'
 import CSGO from '../../resources/games/csgo.png'
 import Search from "../../resources/suche.svg";
@@ -23,9 +23,7 @@ import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import {Link} from "react-router-dom";
 import BookingDialog from "../BookingDialog/BookingDialog";
-import RequestService from "../../services/RequestService";
 import EditIcon from '@material-ui/icons/Edit';
-import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,28 +60,34 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function OfferCard(props){
+export default function OfferCard(props) {
     const classes = useStyles();
     const [profile, setProfile] = useState({})
     const [image, setImage] = useState({})
     const [dialogOpen, setDialog] = useState(false)
-    useEffect( () => {    // Update the profile value on mount
-        const fetchdata = async () =>
-        {
+    useEffect(() => {    // Update the profile value on mount
+        const fetchdata = async () => {
             const newprof = await ProfileService.getProfile(props.offer.owner)
             setProfile(newprof)
         }
-        switch(props.offer.game)
-        {
-            case 'LoL': setImage(LoL);break;
-            case 'DotA 2': setImage(Dota);break;
-            case 'CS:GO': setImage(CSGO);break;
-            default: setImage(Search);break;
+        switch (props.offer.game) {
+            case 'LoL':
+                setImage(LoL);
+                break;
+            case 'DotA 2':
+                setImage(Dota);
+                break;
+            case 'CS:GO':
+                setImage(CSGO);
+                break;
+            default:
+                setImage(Search);
+                break;
         }
 
         fetchdata()
 
-    },[]);
+    }, []);
 
     const displayVerifiedIcon = () => {
         if (profile.usertype === "professional") {
@@ -96,22 +100,23 @@ export default function OfferCard(props){
         } else {
             return '';
         }
-    }
+    };
     const handleClose = () => {
         setDialog(false)
-    }
+    };
+
 
     return (
         <MuiThemeProvider theme={theme}>
             <Card classes={{root: classes.root}} className="OfferCard" key={props.key}>
-                <Link className={classes.link}  to={`/offer/edit/${props.id}`}>
+                <Link className={classes.link} to={`/offer/edit/${props.offer._id}`}>
                     <EditIcon/>
                 </Link>
                 <CardActionArea className={classes.description}>
                     <CardContent align="center">
                         <Link className="linkDecoration" to={`/user/${profile._id}`}>
 
-                        <Avatar
+                            <Avatar
                                 className="profilePicture"
                                 alt={profile.username}
                                 title={profile.username}
@@ -132,10 +137,10 @@ export default function OfferCard(props){
                             justify="center"
                             alignItems="center"
                         >
-                                <CardMedia src={image} component="img" className={classes.imageStyle}/>
-                                <Typography variant="h4" component="h4">
-                                    {props.offer.game}
-                                </Typography>
+                            <CardMedia src={image} component="img" className={classes.imageStyle}/>
+                            <Typography variant="h4" component="h4">
+                                {props.offer.game}
+                            </Typography>
                         </Grid>
                     </CardContent>
                     <Divider variant="middle"/>
@@ -156,20 +161,22 @@ export default function OfferCard(props){
                         </Grid>
 
                         <Grid className={classes.bookButton}
-                            container
-                            direction="column"
-                            justify="flex-end"
-                            alignItems="flex-end"
+                              container
+                              direction="column"
+                              justify="flex-end"
+                              alignItems="flex-end"
                         >
-                        <Button variant="contained" color="primary" onClick={() => {setDialog(true);console.log("Clicked on Button")}}>
-                            Book
-                        </Button>
-                            </Grid>
+                            <Button variant="contained" color="primary" onClick={() => {
+                                setDialog(true);
+                            }}>
+                                Book
+                            </Button>
+                        </Grid>
                     </CardActions>
                 </CardActionArea>
 
             </Card>
-            <BookingDialog open={dialogOpen} handleClose={handleClose} offer={props.offer} profile={profile} />
+            <BookingDialog open={dialogOpen} handleClose={handleClose} offer={props.offer} profile={profile}/>
 
         </MuiThemeProvider>
     );

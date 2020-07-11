@@ -364,7 +364,8 @@ class OfferForm extends React.Component {
                                                     <DialogContentText>
                                                         Please add the day and time you are available in.
                                                     </DialogContentText>
-                                                    <Grid item xs={12} sm={6}>
+                                                    <Grid item xs={12} sm={6} direction="column" justify="center"
+                                                          alignItems="center">
                                                         <FormControl className={classes.formControl}>
                                                             <InputLabel id="demo-mutiple-name-label">Available
                                                                 Days</InputLabel>

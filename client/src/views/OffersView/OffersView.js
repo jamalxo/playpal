@@ -4,21 +4,17 @@ import React from 'react';
 
 import {ThemeProvider as MuiThemeProvider, withStyles} from '@material-ui/core/styles';
 import {theme} from "../../theme";
-import OfferForm from "../../components/Offer/OfferForm";
-import {withRouter} from "react-router-dom";
 import OfferList from "../../components/Offer/OfferList";
 import Grid from "@material-ui/core/Grid";
-import OfferService from "../../services/OfferService";
 import Page from "../../components/Page/Page";
-import New from "../../resources/neu.svg";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper/Paper";
 import Button from "@material-ui/core/Button";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
-import ProfileList from "../../components/ProfileList/ProfileList";
 import ProfileService from "../../services/ProfileService";
 import UserService from "../../services/UserService";
+import Pencil from "../../resources/pencil.svg";
+import Divider from '@material-ui/core/Divider';
+
 
 const useStyles = (theme) => ({
     container: {
@@ -44,14 +40,24 @@ const useStyles = (theme) => ({
         paddingRight: 10
     },
     paper: {
-        backgroundColor: theme.palette.primary.dark,
+        backgroundColor: theme.palette.primary.light,
         marginTop: 50,
         padding: 20,
-        marginBottom: 50
+        marginBottom: 50,
+        width: "75%",
     },
-    createButton:{
+    createButton: {
         padding: 30
-    }
+    },
+    imageStyle: {
+        width: 50,
+        height: 50,
+        marginRight: 10
+    },
+    divider: {
+        margin: theme.spacing(2, 0),
+        backgroundColor: theme.palette.primary.contrastText
+    },
 });
 
 class OffersView extends React.Component {
@@ -96,34 +102,40 @@ class OffersView extends React.Component {
                 <div>
                     <Grid container spacing={10} classes={{root: classes.container}} direction="row"
                           justify="center"
-                          alignItems="center" xs={12}>
-                    <Paper elevation={3} className={classes.paper}>
-                        <Grid xs={9}  container
-                              direction="column"
-                              justify="center"
-                              alignItems="center">
-                            <div className={classes.headerPlayPalDiv}>
-                                <img src={New} alt="Logo" className={classes.imageIcon}/>
-                                <Typography variant="h4" className={classes.headerPlayPal} align="center">
-                                    Your Offers!
-                                </Typography>
-                            </div>
-                        </Grid>
-                        <Grid container xs={12}
-                              direction="column"
-                              justify="center"
-                              alignItems="flex-end" className={classes.createButton}>
-                            <Button variant="contained" color="primary" onClick={() => this.props.history.push('/offer/create')}>
-                                Create new offer
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12}>
+                          alignItems="center">
+                        <Paper elevation={3} className={classes.paper}>
+                            <Grid container direction="row" justify="center" alignItems="center">
+                                <Grid xs={6} container item direction="row" justify="flex-start" alignItems="center">
+                                    <div className={classes.headerPlayPalDiv}>
+                                        <img src={Pencil} alt="Logo" className={classes.imageStyle}/>
+                                        <Typography variant="h4" className={classes.headerPlayPal} align="center">
+                                            Manage Offers!
+                                        </Typography>
+                                    </div>
+                                </Grid>
+                                <Grid container item direction="row" justify="flex-end" alignItems="center" xs={6}
+                                      className={classes.createButton}>
+                                    <Button variant="contained" color="primary"
+                                            onClick={() => this.props.history.push('/offer/create')}>
+                                        Create new offer
+                                    </Button>
+                                </Grid>
+                            </Grid>
+
+                            <Divider className={classes.divider}/>
+
                             {this.state.dataOffers.length !== 0 ?
-                                <OfferList dataOffers={this.state.dataOffers}/> :
-                                <h1>No offers</h1>
+                                <Grid container item direction="column" justify="flex-start" alignItems="flex-start"
+                                      xs={12}>
+                                    <OfferList dataOffers={this.state.dataOffers}/>
+                                </Grid> :
+                                <Grid item xs={12}>
+                                    <Typography variant="h4" className={classes.headerPlayPal} align="center">
+                                        No Offers yet...
+                                    </Typography>
+                                </Grid>
                             }
-                        </Grid>
-                    </Paper>
+                        </Paper>
                     </Grid>
                     <Page></Page>
                 </div>
