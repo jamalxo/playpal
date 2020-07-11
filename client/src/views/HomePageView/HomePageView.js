@@ -21,9 +21,6 @@ import Paper from '@material-ui/core/Paper';
 import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import {theme} from '../../theme';
 
-
-
-
 const useStyles = (theme) => ({
     container: {
         paddingTop: '150px',

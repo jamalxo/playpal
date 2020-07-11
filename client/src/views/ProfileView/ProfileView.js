@@ -103,7 +103,6 @@ class ProfileView extends React.Component {
                 rating: review.rating,
                 text: review.text
             };
-            console.log(reviewWithId);
             let ret = await ReviewService.createReview(reviewWithId);
 
 
