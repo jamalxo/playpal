@@ -25,6 +25,8 @@ import {Link} from "react-router-dom";
 import BookingDialog from "../BookingDialog/BookingDialog";
 import RequestService from "../../services/RequestService";
 import {getGameIcon} from "../../services/IconService";
+import EditIcon from '@material-ui/icons/Edit';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,23 +39,26 @@ const useStyles = makeStyles((theme) => ({
     description: {
         height: '100%'
     },
-    bookButton:{
-        paddingRight:'10px'
+    bookButton: {
+        paddingRight: '10px'
     },
-    bookPrice:{
-        paddingLeft:'10px'
+    bookPrice: {
+        paddingLeft: '10px'
     },
     imageStyle: {
         width: 40,
         height: 40,
-        marginRight:'10px'
+        marginRight: '10px'
 
     },
     avatar: {
         width: 100,
         height: 100,
     },
-
+    link: {
+        margin: 10,
+        marginTop: 10
+    }
 
 }));
 
@@ -92,6 +97,9 @@ export default function OfferCard(props){
     return (
         <MuiThemeProvider theme={theme}>
             <Card classes={{root: classes.root}} className="OfferCard" key={props.key}>
+                <Link className={classes.link}  to={`/offer/edit/${props.id}`}>
+                    <EditIcon/>
+                </Link>
                 <CardActionArea className={classes.description}>
                     <CardContent align="center">
                         <Link className="linkDecoration" to={`/user/${profile._id}`}>

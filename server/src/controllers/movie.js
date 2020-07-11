@@ -11,7 +11,6 @@ const create = async (req, res) => {
 
     try {
       let movie = await MovieModel.create(req.body);
-      console.log(req.body);
       return res.status(201).json(movie)
     } catch(err) {
       return res.status(500).json({

@@ -70,8 +70,8 @@ const register = async (req,res) => {
         lastname: req.body.lastname,
         description: req.body.description,
         profileImage: "http://localhost:3000/" + req.file.path
-    }
-    console.log(user)
+    };
+
     try {
         let retUser = await UserModel.create(user);
 

@@ -14,6 +14,8 @@ import {OfferFormView} from "./views/OfferFormView";
 
 import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import {theme} from "./theme";
+import OffersView from "./views/OffersView/OffersView";
+import {ProfileListView} from "./views/ProfileListView/ProfileListView";
 import {PendingRequestsView} from "./views/PendingRequestsView";
 
 
@@ -32,21 +34,13 @@ export default class App extends React.Component {
                         else {
                             return (<Redirect to={'/login'}/>)
                         }} , path: '/', exact: true},
-                { component: MovieDetailView , path: '/show/:id'},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
-                            return (<MovieFormView {... props} />)
+                            return (<OffersView {... props} />)
                         }
                         else {
                             return (<Redirect to={'/login'}/>)
-                        }} , path: '/edit/:id'},
-                { render: (props) => {
-                    if(UserService.isAuthenticated()) {
-                        return (<MovieFormView {... props} />)
-                    }
-                    else {
-                        return (<Redirect to={'/login'}/>)
-                    }}, path: '/add',},
+                        }} , path: '/offers', exact: true},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
                             return (<OfferFormView {... props} />)
@@ -60,10 +54,8 @@ export default class App extends React.Component {
                         }
                         else {
                             return (<Redirect to={'/login'}/>)
-                        }}, path: '/offer/:id',},
-                // { component: UserLoginView, path: '/login'},
-                // { component: UserSignupView, path: '/register'},
-                // { component: ProfileListView, path: '/users'},
+                        }}, path: '/offer/edit/:id',},
+                { component: ProfileListView, path: '/users'},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
                             return (<PendingRequestsView />)
