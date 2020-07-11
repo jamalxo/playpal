@@ -24,6 +24,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import {Link} from "react-router-dom";
 import BookingDialog from "../BookingDialog/BookingDialog";
 import RequestService from "../../services/RequestService";
+import {getGameIcon} from "../../services/IconService";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,20 +61,12 @@ const useStyles = makeStyles((theme) => ({
 export default function OfferCard(props){
     const classes = useStyles();
     const [profile, setProfile] = useState({})
-    const [image, setImage] = useState({})
     const [dialogOpen, setDialog] = useState(false)
     useEffect( () => {    // Update the profile value on mount
         const fetchdata = async () =>
         {
             const newprof = await ProfileService.getProfile(props.offer.owner)
             setProfile(newprof)
-        }
-        switch(props.offer.game)
-        {
-            case 'LoL': setImage(LoL);break;
-            case 'DotA 2': setImage(Dota);break;
-            case 'CS:GO': setImage(CSGO);break;
-            default: setImage(Search);break;
         }
 
         fetchdata()
@@ -124,7 +117,7 @@ export default function OfferCard(props){
                             justify="center"
                             alignItems="center"
                         >
-                                <CardMedia src={image} component="img" className={classes.imageStyle}/>
+                                <CardMedia src={getGameIcon(props.offer.game)} component="img" className={classes.imageStyle}/>
                                 <Typography variant="h4" component="h4">
                                     {props.offer.game}
                                 </Typography>
