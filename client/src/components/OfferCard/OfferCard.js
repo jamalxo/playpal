@@ -21,6 +21,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Tooltip from "@material-ui/core/Tooltip";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import {Link} from "react-router-dom";
+import BookingDialog from "../BookingDialog/BookingDialog";
+import RequestService from "../../services/RequestService";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,13 +61,14 @@ export default function OfferCard(props){
     const classes = useStyles();
     const [profile, setProfile] = useState({})
     const [image, setImage] = useState({})
+    const [dialogOpen, setDialog] = useState(false)
     useEffect( () => {    // Update the profile value on mount
         const fetchdata = async () =>
         {
-            const newprof = await ProfileService.getProfile(props.owner)
+            const newprof = await ProfileService.getProfile(props.offer.owner)
             setProfile(newprof)
         }
-        switch(props.game)
+        switch(props.offer.game)
         {
             case 'LoL': setImage(LoL);break;
             case 'DotA 2': setImage(Dota);break;
@@ -75,6 +79,7 @@ export default function OfferCard(props){
         fetchdata()
 
     },[]);
+
     const displayVerifiedIcon = () => {
         if (profile.usertype === "professional") {
             return (
@@ -87,19 +92,24 @@ export default function OfferCard(props){
             return '';
         }
     }
+    const handleClose = () => {
+        setDialog(false)
+    }
 
     return (
         <MuiThemeProvider theme={theme}>
             <Card classes={{root: classes.root}} className="OfferCard" key={props.key}>
                 <CardActionArea className={classes.description}>
                     <CardContent align="center">
-                            <Avatar
+                        <Link className="linkDecoration" to={`/user/${profile._id}`}>
+
+                        <Avatar
                                 className="profilePicture"
                                 alt={profile.username}
                                 title={profile.username}
                                 src={profile.profileImage}
                             />
-
+                        </Link>
                         <Typography variant="h5" component="h5" color={'inherit'}>
                             {profile.username}
                             {displayVerifiedIcon()}
@@ -116,7 +126,7 @@ export default function OfferCard(props){
                         >
                                 <CardMedia src={image} component="img" className={classes.imageStyle}/>
                                 <Typography variant="h4" component="h4">
-                                    {props.game}
+                                    {props.offer.game}
                                 </Typography>
                         </Grid>
                     </CardContent>
@@ -131,7 +141,7 @@ export default function OfferCard(props){
                         >
 
                             <Typography variant="h5">
-                                {props.price} $
+                                {props.offer.price} $
                             </Typography>
                             <LocalOfferIcon/>
 
@@ -143,13 +153,16 @@ export default function OfferCard(props){
                             justify="flex-end"
                             alignItems="flex-end"
                         >
-                        <Button variant="contained" color="primary" >
+                        <Button variant="contained" color="primary" onClick={() => {setDialog(true);console.log("Clicked on Button")}}>
                             Book
                         </Button>
                             </Grid>
                     </CardActions>
                 </CardActionArea>
+
             </Card>
+            <BookingDialog open={dialogOpen} handleClose={handleClose} offer={props.offer} profile={profile} />
+
         </MuiThemeProvider>
     );
 

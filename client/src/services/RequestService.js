@@ -10,7 +10,7 @@ export default class UserService {
 
     static answerRequest(requestId, status) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${this.baseURL()}/answer`,{requestId:requestId, status:status},function(data) {
+            HttpService.put(`${this.baseURL()}/answer`,{requestId:requestId, status:status},function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);
@@ -18,9 +18,10 @@ export default class UserService {
         });
 
     }
-    static createRequest(requestId) {
+    static createRequest(offer) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${this.baseURL()}/create`, {requestId:requestId},function(data) {
+            console.log(JSON.stringify({offer}))
+            HttpService.post(`${this.baseURL()}/create`, {offer},function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);

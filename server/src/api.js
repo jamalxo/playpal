@@ -32,5 +32,5 @@ api.use('/auth'  , auth);
 api.use('/movies', movie);
 api.use('/reviews', review);
 api.use('/offers', offer);
-api.use('request',request);
+api.use('/request',request);
 module.exports = api;
