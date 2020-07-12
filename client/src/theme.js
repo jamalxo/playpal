@@ -27,6 +27,6 @@ export const theme = createMuiTheme({
             contrastText: purple[50],
         },
         indicatorColor: blue[500],
-        cardColor: grey[400]
+        cardColor: "#fafafa"
     },
 });

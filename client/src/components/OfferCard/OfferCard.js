@@ -25,7 +25,6 @@ import {Link} from "react-router-dom";
 import BookingDialog from "../BookingDialog/BookingDialog";
 import RequestService from "../../services/RequestService";
 import EditIcon from '@material-ui/icons/Edit';
-import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
