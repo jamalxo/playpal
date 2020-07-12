@@ -27,6 +27,7 @@ import {theme} from "../../theme";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import OfferCard from "../../components/OfferCard/OfferCard";
+import Loading from "../../components/Loading";
 
 const useStyles = (theme) => ({
     tab: {
@@ -117,7 +118,7 @@ class ProfileView extends React.Component {
     render() {
         const {classes} = this.props;
         if (this.state.loading) {
-            return (<CircularProgress/>);
+            return (<Loading/>);
         }
 
         return (

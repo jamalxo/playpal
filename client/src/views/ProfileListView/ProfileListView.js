@@ -7,6 +7,7 @@ import ProfileService from '../../services/ProfileService';
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Page from "../../components/Page/Page";
+import Loading from "../../components/Loading";
 
 export class ProfileListView extends React.Component {
 
@@ -36,7 +37,7 @@ export class ProfileListView extends React.Component {
 
     render() {
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
+            return (<Loading/>);
         }
 
         return (

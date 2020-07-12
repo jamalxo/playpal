@@ -309,9 +309,6 @@ class OfferForm extends React.Component {
                                                 onChange={this.handleChangeGame}
                                                 input={<Input/>}
                                                 color="primary"
-                                                underlineStyle={{ borderColor: '#ff0000' }}
-                                                iconStyle={{ fill: '#ff0000' }}
-                                                labelStyle={{ color: '#ff0000' }}
                                             >
                                                 {games.map((game) => (
                                                     <MenuItem key={game} value={game} color="textPrimary">

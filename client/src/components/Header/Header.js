@@ -23,6 +23,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import UserService from "../../services/UserService";
+import Loading from "../Loading";
 
 
 const drawerWidth = 240;
@@ -194,7 +195,7 @@ class Header extends React.Component {
     render() {
         const {classes} = this.props;
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
+            return (<Loading/>);
         }
 
         return (

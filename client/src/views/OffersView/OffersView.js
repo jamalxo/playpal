@@ -14,6 +14,7 @@ import ProfileService from "../../services/ProfileService";
 import UserService from "../../services/UserService";
 import Pencil from "../../resources/pencil.svg";
 import Divider from '@material-ui/core/Divider';
+import Loading from "../../components/Loading";
 
 
 const useStyles = (theme) => ({
@@ -98,7 +99,7 @@ class OffersView extends React.Component {
 
         // THIS IS IMPORTANT
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
+            return (<Loading/>);
         }
 
         return (
