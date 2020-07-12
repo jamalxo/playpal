@@ -11,12 +11,13 @@ class PlainFooter extends React.Component {
     }
 
     render() {
-        return (
-            <div className={this.props.className}>
-                <hr/>
-                <p>© {new Date().getFullYear()} sebis. All rights reserved.</p>
-            </div>
-        );
+        return (<div> </div>)
+        // return (
+        //     <div className={this.props.className}>
+        //         <hr/>
+        //         {/*<p>© {new Date().getFullYear()} sebis. All rights reserved.</p>*/}
+        //     </div>
+        // );
     }
 }
 
