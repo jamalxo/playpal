@@ -17,23 +17,29 @@ import Grid from "@material-ui/core/Grid";
 import {Link} from "react-router-dom";
 import CardMedia from "@material-ui/core/CardMedia";
 import {getGameIcon} from "../../services/IconService";
+import InfoIcon from '@material-ui/icons/Info';
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '1000px',
         height: '70px',
         //maxWidth: 360,
-        //backgroundColor: theme.palette.background.paper,
-        margin:'20px',
-        flexGrow:1
+        backgroundColor: theme.palette.background.paper,
+        margin: '2px',
+        flexGrow: 1
     },
     imageStyle: {
         width: 30,
         height: 30,
-        marginRight:'10px'
+        marginRight: '10px'
 
     },
-
 
 
 }));
@@ -43,77 +49,98 @@ export function PendingRequest(props) {
 
     const request = props.request
     const [requestProfile, setRequestProfile] = useState({})
+    const [dialogOpen, setDialogOpen] = useState(false)
 
-
-    useEffect( () => {    // Update the profile value on mount
-        const fetchdata = async () =>
-        {
+    useEffect(() => {    // Update the profile value on mount
+        const fetchdata = async () => {
             const newprof = await ProfileService.getProfile(request.requestingPlayer)
             setRequestProfile(newprof)
         }
         fetchdata()
 
-    },[]);
+    }, []);
 
-    return(
-        <Card classes={{root: classes.root}} key={props.key}>
-            <Grid
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="flex-end"
-            >
-                <Grid item>
-                <Grid container
-                      direction="row"
-                      alignItems="center"
-                      justify="center"
-                      spacing={1}
-
+    return (
+        <Box borderRadius="50%">
+            <ListItem classes={{root: classes.root}} key={props.key} button>
+                <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="flex-end"
                 >
                     <Grid item>
-                        <Box ml={1} >
-                    <Avatar
-                        className="profilePicture"
-                        alt={requestProfile.username}
-                        title={requestProfile.username}
-                        src={requestProfile.profileImage}
-                        className={classes.small}
+                        <Grid container
+                              direction="row"
+                              alignItems="center"
+                              justify="center"
+                              spacing={1}
 
-                    />
-                        </Box>
+                        >
+                            <Grid item>
+                                <Box ml={1}>
+                                    <Avatar
+                                        className="profilePicture"
+                                        alt={requestProfile.username}
+                                        title={requestProfile.username}
+                                        src={requestProfile.profileImage}
+                                        className={classes.small}
+
+                                    />
+                                </Box>
+                            </Grid>
+                            <Grid item>
+                                {requestProfile.username}
+                            </Grid>
+                        </Grid>
                     </Grid>
-<Grid item>
-                    {requestProfile.username}
-</Grid>
-                </Grid>
-                </Grid>
 
-                <Grid item>
-                    <Grid container
-                          direction="row"
-                          alignItems="center"
-                          justify="center"
+                    <Grid item>
+                        <Grid container
+                              direction="row"
+                              alignItems="center"
+                              justify="center"
 
 
-                    >
-                        <CardMedia src={getGameIcon(request.game)} component="img" className={classes.imageStyle}/>
+                        >
+                            <CardMedia src={getGameIcon(request.game)} component="img" className={classes.imageStyle}/>
 
-                    {request.game}
+                            {request.game}
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <IconButton edge="end" aria-label="info" onClick={()=> setDialogOpen(true)}>
+                            <InfoIcon/>
+                        </IconButton>
+
+                        <IconButton edge="end" aria-label="delete">
+                            <CheckIcon/>
+                        </IconButton>
+                        <IconButton edge="end" aria-label="delete">
+                            <ClearIcon/>
+                        </IconButton>
+
                     </Grid>
                 </Grid>
-                <Grid item>
-                    <IconButton edge="end" aria-label="delete">
-                        <CheckIcon />
-                    </IconButton>
-                    <IconButton edge="end" aria-label="delete">
-                        <ClearIcon />
-                    </IconButton>
+                <Dialog
+                    open={dialogOpen}
+                    onClose={() => setDialogOpen(false)}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Additional Request information"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {request.info}                            </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setDialogOpen(false)} color="primary" autoFocus>
+                            OK
+                        </Button>
+                    </DialogActions>
+                </Dialog>
 
-                </Grid>
-
-            </Grid>
-
-        </Card>
-                )
+            </ListItem>
+        </Box>
+    )
 }
