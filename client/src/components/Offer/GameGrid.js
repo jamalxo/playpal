@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import dota from "../../resources/game_grid/dota2.jpg";
@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 let games = [
-    {name: "dota", selected: false},
-    {name: "csgo", selected: false},
-    {name: "lol", selected: false}
+    {name: "DotA 2", selected: false},
+    {name: "CS:GO", selected: false},
+    {name: "LoL", selected: false}
 ];
 
 function useForceUpdate() {
@@ -43,7 +43,28 @@ export default function GameGrid(props) {
     const classes = useStyles();
     const forceUpdate = useForceUpdate();
 
-    let counter = 20;
+    useEffect(() => {
+        games = games.map(game => {
+            return {name: game.name, selected: false};
+        });
+
+        if (props.game !== undefined) {
+            setGamesArray(props.game);
+        }
+    }, []);
+
+    const setGamesArray = (game) => {
+        console.log(game);
+        games = games.map(gameArray => {
+            if (gameArray.name === game) {
+                return {name: game, selected: true};
+            } else {
+                return gameArray;
+            }
+        });
+        console.log(games);
+        forceUpdate();
+    };
 
     const handleSelect = (val) => {
         if (games[val].selected === true) {
@@ -55,12 +76,14 @@ export default function GameGrid(props) {
             games[val].selected = true;
 
         }
+        props.onGameChange(games[val]);
+
         forceUpdate();
     };
 
     function Game(game) {
         game = game.game;
-        if (game.name === "dota") {
+        if (game.name === "DotA 2") {
             return (
                 <React.Fragment>
                     <div onClick={() => {
@@ -71,7 +94,7 @@ export default function GameGrid(props) {
                     </div>
                 </React.Fragment>
             );
-        } else if (game.name === "csgo") {
+        } else if (game.name === "CS:GO") {
             return (
                 <React.Fragment>
                     <div onClick={() => {
@@ -82,7 +105,7 @@ export default function GameGrid(props) {
                     </div>
                 </React.Fragment>
             );
-        } else if (game.name === "lol") {
+        } else if (game.name === "LoL") {
             return (
                 <React.Fragment>
                     <div onClick={() => {
@@ -94,7 +117,11 @@ export default function GameGrid(props) {
                 </React.Fragment>
             );
         } else {
+            console.log(game);
             console.log("error in gamegrid")
+            return (
+                <div>{game}</div>
+            )
         }
     }
 
