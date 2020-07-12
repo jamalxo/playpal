@@ -46,13 +46,15 @@ const create = async (req, res) => {
     });
     try {
         console.log("got request")
+        let offer = OfferModel.findById(req.body.offerId)
+
         let requestObj = {
             requestingPlayer: req.userId,
             offer: req.body.offer,
-            status:'pending'
+            status:'pending',
+            game: offer.game,
         }
         let request = await RequestModel.create(requestObj);
-        let offer = OfferModel.findById(req.body.offerId)
 
         UserModel.findByIdAndUpdate(
             {_id: offer.owner},

@@ -16,6 +16,9 @@ const RequestSchema  = new mongoose.Schema({
             enum: ['pending', 'accepted','rejected'],
             default: 'pending'
         },
+    game:{
+        type: String
+    }
 
 })
 module.exports = mongoose.model('Request', RequestSchema);

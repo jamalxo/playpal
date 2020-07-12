@@ -140,6 +140,10 @@ class Header extends React.Component {
         } else {
             currentTab = false
         }
+        else if (path === '/requests/pending') {
+            currentTab = 2
+        }
+
 
 
         this.state = {
@@ -197,7 +201,7 @@ class Header extends React.Component {
         if (this.state.loading) {
             return (<Loading/>);
         }
-
+        const pendingRequestsTab = <Tab label="Pending Requests" onClick={() => this.props.history.push('/requests/pending')}/>
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={classes.root}>
@@ -234,6 +238,8 @@ class Header extends React.Component {
                                      onClick={() => this.props.history.push('/')} />
                                 <Tab label="Offers"
                                      onClick={() => this.props.history.push('/offers')} />
+                                {pendingRequestsTab}
+
                             </Tabs>
                             <div className={classes.grow} />
                             <div className={classes.sectionDesktop}>

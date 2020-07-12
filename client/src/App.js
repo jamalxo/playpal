@@ -16,6 +16,7 @@ import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import {theme} from "./theme";
 import OffersView from "./views/OffersView/OffersView";
 import {ProfileListView} from "./views/ProfileListView/ProfileListView";
+import {PendingRequestsView} from "./views/PendingRequestsView";
 
 
 export default class App extends React.Component {
@@ -55,6 +56,14 @@ export default class App extends React.Component {
                             return (<Redirect to={'/login'}/>)
                         }}, path: '/offer/edit/:id',},
                 { component: ProfileListView, path: '/users'},
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<PendingRequestsView />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }}, path: '/requests/pending',},
+
                 { component: SignInSide, path: '/login'},
                 { component: SignUp, path: '/register'},
                 { component: ProfileView, path: '/user/:id'}

@@ -20,9 +20,14 @@ import Search from "../../resources/suche.svg";
 import CardMedia from "@material-ui/core/CardMedia";
 import Tooltip from "@material-ui/core/Tooltip";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import {Link} from "react-router-dom";
 import BookingDialog from "../BookingDialog/BookingDialog";
+import RequestService from "../../services/RequestService";
+import {getGameIcon} from "../../services/IconService";
 import EditIcon from '@material-ui/icons/Edit';
+import {Link} from "react-router-dom";
+import UserService from "../../services/UserService";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -67,29 +72,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function OfferCard(props) {
+export default function OfferCard(props){
     const classes = useStyles();
     const [profile, setProfile] = useState({})
-    const [image, setImage] = useState({})
     const [dialogOpen, setDialog] = useState(false)
-    useEffect(() => {    // Update the profile value on mount
-        const fetchdata = async () => {
+    useEffect( () => {    // Update the profile value on mount
+        const fetchdata = async () =>
+        {
             const newprof = await ProfileService.getProfile(props.offer.owner)
             setProfile(newprof)
-        }
-        switch (props.offer.game) {
-            case 'LoL':
-                setImage(LoL);
-                break;
-            case 'DotA 2':
-                setImage(Dota);
-                break;
-            case 'CS:GO':
-                setImage(CSGO);
-                break;
-            default:
-                setImage(Search);
-                break;
         }
 
         fetchdata()
@@ -110,15 +101,28 @@ export default function OfferCard(props) {
     };
     const handleClose = () => {
         setDialog(false)
-    };
+    }
+    const Edit = (props.offer.owner === UserService.getCurrentUser().id) ?
+        <div style={{marginBottom:"-40px"}}>
+            <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="flex-start"
+            >
+
+            <Link className={classes.link}  to={`/offer/edit/${props.id}`}>
+                    <EditIcon/>
+                </Link>
+            </Grid></div>
+                :  <div></div>
 
 
     return (
         <MuiThemeProvider theme={theme}>
-            <Card className={classes.card} key={props.key}>
-                <Link className={classes.link} to={`/offer/edit/${props.offer._id}`}>
-                    <EditIcon/>
-                </Link>
+            <Card classes={{root: classes.card}} className="OfferCard" key={props.key}>
+                    {Edit}
+
                 <CardActionArea className={classes.description}>
                     <CardContent align="center">
                         <Link className="linkDecoration" to={`/user/${profile._id}`}>
@@ -136,14 +140,16 @@ export default function OfferCard(props) {
                     <Divider className={classes.divider} variant="middle"/>
 
                     <CardContent align="center">
-                        <Grid container
-                              direction="row"
-                              justify="center"
-                              alignItems="center">
-                            <CardMedia src={image} component="img" className={classes.imageStyle}/>
-                            <Typography variant="h4" component="h4" color="textPrimary">
-                                {props.offer.game}
-                            </Typography>
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
+                                <CardMedia src={getGameIcon(props.offer.game)} component="img" className={classes.imageStyle}/>
+                                <Typography variant="h4" component="h4">
+                                    {props.offer.game}
+                                </Typography>
                         </Grid>
                     </CardContent>
 
