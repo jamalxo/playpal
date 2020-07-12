@@ -98,7 +98,7 @@ class ProfileCard extends React.Component {
                                 <div className="reviewRating">
                                     <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
                                     <span className="fontAverage">
-                                    {this.getAvg().toFixed(2)}
+                                    {this.getAvg().toFixed(1)}
                                 </span>
                                 </div>
                             </Typography>

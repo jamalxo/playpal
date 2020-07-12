@@ -9,11 +9,10 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from '@material-ui/core/Avatar';
 import "./ReviewData.css";
 import {withStyles} from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
 
 const useStyles = (theme) => ({
     root: {
-        background: theme.palette.cardColor,
+        background: theme.palette.primary.lighter,
     },
     profilePicture: {
         width: 50,
@@ -23,13 +22,21 @@ const useStyles = (theme) => ({
     profilePicturePosition: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "center",
         alignItems: "center",
     },
-    text: {
+    passedTime: {
+        color: theme.palette.text.grey,
+        fontSize: 15
+    },
+    reviewPadding: {
         paddingLeft: 15
+    },
+    text: {
+        fontSize: 20,
+        paddingTop: 10
     }
 });
+
 
 class ReviewData extends React.Component {
 
@@ -37,13 +44,97 @@ class ReviewData extends React.Component {
         super(props);
     }
 
-    render() {
+    displayPassedTime() {
         const {classes} = this.props;
         let date = new Date(this.props.review.createdAt);
+        let now = new Date();
+        let passedSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+        let passedMinutes = Math.floor(passedSeconds / 60);
+        let passedHours = Math.floor(passedMinutes / 60);
+        let passedDays = Math.floor(passedHours / 24);
+        let passedWeeks = Math.floor(passedDays / 7);
+        let passedMonths = Math.floor(passedWeeks / 4);
+        let passedYears = Math.floor(passedMonths / 12);
+        if (passedYears > 0) {
+            if (passedYears === 1) {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    1 year ago
+                </Typography>);
+            } else {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    {passedYears} years ago
+                </Typography>);
+            }
+        } else if (passedMonths > 0) {
+            if (passedMonths === 1) {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    1 month ago
+                </Typography>);
+            } else {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    {passedMonths} months ago
+                </Typography>);
+            }
+        } else if (passedWeeks > 0) {
+            if (passedWeeks === 1) {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    1 week ago
+                </Typography>);
+            } else {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    {passedWeeks} weeks ago
+                </Typography>);
+            }
+        } else if (passedDays > 0) {
+            if (passedDays === 1) {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    1 day ago
+                </Typography>);
+            } else {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    {passedDays} days ago
+                </Typography>);
+            }
+        } else if (passedHours > 0) {
+            if (passedHours === 1) {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    1 hour ago
+                </Typography>);
+            } else {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    {passedHours} hours ago
+                </Typography>);
+            }
+        } else if (passedMinutes > 0) {
+            if (passedMinutes === 1) {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    1 minute ago
+                </Typography>);
+            } else {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    {passedMinutes} minutes ago
+                </Typography>);
+            }
+        } else if (passedSeconds > 0) {
+            if (passedSeconds === 1) {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    1 second ago
+                </Typography>);
+            } else {
+                return (<Typography variant="body1" className={classes.passedTime}>
+                    {passedSeconds} seconds ago
+                </Typography>);
+            }
+
+        }
+    }
+
+    render() {
+        const {classes} = this.props;
         return (
             <Card className={classes.root}>
                 <Grid container alignItems="center">
-                    <Grid item xs={2} className={classes.profilePicturePosition}>
+                    <Grid item xs={9} className={[classes.profilePicturePosition, classes.reviewPadding]}>
                         <CardContent>
                             <Avatar
                                 className={classes.profilePicture}
@@ -53,29 +144,21 @@ class ReviewData extends React.Component {
                             > {this.props.review.postedBy.username.charAt(0)}
                             </Avatar>
                         </CardContent>
-                    </Grid>
-                    <Grid item xs={4}>
                         <CardContent>
                             <div>
-                                <Typography variant="h5">
+                                <Typography variant="h4" color={"inherit"}>
                                     {this.props.review.postedBy.username}
                                 </Typography>
-                                <Typography variant="body1">
-                                    {date.getDate()}.{date.getMonth() + 1}.{date.getFullYear()}
+                                {this.displayPassedTime()}
+                                <Typography variant="body1" color={"inherit"} className={classes.text}>
+                                    {this.props.review.text}
                                 </Typography>
                             </div>
                         </CardContent>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={3}>
                         <CardContent align="right">
                             <Rating name="read-only" value={this.props.review.rating} readOnly size="large"/>
-                        </CardContent>
-                    </Grid>
-                    <Grid item xs={12} className={classes.text}>
-                        <CardContent>
-                            <Typography variant="body1">
-                                {this.props.review.text}
-                            </Typography>
                         </CardContent>
                     </Grid>
                 </Grid>

@@ -14,7 +14,7 @@ import Divider from "@material-ui/core/Divider";
 
 const useStyles = (theme) => ({
     root: {
-        background: theme.palette.cardColor,
+        background: theme.palette.primary.light,
         display: "flex",
         width: '100%',
         height: '100%',
@@ -56,13 +56,13 @@ class AvailabilityBox extends React.Component {
                                 <img src={Availability} alt="Logo" className={classes.imageStyle}/>
                             </div>
                             <div className={classes.contentBox}>
-                                <Typography variant="h4">Availability</Typography>
+                                <Typography variant="h4" color={'inherit'}>Availability</Typography>
                             </div>
                             <Divider orientation="horizontal" variant="fullWidth"/>
                             <div className={classes.times}>
-                                <Typography variant="body1">1. Friday: 18:00 - 20:00</Typography>
-                                <Typography variant="body1">2. Saturday: 18:00 - 20:00</Typography>
-                                <Typography variant="body1">3. Sunday: 18:00 - 20:00</Typography>
+                                <Typography variant="body1" color={'inherit'}>1. Friday: 18:00 - 20:00</Typography>
+                                <Typography variant="body1" color={'inherit'}>2. Saturday: 18:00 - 20:00</Typography>
+                                <Typography variant="body1" color={'inherit'}>3. Sunday: 18:00 - 20:00</Typography>
                             </div>
                         </Grid>
 

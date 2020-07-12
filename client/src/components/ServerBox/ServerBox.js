@@ -14,7 +14,7 @@ import Divider from "@material-ui/core/Divider";
 
 const useStyles = (theme) => ({
     root: {
-        background: theme.palette.cardColor,
+        background: theme.palette.primary.light,
         display: "flex",
         width: '100%',
         height: '100%'
@@ -56,12 +56,12 @@ class ServerBox extends React.Component {
                                 <img src={Server} alt="Logo" className={classes.imageStyle}/>
                             </div>
                             <div className={classes.contentBox}>
-                                <Typography variant="h4">Server</Typography>
+                                <Typography variant="h4" color={'inherit'}>Server</Typography>
                             </div>
                             <Divider orientation="horizontal" variant="fullWidth"/>
                             <div className={classes.times}>
-                                <Typography variant="body1">1. EU</Typography>
-                                <Typography variant="body1">2. ASIA</Typography>
+                                <Typography variant="body1" color={'inherit'}>1. EU</Typography>
+                                <Typography variant="body1" color={'inherit'}>2. ASIA</Typography>
                             </div>
                         </Grid>
 

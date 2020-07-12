@@ -28,21 +28,23 @@ import {withStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import OfferCard from "../../components/OfferCard/OfferCard";
 import Loading from "../../components/Loading";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = (theme) => ({
-    tab: {
-        padding: 0
-    },
     grid: {
         paddingTop: 75
     },
-    spaceBetweenTabs: {
+    paddingBelow: {
         paddingBottom: 15
     },
     commentHeader: {
-        color: theme.palette.common.white,
-        paddingBottom: 15,
-        paddingTop: 15
+        paddingTop: 20,
+        paddingLeft: 10
+    },
+    offerHeader: {
+        paddingTop: 20,
     },
     reviewGrid: {
         paddingBottom: 15,
@@ -51,6 +53,17 @@ const useStyles = (theme) => ({
         alignItems: "flex-end",
         alignSelf: "stretch"
     },
+    elementPadding: {
+        padding: 10
+    },
+    offerContainer: {
+        display: "flex",
+    },
+    offerElement: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+    }
 });
 
 class ProfileView extends React.Component {
@@ -61,7 +74,6 @@ class ProfileView extends React.Component {
         this.state = {
             loading: true,
             dataOffers: [],
-            currentTab: "1"
         };
 
         this.handleChangeInput = this.handleChangeInput.bind(this);
@@ -135,59 +147,46 @@ class ProfileView extends React.Component {
                             <ServerBox profile={this.state.user}></ServerBox>
                         </Grid>
                     </Grid>
-                    <TabContext value={this.state.currentTab}>
-                        <Grid container className={classes.spaceBetweenTabs}>
-                            <Grid item xs={12}>
-                                <Tabs
-                                    value={this.state.currentTab}
-                                    onChange={(e, newValue) => (this.handleChangeInput('currentTab', newValue))}
-                                    variant="fullWidth"
-                                    indicatorColor="secondary"
-                                    textColor="secondary"
-                                    className={classes.spaceBetweenTabs}
-                                >
-                                    <Tab icon={<LocalOfferIcon style={{color: 'white'}}/>} label="OFFERS"
-                                         style={{color: 'white'}} value={"1"}/>
-                                    <Tab icon={<RateReviewIcon style={{color: 'white'}}/>} label="REVIEWS"
-                                         style={{color: 'white'}} value={"2"}/>
-                                </Tabs>
-                                <TabPanel value={"1"} classes={{root: classes.tab}}>
-                                    <Typography variant="h4"
-                                                className={classes.commentHeader}>My Offers</Typography>
-                                    <Grid container spacing={2}>
-                                        <OfferList dataOffers={this.state.user.offers}/> :
+                    <Paper>
+                        <Grid container className={classes.paddingBelow}>
+                            <Grid item xs={4}>
+                                <Grid container className={classes.offerContainer}>
+                                    <Grid item xs={12} className={classes.offerElement}>
+                                        <Typography variant="h4"
+                                                    className={classes.offerHeader}
+                                                    color={"inherit"}>My Offers</Typography>
                                     </Grid>
-                                </TabPanel>
-                                <TabPanel value={"2"} classes={{root: classes.tab}}>
-                                    <Typography variant="h4"
-                                                className={classes.commentHeader}>{this.state.user.reviews.length} Reviews</Typography>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12}>
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={6}>
-                                                    <ReviewField
-                                                        onSubmit={(review) => {
-                                                            this.createReview(review);
-                                                            setTimeout(function () {
-                                                                window.location.reload();
-                                                            }, 100);
-                                                        }}
-                                                        error={this.state.error}
-                                                    />
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                </Grid>
-                                                {this.state.user.reviews.map((review, i) =>
-                                                    <Grid item xs={6} key={i}>
-                                                        <ReviewData key={i} review={review}/>
-                                                    </Grid>)}
-                                            </Grid>
-                                        </Grid>
+                                    <Grid item xs={12} className={[classes.elementPadding, classes.offerElement]}>
+                                        <OfferList dataOffers={this.state.user.offers}/>
                                     </Grid>
-                                </TabPanel>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <Grid container>
+                                    <Grid item xs={12}>
+                                        <Typography variant="h4"
+                                                    className={classes.commentHeader}
+                                                    color={"inherit"}>{this.state.user.reviews.length} Reviews</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} className={classes.elementPadding}>
+                                        <ReviewField
+                                            onSubmit={(review) => {
+                                                this.createReview(review);
+                                                setTimeout(function () {
+                                                    window.location.reload();
+                                                }, 100);
+                                            }}
+                                            error={this.state.error}
+                                        />
+                                    </Grid>
+                                    {this.state.user.reviews.map((review, i) =>
+                                        <Grid item xs={12} key={i} className={classes.elementPadding}>
+                                            <ReviewData key={i} review={review}/>
+                                        </Grid>)}
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </TabContext>
+                    </Paper>
                 </Container>
             </Page>
         );

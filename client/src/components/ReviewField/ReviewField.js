@@ -13,7 +13,7 @@ import {withStyles} from "@material-ui/core/styles";
 
 const useStyles = (theme) => ({
     root: {
-        background: theme.palette.cardColor
+        background: theme.palette.primary.lighter,
     },
     reviewTitle: {
         paddingLeft: 15
@@ -65,7 +65,7 @@ class ReviewField extends React.Component {
                 <CardContent>
                     <Grid container alignItems="center">
                         <Grid item xs={3}>
-                            <Typography variant={"h5"} className={classes.reviewTitle}>
+                            <Typography variant={"h5"} className={classes.reviewTitle} color={"inherit"}>
                                 Your Review
                             </Typography>
                         </Grid>

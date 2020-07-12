@@ -18,7 +18,7 @@ import Verified from "../../resources/verified_gamer.png";
 
 const useStyles = (theme) => ({
     root: {
-        background: theme.palette.cardColor
+        background: theme.palette.primary.light
     },
     star: {
         height: 60,
@@ -102,20 +102,20 @@ class ProfileCard extends React.Component {
                             <Grid item xs={7}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
-                                        <Typography variant="h2" component="h2">
+                                        <Typography variant="h2" component="h2" color={'inherit'}>
                                             {this.props.profile.username}
                                             {this.displayVerifiedIcon()}
                                         </Typography>
                                         <div className={classes.container}>
                                             <Rating name="read-only" value={this.getAvg()} readOnly className="rating"/>
                                             <span>
-                                                {this.getAvg().toFixed(2)}
+                                                {this.getAvg().toFixed(1)}
                                             </span>
                                         </div>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <div>
-                                            <Typography variant="h5">
+                                            <Typography variant="h5" color={'inherit'}>
                                                 About
                                             </Typography>
                                             <span className={classes.about}>
