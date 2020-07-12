@@ -44,12 +44,9 @@ function getSteps() {
 function getStepContent(step) {
     switch (step) {
         case 0:
-            return `Choose one of the games you want to create an offer of.`;
+            return `You can only choose one game per created offer.`;
         case 1:
-            return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
+            return `Fill out some more information about your offer.`;
         default:
             return 'Unknown step';
     }
