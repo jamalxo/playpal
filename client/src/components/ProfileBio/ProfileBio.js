@@ -40,8 +40,8 @@ const useStyles = (theme) => ({
         fontSize: 16
     },
     imageStyle: {
-        height: 40,
-        width: 40,
+        height: 30,
+        width: 30,
     }
 });
 

@@ -7,7 +7,8 @@ const middlewares    = require('../middlewares');
 const ReviewController = require('../controllers/review');
 
 
-router.get('/', middlewares.checkAuthentication, ReviewController.list); // List all reviews
+router.get('/', middlewares.checkAuthentication, ReviewController.getAllReviews); // List all reviews
 router.post('/', middlewares.checkAuthentication, ReviewController.postReview);
+router.delete('/:id', middlewares.checkAuthentication, ReviewController.deleteReview);
 
 module.exports = router;

@@ -31,6 +31,7 @@ import Loading from "../../components/Loading";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Paper from "@material-ui/core/Paper";
+import MovieService from "../../services/MovieService";
 
 const useStyles = (theme) => ({
     grid: {
@@ -74,6 +75,7 @@ class ProfileView extends React.Component {
         this.state = {
             loading: true,
             dataOffers: [],
+            user: null
         };
 
         this.handleChangeInput = this.handleChangeInput.bind(this);
@@ -109,6 +111,11 @@ class ProfileView extends React.Component {
     }
 
     async createReview(review) {
+        this.setState({
+            user: this.state.user,
+            loading: true
+        });
+
         try {
             let reviewWithId = {
                 ratedUser: this.state.user._id,
@@ -118,13 +125,47 @@ class ProfileView extends React.Component {
             };
             let ret = await ReviewService.createReview(reviewWithId);
 
+            let newUser = await ProfileService.getProfile(this.props.match.params.id);
 
+            this.setState({
+                user: newUser,
+                loading: false
+            });
         } catch (err) {
             console.error(err);
             this.setState({
                 error: err
             });
         }
+    }
+
+    async deleteReview(review) {
+        let postedBy = review.postedBy;
+        let me = UserService.getCurrentUser();
+        if (postedBy._id !== me.id) {
+            console.log("Not allowed to delete a review you didn't write!")
+        } else {
+            let id = review._id;
+            this.setState({
+                user: this.state.user,
+                loading: true
+            });
+            try {
+                let ret = await ReviewService.deleteReview(id);
+                let reviewIndex = this.state.user.reviews.indexOf(id);
+                let userWithoutReview = this.state.user;
+                userWithoutReview.reviews.splice(reviewIndex, 1);
+
+                this.setState({
+                    user: userWithoutReview,
+                    loading: false
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+
     }
 
     render() {
@@ -172,16 +213,13 @@ class ProfileView extends React.Component {
                                         <ReviewField
                                             onSubmit={(review) => {
                                                 this.createReview(review);
-                                                setTimeout(function () {
-                                                    window.location.reload();
-                                                }, 100);
                                             }}
                                             error={this.state.error}
                                         />
                                     </Grid>
                                     {this.state.user.reviews.map((review, i) =>
                                         <Grid item xs={12} key={i} className={classes.elementPadding}>
-                                            <ReviewData key={i} review={review}/>
+                                            <ReviewData key={i} review={review} onDelete={(review) => this.deleteReview(review)}/>
                                         </Grid>)}
                                 </Grid>
                             </Grid>

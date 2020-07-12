@@ -9,6 +9,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from '@material-ui/core/Avatar';
 import "./ReviewData.css";
 import {withStyles} from "@material-ui/core/styles";
+import DeleteIcon from '@material-ui/icons/Delete';
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = (theme) => ({
     root: {
@@ -115,7 +118,7 @@ class ReviewData extends React.Component {
                     {passedMinutes} minutes ago
                 </Typography>);
             }
-        } else if (passedSeconds > 0) {
+        } else {
             if (passedSeconds === 1) {
                 return (<Typography variant="body1" className={classes.passedTime}>
                     1 second ago
@@ -159,6 +162,11 @@ class ReviewData extends React.Component {
                     <Grid item xs={3}>
                         <CardContent align="right">
                             <Rating name="read-only" value={this.props.review.rating} readOnly size="large"/>
+                            <Tooltip title="Delete Review">
+                                <IconButton aria-label="delete" onClick={() => this.props.onDelete(this.props.review)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
                         </CardContent>
                     </Grid>
                 </Grid>
