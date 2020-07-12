@@ -2,6 +2,7 @@ import React from 'react';
 
 import OfferService from '../services/OfferService';
 import OfferForm from "../components/Offer/OfferForm";
+import Loading from "../components/Loading";
 
 export class OfferFormView extends React.Component {
 
@@ -75,7 +76,7 @@ export class OfferFormView extends React.Component {
     render() {
         // THIS IS IMPORTANT
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
+            return (<Loading/>);
         }
 
         return (

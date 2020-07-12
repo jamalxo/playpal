@@ -23,9 +23,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import UserService from "../../services/UserService";
-import {Avatar, FontIcon, ListItem} from "react-md";
-
-
+import Loading from "../Loading";
 
 
 const drawerWidth = 240;
@@ -59,6 +57,7 @@ const useStyles = (theme) => ({
     },
     menuButton: {
         marginRight: theme.spacing(2),
+        color: theme.palette.primary.contrastText
     },
     hide: {
         display: 'none',
@@ -119,6 +118,9 @@ const useStyles = (theme) => ({
     tab: {
         color: theme.palette.secondary
     },
+    tabs: {
+        color: theme.palette.primary.contrastText
+    }
 });
 
 class Header extends React.Component {
@@ -135,6 +137,8 @@ class Header extends React.Component {
             currentTab = 1
         } else if (path === '/') {
             currentTab = 0
+        } else {
+            currentTab = false
         }
         else if (path === '/requests/pending') {
             currentTab = 2
@@ -195,7 +199,7 @@ class Header extends React.Component {
     render() {
         const {classes} = this.props;
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
+            return (<Loading/>);
         }
         const pendingRequestsTab = <Tab label="Pending Requests" onClick={() => this.props.history.push('/requests/pending')}/>
         return (
@@ -206,31 +210,29 @@ class Header extends React.Component {
                             className={clsx(classes.appBar, {
                                 [classes.appBarShift]: this.props.sideBarOpen,
                             })}
-
                     >
                         <Toolbar2>
                             <IconButton
-                                color="inherit"
                                 aria-label="open drawer"
                                 onClick={() => this.props.toggleDrawer(true)}
                                 edge="start"
                                 className={clsx(classes.menuButton, this.props.sideBarOpen && classes.hide)}
                             >
-                                <MenuIcon style={{color:'black'}} />
+                                <MenuIcon/>
                             </IconButton>
                             <div className={classes.logo} >
                                 <img src={Banner} alt="Logo" className={classes.imageStyle}/>
                                 <Typography variant="h6" className={classes.title} color={'inherit'}>
                                     PlayPal
-                                </Typography>
+                                 </Typography>
                             </div>
 
                             <Tabs
                                 value={this.state.value}
                                 onChange={this.handleChange}
                                 indicatorColor="secondary"
-                                textColor="secondary"
                                 centered
+                                className={classes.tabs}
                             >
                                 <Tab label="Home"
                                      onClick={() => this.props.history.push('/')} />
@@ -272,7 +274,6 @@ class Header extends React.Component {
                                 <Menu
                                     anchorEl={this.state.anchorEl}
                                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                                    // id={menuId}
                                     keepMounted
                                     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                                     open={this.state.isMenuOpen}
@@ -280,7 +281,7 @@ class Header extends React.Component {
                                 >
                                     {
                                         this.state.user ?
-                                            <div>
+                                            <div >
                                                 <MenuItem
                                                     onClick={() => this.props.history.push('/user/' + this.getUserId())}>Profile</MenuItem>
                                                 <MenuItem

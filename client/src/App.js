@@ -86,7 +86,6 @@ export default class App extends React.Component {
                     </Router>
                 </div>
             </MuiThemeProvider>
-
         );
     }
 }
