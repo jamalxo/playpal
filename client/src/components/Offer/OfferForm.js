@@ -77,12 +77,27 @@ const useStyles = (theme) => ({
         display: 'flex',
         justifyContent: 'flex-end',
     },
+    buttonCreate: {
+        backgroundColor: theme.palette.primary.lighter,
+        color: theme.palette.primary.contrastText
+    },
     grid: {
         marginTop: 50
     },
     divider: {
         backgroundColor: theme.palette.primary.contrastText
     },
+    select: {
+        '&:before': {
+            borderColor: 'white',
+        },
+        '&:after': {
+            borderColor: 'white',
+        }
+    },
+    icon: {
+        fill: theme.palette.primary.contrastText,
+    }
 });
 
 const ITEM_HEIGHT = 48;
@@ -291,22 +306,26 @@ class OfferForm extends React.Component {
                     <Page>
                         <main className={classes.layout}>
                             <Paper className={classes.paper}>
-                                    {!this.state.editMode ?
-                                        <Typography variant="h3" color="textPrimary">Create Offer</Typography> :
-                                        <Typography variant="h3" color="textPrimary">Edit Offer</Typography>}
+                                {!this.state.editMode ?
+                                    <Typography align="center" variant="h3" color="textPrimary">Create Offer</Typography> :
+                                    <Typography align="center" variant="h3" color="textPrimary">Edit Offer</Typography>}
+
                                 <Divider className={classes.divider} variant="middle"/>
 
                                 <Grid container spacing={3} direction="column" justify="center" alignItems="center">
                                     {/*todo: add icon*/}
                                     <Grid item xs={6} sm={3}>
                                         <FormControl className={classes.formControl}>
-                                            <InputLabel>Game</InputLabel>
-                                            <Select
-                                                value={this.state.game}
-                                                onChange={this.handleChangeGame}
-                                                input={<Input/>}
-                                                color="primary"
-                                            >
+                                            <InputLabel className={classes.input}>Game</InputLabel>
+                                            <Select value={this.state.game}
+                                                    onChange={this.handleChangeGame}
+                                                    input={<Input/>}
+                                                    className={classes.select}
+                                                    inputProps={{
+                                                        classes: {
+                                                            icon: classes.icon,
+                                                        },
+                                                    }}>
                                                 {games.map((game) => (
                                                     <MenuItem key={game} value={game}>
                                                         {game}
@@ -317,15 +336,16 @@ class OfferForm extends React.Component {
                                     </Grid>
                                     <Grid item xs={6} sm={3}>
                                         <FormControl className={classes.formControl}>
-                                            <InputLabel id="demo-mutiple-name-label">Server</InputLabel>
-                                            <Select
-                                                labelId="demo-mutiple-name-label"
-                                                id="demo-mutiple-name"
-                                                value={this.state.server}
-                                                onChange={this.handleChangeServer}
-                                                input={<Input/>}
-                                                MenuProps={MenuProps}
-                                            >
+                                            <InputLabel>Server</InputLabel>
+                                            <Select value={this.state.server}
+                                                    onChange={this.handleChangeServer}
+                                                    input={<Input/>}
+                                                    className={classes.select}
+                                                    inputProps={{
+                                                        classes: {
+                                                            icon: classes.icon,
+                                                        },
+                                                    }}>
                                                 {server.map((server) => (
                                                     <MenuItem key={server} value={server}>
                                                         {server}
@@ -334,22 +354,19 @@ class OfferForm extends React.Component {
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                    <Grid container spacing={3} direction="column" justify="center" alignItems="center">
-
-                                        <Grid item xs={6} sm={3}>
-                                            <CurrencyTextField
-                                                label="Amount"
-                                                variant="standard"
-                                                value={this.state.price}
-                                                currencySymbol="$"
-                                                minimumValue="0"
-                                                outputFormat="string"
-                                                decialCharacter="."
-                                                digitGroupSeparator=","
-                                                onChange={this.handleChangePrice}
-                                                style={{paddingLeft: '10px'}}
-                                            />
-                                        </Grid>
+                                    <Grid item xs={6} sm={3}>
+                                        <CurrencyTextField
+                                            label="Amount"
+                                            variant="standard"
+                                            value={this.state.price}
+                                            currencySymbol="$"
+                                            minimumValue="0"
+                                            outputFormat="string"
+                                            decialCharacter="."
+                                            digitGroupSeparator=","
+                                            onChange={this.handleChangePrice}
+                                            style={{marginLeft: '15px'}}
+                                        />
                                     </Grid>
 
                                     <div>
@@ -447,12 +464,10 @@ class OfferForm extends React.Component {
                                     </Grid> : null}
                                 </Grid>
                                 <div className={classes.buttons}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={this.handleSubmit}
-                                        className={classes.button}
-                                    >
+                                    <Button variant="contained"
+                                            color="primary"
+                                            onClick={this.handleSubmit}
+                                            className={classes.buttonCreate}>
                                         {!this.state.editMode ? <div>Create</div> : <div>Update</div>}
                                     </Button>
                                 </div>

@@ -268,7 +268,6 @@ class Header extends React.Component {
                                 <Menu
                                     anchorEl={this.state.anchorEl}
                                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                                    // id={menuId}
                                     keepMounted
                                     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                                     open={this.state.isMenuOpen}
@@ -276,7 +275,7 @@ class Header extends React.Component {
                                 >
                                     {
                                         this.state.user ?
-                                            <div>
+                                            <div >
                                                 <MenuItem
                                                     onClick={() => this.props.history.push('/user/' + this.getUserId())}>Profile</MenuItem>
                                                 <MenuItem

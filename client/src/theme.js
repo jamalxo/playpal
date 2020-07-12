@@ -1,5 +1,4 @@
-import {createMuiTheme, hexToRgb} from "@material-ui/core";
-import purple from "@material-ui/core/colors/purple";
+import {createMuiTheme} from "@material-ui/core";
 import grey from "@material-ui/core/colors/grey";
 import blue from "@material-ui/core/colors/blue";
 
@@ -39,4 +38,35 @@ export const theme = createMuiTheme({
         indicatorColor: blue[500],
         cardColor: grey[400]
     },
+    overrides: {
+        MuiList: {
+            root: {
+                backgroundColor: grey[800],
+            },
+        },
+        MuiPaper: {
+            root: {
+                backgroundColor: grey[800],
+            },
+        },
+        MuiSelect: {
+            root: {
+                '&:before': {
+                    borderColor: 'white',
+                },
+                '&:after': {
+                    borderColor: 'white',
+                }
+
+            }
+        },
+        MuiInputLabel: { // Name of the component ⚛️ / style sheet
+            root: { // Name of the rule
+                color: 'white',
+                "&$focused": { // increase the specificity for the pseudo class
+                    color: blue[200]
+                }
+            }
+        }
+    }
 });
