@@ -291,19 +291,16 @@ class OfferForm extends React.Component {
                     <Page>
                         <main className={classes.layout}>
                             <Paper className={classes.paper}>
-                                <Typography component="h1" variant="h4" align="center">
                                     {!this.state.editMode ?
                                         <Typography variant="h3" color="textPrimary">Create Offer</Typography> :
                                         <Typography variant="h3" color="textPrimary">Edit Offer</Typography>}
-                                </Typography>
-
                                 <Divider className={classes.divider} variant="middle"/>
 
                                 <Grid container spacing={3} direction="column" justify="center" alignItems="center">
                                     {/*todo: add icon*/}
                                     <Grid item xs={6} sm={3}>
                                         <FormControl className={classes.formControl}>
-                                            <InputLabel color="textPrimary">Game</InputLabel>
+                                            <InputLabel>Game</InputLabel>
                                             <Select
                                                 value={this.state.game}
                                                 onChange={this.handleChangeGame}
@@ -311,7 +308,7 @@ class OfferForm extends React.Component {
                                                 color="primary"
                                             >
                                                 {games.map((game) => (
-                                                    <MenuItem key={game} value={game} color="textPrimary">
+                                                    <MenuItem key={game} value={game}>
                                                         {game}
                                                     </MenuItem>
                                                 ))}
