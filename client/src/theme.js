@@ -53,12 +53,30 @@ export const theme = createMuiTheme({
             root: {
                 '&:before': {
                     borderColor: 'white',
+                    borderBottom: '1px solid white'
+
                 },
                 '&:after': {
                     borderColor: 'white',
-                }
+                    borderBottom: '1px solid white'
 
+                }
             }
+        },
+        MuiInput: {
+            // root: {
+                underline: {
+                    '&:before': {
+                        borderBottom: '1px solid white'
+                    },
+                    '&:after': {
+                        borderBottom: `2px solid #90caf9`
+                    },
+                    '&:hover:not($disabled):not($focused):not($error):before': {
+                        borderBottom: `2px solid #90caf9`
+                    }
+                }
+            // }
         },
         MuiInputLabel: { // Name of the component ⚛️ / style sheet
             root: { // Name of the rule
