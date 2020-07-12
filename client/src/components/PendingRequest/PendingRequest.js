@@ -24,6 +24,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Button from "@material-ui/core/Button";
+import OfferService from "../../services/OfferService";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,12 +50,20 @@ export function PendingRequest(props) {
 
     const request = props.request
     const [requestProfile, setRequestProfile] = useState({})
+    const [offer, setOffer] = useState({})
     const [dialogOpen, setDialogOpen] = useState(false)
 
     useEffect(() => {    // Update the profile value on mount
         const fetchdata = async () => {
-            const newprof = await ProfileService.getProfile(request.requestingPlayer)
+
+            var newprof
+            const newoffer = await OfferService.getOffer(request.offer)
+            if(UserService.getCurrentUser().playertype ==="casual"){
+                newprof = await ProfileService.getProfile(offer.owner)
+            }
+            newprof = await ProfileService.getProfile(request.requestingPlayer)
             setRequestProfile(newprof)
+            setOffer(newoffer)
         }
         fetchdata()
 
@@ -100,8 +109,6 @@ export function PendingRequest(props) {
                               direction="row"
                               alignItems="center"
                               justify="center"
-
-
                         >
                             <CardMedia src={getGameIcon(request.game)} component="img" className={classes.imageStyle}/>
 

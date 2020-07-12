@@ -21,11 +21,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Tooltip from "@material-ui/core/Tooltip";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import {Link} from "react-router-dom";
 import BookingDialog from "../BookingDialog/BookingDialog";
 import RequestService from "../../services/RequestService";
 import {getGameIcon} from "../../services/IconService";
-import EditIcon from '@material-ui/icons/Edit';
 import {Link} from "react-router-dom";
 import UserService from "../../services/UserService";
 
@@ -102,27 +100,24 @@ export default function OfferCard(props){
     const handleClose = () => {
         setDialog(false)
     }
-    const Edit = (props.offer.owner === UserService.getCurrentUser().id) ?
-        <div style={{marginBottom:"-40px"}}>
-            <Grid
-                container
-                direction="row"
-                justify="flex-start"
-                alignItems="flex-start"
-            >
+    const BookOrEditButton = (props.offer.owner === UserService.getCurrentUser().id) ?
 
             <Link className={classes.link}  to={`/offer/edit/${props.id}`}>
-                    <EditIcon/>
+                <Button color="primary">
+                    Edit
+                </Button>
                 </Link>
-            </Grid></div>
-                :  <div></div>
+                : <Button color="secondary" onClick={() => {
+            setDialog(true);
+        }}>
+            Book
+        </Button>
+
 
 
     return (
         <MuiThemeProvider theme={theme}>
             <Card classes={{root: classes.card}} className="OfferCard" key={props.key}>
-                    {Edit}
-
                 <CardActionArea className={classes.description}>
                     <CardContent align="center">
                         <Link className="linkDecoration" to={`/user/${profile._id}`}>
@@ -167,11 +162,7 @@ export default function OfferCard(props){
                               direction="column"
                               justify="flex-end"
                               alignItems="flex-end">
-                            <Button color="secondary" onClick={() => {
-                                setDialog(true);
-                            }}>
-                                Book
-                            </Button>
+                            {BookOrEditButton}
                         </Grid>
                     </CardActions>
                 </CardActionArea>
