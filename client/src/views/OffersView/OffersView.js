@@ -132,7 +132,7 @@ class OffersView extends React.Component {
                             {this.state.dataOffers.length !== 0 ?
                                 <Grid container item direction="column" justify="flex-start" alignItems="flex-start"
                                       xs={12}>
-                                    <OfferList dataOffers={this.state.dataOffers}/>
+                                    <OfferList dataOffers={this.state.dataOffers} edit={true}/>
                                 </Grid> :
                                 <Grid item xs={12}>
                                     <Typography variant="h4" className={classes.headerPlayPal} align="center">

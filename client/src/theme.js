@@ -73,7 +73,7 @@ export const theme = createMuiTheme({
                 }
             }
         },
-        MuiOutlinedInput:{
+        MuiOutlinedInput: {
             root: {
                 '&:before': {
                     borderColor: 'white',
@@ -99,6 +99,17 @@ export const theme = createMuiTheme({
                     color: blue[200]
                 }
             }
-        }
+        },
+        MuiStepIcon: {
+            root: {
+                color: grey[700], // or 'rgba(0, 0, 0, 1)'
+                '&$active': {
+                    color: grey[700],
+                },
+                '&$completed': {
+                    color: blue[200],
+                },
+            },
+        },
     }
 });
