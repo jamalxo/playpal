@@ -17,9 +17,11 @@ import Match from "../../resources/herz-new.svg";
 import Trophy from "../../resources/trophaee.svg";
 import New from "../../resources/neu.svg";
 import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import {theme} from '../../theme';
+import Loading from "../../components/Loading";
 
 const useStyles = (theme) => ({
     container: {
@@ -87,10 +89,16 @@ const useStyles = (theme) => ({
         paddingRight: 10
     },
     paper: {
-        backgroundColor: theme.palette.primary.dark,
+        backgroundColor: theme.palette.primary.light,
         marginTop: 50,
         padding: 20,
         marginBottom: 50
+    },
+    loading: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
     },
 });
 
@@ -133,7 +141,7 @@ class HomePageView extends React.Component {
     render() {
         const {classes} = this.props;
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
+            return (<Loading/>);
         }
 
         return (

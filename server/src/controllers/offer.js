@@ -22,7 +22,7 @@ const create = async (req, res) => {
             user.offers.push(offer);
             user.save(function(err) {});
         });
-
+        console.log(offer);
         return res.status(201).json(offer)
     } catch(err) {
         return res.status(500).json({

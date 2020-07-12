@@ -25,7 +25,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Moment from "react-moment";
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
-import UserService from "../../services/UserService";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = (theme) => ({
     root: {
@@ -52,6 +52,7 @@ const useStyles = (theme) => ({
             marginBottom: theme.spacing(6),
             padding: theme.spacing(3),
         },
+        backgroundColor: theme.palette.primary.light
     },
     formControl: {
         margin: theme.spacing(1),
@@ -76,8 +77,26 @@ const useStyles = (theme) => ({
         display: 'flex',
         justifyContent: 'flex-end',
     },
+    buttonCreate: {
+        backgroundColor: theme.palette.primary.lighter,
+        color: theme.palette.primary.contrastText
+    },
     grid: {
         marginTop: 50
+    },
+    divider: {
+        backgroundColor: theme.palette.primary.contrastText
+    },
+    select: {
+        '&:before': {
+            borderColor: 'white',
+        },
+        '&:after': {
+            borderColor: 'white',
+        }
+    },
+    icon: {
+        fill: theme.palette.primary.contrastText,
     }
 });
 
@@ -279,32 +298,34 @@ class OfferForm extends React.Component {
 
         return (
             <MuiThemeProvider theme={theme}>
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                    className={classes.grid}
-                >
+                <Grid container
+                      direction="row"
+                      justify="center"
+                      alignItems="center"
+                      className={classes.grid}>
                     <Page>
                         <main className={classes.layout}>
                             <Paper className={classes.paper}>
-                                <Typography component="h1" variant="h4" align="center">
-                                    { !this.state.editMode ? <h1>Create Offer</h1> : <h1>Edit Offer</h1>}
-                                </Typography>
+                                {!this.state.editMode ?
+                                    <Typography align="center" variant="h3" color="textPrimary">Create Offer</Typography> :
+                                    <Typography align="center" variant="h3" color="textPrimary">Edit Offer</Typography>}
+
+                                <Divider className={classes.divider} variant="middle"/>
+
                                 <Grid container spacing={3} direction="column" justify="center" alignItems="center">
                                     {/*todo: add icon*/}
                                     <Grid item xs={6} sm={3}>
                                         <FormControl className={classes.formControl}>
-                                            <InputLabel id="demo-mutiple-name-label">Game</InputLabel>
-                                            <Select
-                                                labelId="demo-mutiple-name-label"
-                                                id="demo-mutiple-name"
-                                                value={this.state.game}
-                                                onChange={this.handleChangeGame}
-                                                input={<Input/>}
-                                                MenuProps={MenuProps}
-                                            >
+                                            <InputLabel className={classes.input}>Game</InputLabel>
+                                            <Select value={this.state.game}
+                                                    onChange={this.handleChangeGame}
+                                                    input={<Input/>}
+                                                    className={classes.select}
+                                                    inputProps={{
+                                                        classes: {
+                                                            icon: classes.icon,
+                                                        },
+                                                    }}>
                                                 {games.map((game) => (
                                                     <MenuItem key={game} value={game}>
                                                         {game}
@@ -315,15 +336,16 @@ class OfferForm extends React.Component {
                                     </Grid>
                                     <Grid item xs={6} sm={3}>
                                         <FormControl className={classes.formControl}>
-                                            <InputLabel id="demo-mutiple-name-label">Server</InputLabel>
-                                            <Select
-                                                labelId="demo-mutiple-name-label"
-                                                id="demo-mutiple-name"
-                                                value={this.state.server}
-                                                onChange={this.handleChangeServer}
-                                                input={<Input/>}
-                                                MenuProps={MenuProps}
-                                            >
+                                            <InputLabel>Server</InputLabel>
+                                            <Select value={this.state.server}
+                                                    onChange={this.handleChangeServer}
+                                                    input={<Input/>}
+                                                    className={classes.select}
+                                                    inputProps={{
+                                                        classes: {
+                                                            icon: classes.icon,
+                                                        },
+                                                    }}>
                                                 {server.map((server) => (
                                                     <MenuItem key={server} value={server}>
                                                         {server}
@@ -332,22 +354,19 @@ class OfferForm extends React.Component {
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                    <Grid container spacing={3} direction="column" justify="center" alignItems="center">
-
-                                        <Grid item xs={6} sm={3}>
-                                            <CurrencyTextField
-                                                label="Amount"
-                                                variant="standard"
-                                                value={this.state.price}
-                                                currencySymbol="$"
-                                                minimumValue="0"
-                                                outputFormat="string"
-                                                decialCharacter="."
-                                                digitGroupSeparator=","
-                                                onChange={this.handleChangePrice}
-                                                style={{paddingLeft: '10px'}}
-                                            />
-                                        </Grid>
+                                    <Grid item xs={6} sm={3}>
+                                        <CurrencyTextField
+                                            label="Amount"
+                                            variant="standard"
+                                            value={this.state.price}
+                                            currencySymbol="$"
+                                            minimumValue="0"
+                                            outputFormat="string"
+                                            decialCharacter="."
+                                            digitGroupSeparator=","
+                                            onChange={this.handleChangePrice}
+                                            style={{marginLeft: '15px'}}
+                                        />
                                     </Grid>
 
                                     <div>
@@ -364,7 +383,8 @@ class OfferForm extends React.Component {
                                                     <DialogContentText>
                                                         Please add the day and time you are available in.
                                                     </DialogContentText>
-                                                    <Grid item xs={12} sm={6}>
+                                                    <Grid item xs={12} sm={6} direction="column" justify="center"
+                                                          alignItems="center">
                                                         <FormControl className={classes.formControl}>
                                                             <InputLabel id="demo-mutiple-name-label">Available
                                                                 Days</InputLabel>
@@ -444,13 +464,11 @@ class OfferForm extends React.Component {
                                     </Grid> : null}
                                 </Grid>
                                 <div className={classes.buttons}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={this.handleSubmit}
-                                        className={classes.button}
-                                    >
-                                        { !this.state.editMode ? <div>Create</div> : <div>Update</div>}
+                                    <Button variant="contained"
+                                            color="primary"
+                                            onClick={this.handleSubmit}
+                                            className={classes.buttonCreate}>
+                                        {!this.state.editMode ? <div>Create</div> : <div>Update</div>}
                                     </Button>
                                 </div>
                             </Paper>

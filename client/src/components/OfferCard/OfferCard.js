@@ -13,23 +13,20 @@ import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import Grid from "@material-ui/core/Grid";
 import './OfferCard.css';
-import LoL from '../../resources/games/LoL.png'
+import LoL from '../../resources/games/lol.png'
 import Dota from '../../resources/games/dota2.png'
 import CSGO from '../../resources/games/csgo.png'
 import Search from "../../resources/suche.svg";
 import CardMedia from "@material-ui/core/CardMedia";
 import Tooltip from "@material-ui/core/Tooltip";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import {Link} from "react-router-dom";
 import BookingDialog from "../BookingDialog/BookingDialog";
-import RequestService from "../../services/RequestService";
 import EditIcon from '@material-ui/icons/Edit';
-import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        background: 'theme.palette.primary.dark',
+        color: 'theme.palette.primary.lighter',
         flexGrow: 1,
     },
     title: {
@@ -57,33 +54,47 @@ const useStyles = makeStyles((theme) => ({
     link: {
         margin: 10,
         marginTop: 10
-    }
-
+    },
+    card: {
+        backgroundColor: theme.palette.primary.lighter,
+        flexGrow: 1,
+        width: "280px",
+        height: "350px",
+    },
+    divider: {
+        backgroundColor: theme.palette.primary.contrastText
+    },
 }));
 
 
-export default function OfferCard(props){
+export default function OfferCard(props) {
     const classes = useStyles();
     const [profile, setProfile] = useState({})
     const [image, setImage] = useState({})
     const [dialogOpen, setDialog] = useState(false)
-    useEffect( () => {    // Update the profile value on mount
-        const fetchdata = async () =>
-        {
+    useEffect(() => {    // Update the profile value on mount
+        const fetchdata = async () => {
             const newprof = await ProfileService.getProfile(props.offer.owner)
             setProfile(newprof)
         }
-        switch(props.offer.game)
-        {
-            case 'LoL': setImage(LoL);break;
-            case 'DotA 2': setImage(Dota);break;
-            case 'CS:GO': setImage(CSGO);break;
-            default: setImage(Search);break;
+        switch (props.offer.game) {
+            case 'LoL':
+                setImage(LoL);
+                break;
+            case 'DotA 2':
+                setImage(Dota);
+                break;
+            case 'CS:GO':
+                setImage(CSGO);
+                break;
+            default:
+                setImage(Search);
+                break;
         }
 
         fetchdata()
 
-    },[]);
+    }, []);
 
     const displayVerifiedIcon = () => {
         if (profile.usertype === "professional") {
@@ -96,81 +107,70 @@ export default function OfferCard(props){
         } else {
             return '';
         }
-    }
+    };
     const handleClose = () => {
         setDialog(false)
-    }
+    };
+
 
     return (
         <MuiThemeProvider theme={theme}>
-            <Card classes={{root: classes.root}} className="OfferCard" key={props.key}>
-                <Link className={classes.link}  to={`/offer/edit/${props.id}`}>
+            <Card className={classes.card} key={props.key}>
+                <Link className={classes.link} to={`/offer/edit/${props.offer._id}`}>
                     <EditIcon/>
                 </Link>
                 <CardActionArea className={classes.description}>
                     <CardContent align="center">
                         <Link className="linkDecoration" to={`/user/${profile._id}`}>
-
-                        <Avatar
-                                className="profilePicture"
-                                alt={profile.username}
-                                title={profile.username}
-                                src={profile.profileImage}
-                            />
+                            <Avatar className="profilePicture"
+                                    alt={profile.username}
+                                    title={profile.username}
+                                    src={profile.profileImage}/>
                         </Link>
                         <Typography variant="h5" component="h5" color={'inherit'}>
                             {profile.username}
                             {displayVerifiedIcon()}
                         </Typography>
                     </CardContent>
-                    <Divider variant="middle"/>
+
+                    <Divider className={classes.divider} variant="middle"/>
 
                     <CardContent align="center">
-                        <Grid
-                            container
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
-                        >
-                                <CardMedia src={image} component="img" className={classes.imageStyle}/>
-                                <Typography variant="h4" component="h4">
-                                    {props.offer.game}
-                                </Typography>
+                        <Grid container
+                              direction="row"
+                              justify="center"
+                              alignItems="center">
+                            <CardMedia src={image} component="img" className={classes.imageStyle}/>
+                            <Typography variant="h4" component="h4" color="textPrimary">
+                                {props.offer.game}
+                            </Typography>
                         </Grid>
                     </CardContent>
-                    <Divider variant="middle"/>
+
+                    <Divider className={classes.divider} variant="middle"/>
+
                     <CardActions disableSpacing>
-                        <Grid
-                            container
-                            direction="column"
-                            justify="flex-start"
-                            alignItems="flex-start"
-                            className={classes.bookPrice}
-                        >
-
-                            <Typography variant="h5">
-                                {props.offer.price} $
+                        <Grid container direction="column" justify="flex-start" alignItems="flex-start"
+                              className={classes.bookPrice}>
+                            <Typography variant="h4" color="textPrimary">
+                                ${props.offer.price}
                             </Typography>
-                            <LocalOfferIcon/>
-
                         </Grid>
-
                         <Grid className={classes.bookButton}
-                            container
-                            direction="column"
-                            justify="flex-end"
-                            alignItems="flex-end"
-                        >
-                        <Button variant="contained" color="primary" onClick={() => {setDialog(true);console.log("Clicked on Button")}}>
-                            Book
-                        </Button>
-                            </Grid>
+                              container
+                              direction="column"
+                              justify="flex-end"
+                              alignItems="flex-end">
+                            <Button color="secondary" onClick={() => {
+                                setDialog(true);
+                            }}>
+                                Book
+                            </Button>
+                        </Grid>
                     </CardActions>
                 </CardActionArea>
-
             </Card>
-            <BookingDialog open={dialogOpen} handleClose={handleClose} offer={props.offer} profile={profile} />
-
+            <BookingDialog open={dialogOpen} handleClose={handleClose} offer={props.offer} profile={profile}/>
         </MuiThemeProvider>
     );
 

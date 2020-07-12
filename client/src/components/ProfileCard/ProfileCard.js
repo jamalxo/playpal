@@ -17,7 +17,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = (theme) => ({
     root: {
-        background: 'theme.palette.primary.dark',
+        background: theme.palette.primary.lighter,
         flexGrow: 1,
     },
     menuButton: {
