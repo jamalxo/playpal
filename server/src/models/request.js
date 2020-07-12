@@ -18,7 +18,6 @@ const RequestSchema  = new mongoose.Schema({
         },
     game:{
         type: String
-    }
-
+    },
 })
 module.exports = mongoose.model('Request', RequestSchema);

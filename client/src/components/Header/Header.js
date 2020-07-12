@@ -137,11 +137,12 @@ class Header extends React.Component {
             currentTab = 1
         } else if (path === '/') {
             currentTab = 0
-        } else {
-            currentTab = false
         }
         else if (path === '/requests/pending') {
             currentTab = 2
+        }
+        else {
+            currentTab = false
         }
 
 

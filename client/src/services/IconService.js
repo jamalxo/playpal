@@ -1,4 +1,4 @@
-import LoL from "../resources/games/LoL.png";
+import LoL from "../resources/games/lol.png";
 import Dota from "../resources/games/dota2.png";
 import CSGO from "../resources/games/csgo.png";
 import Search from "../resources/suche.svg";
