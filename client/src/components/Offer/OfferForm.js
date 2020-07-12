@@ -25,7 +25,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Moment from "react-moment";
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
-import UserService from "../../services/UserService";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = (theme) => ({
     root: {
@@ -52,6 +52,7 @@ const useStyles = (theme) => ({
             marginBottom: theme.spacing(6),
             padding: theme.spacing(3),
         },
+        backgroundColor: theme.palette.primary.light
     },
     formControl: {
         margin: theme.spacing(1),
@@ -78,7 +79,10 @@ const useStyles = (theme) => ({
     },
     grid: {
         marginTop: 50
-    }
+    },
+    divider: {
+        backgroundColor: theme.palette.primary.contrastText
+    },
 });
 
 const ITEM_HEIGHT = 48;
@@ -279,34 +283,38 @@ class OfferForm extends React.Component {
 
         return (
             <MuiThemeProvider theme={theme}>
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                    className={classes.grid}
-                >
+                <Grid container
+                      direction="row"
+                      justify="center"
+                      alignItems="center"
+                      className={classes.grid}>
                     <Page>
                         <main className={classes.layout}>
                             <Paper className={classes.paper}>
                                 <Typography component="h1" variant="h4" align="center">
-                                    { !this.state.editMode ? <h1>Create Offer</h1> : <h1>Edit Offer</h1>}
+                                    {!this.state.editMode ?
+                                        <Typography variant="h3" color="textPrimary">Create Offer</Typography> :
+                                        <Typography variant="h3" color="textPrimary">Edit Offer</Typography>}
                                 </Typography>
+
+                                <Divider className={classes.divider} variant="middle"/>
+
                                 <Grid container spacing={3} direction="column" justify="center" alignItems="center">
                                     {/*todo: add icon*/}
                                     <Grid item xs={6} sm={3}>
                                         <FormControl className={classes.formControl}>
-                                            <InputLabel id="demo-mutiple-name-label">Game</InputLabel>
+                                            <InputLabel color="textPrimary">Game</InputLabel>
                                             <Select
-                                                labelId="demo-mutiple-name-label"
-                                                id="demo-mutiple-name"
                                                 value={this.state.game}
                                                 onChange={this.handleChangeGame}
                                                 input={<Input/>}
-                                                MenuProps={MenuProps}
+                                                color="primary"
+                                                underlineStyle={{ borderColor: '#ff0000' }}
+                                                iconStyle={{ fill: '#ff0000' }}
+                                                labelStyle={{ color: '#ff0000' }}
                                             >
                                                 {games.map((game) => (
-                                                    <MenuItem key={game} value={game}>
+                                                    <MenuItem key={game} value={game} color="textPrimary">
                                                         {game}
                                                     </MenuItem>
                                                 ))}
@@ -451,7 +459,7 @@ class OfferForm extends React.Component {
                                         onClick={this.handleSubmit}
                                         className={classes.button}
                                     >
-                                        { !this.state.editMode ? <div>Create</div> : <div>Update</div>}
+                                        {!this.state.editMode ? <div>Create</div> : <div>Update</div>}
                                     </Button>
                                 </div>
                             </Paper>

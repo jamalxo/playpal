@@ -58,6 +58,10 @@ const useStyles = (theme) => ({
         margin: theme.spacing(2, 0),
         backgroundColor: theme.palette.primary.contrastText
     },
+    buttonCreate: {
+        backgroundColor: theme.palette.primary.lighter,
+        color: theme.palette.primary.contrastText
+    }
 });
 
 class OffersView extends React.Component {
@@ -115,7 +119,7 @@ class OffersView extends React.Component {
                                 </Grid>
                                 <Grid container item direction="row" justify="flex-end" alignItems="center" xs={6}
                                       className={classes.createButton}>
-                                    <Button variant="contained" color="primary"
+                                    <Button variant="contained" className={classes.buttonCreate}
                                             onClick={() => this.props.history.push('/offer/create')}>
                                         Create new offer
                                     </Button>
