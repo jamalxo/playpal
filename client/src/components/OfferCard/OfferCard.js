@@ -26,6 +26,7 @@ import RequestService from "../../services/RequestService";
 import {getGameIcon} from "../../services/IconService";
 import EditIcon from '@material-ui/icons/Edit';
 import {Link} from "react-router-dom";
+import UserService from "../../services/UserService";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -92,17 +93,37 @@ export default function OfferCard(props){
     const handleClose = () => {
         setDialog(false)
     }
+    const Edit = (props.offer.owner === UserService.getCurrentUser().id) ?
+        <div style={{marginBottom:"-40px"}}>
+            <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="flex-start"
+            >
+
+            <Link className={classes.link}  to={`/offer/edit/${props.id}`}>
+                    <EditIcon/>
+                </Link>
+            </Grid></div>
+                :  <div></div>
+
 
     return (
         <MuiThemeProvider theme={theme}>
             <Card classes={{root: classes.root}} className="OfferCard" key={props.key}>
-                <Link className={classes.link}  to={`/offer/edit/${props.id}`}>
-                    <EditIcon/>
-                </Link>
+                    {Edit}
+
                 <CardActionArea className={classes.description}>
                     <CardContent align="center">
-                        <Link className="linkDecoration" to={`/user/${profile._id}`}>
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
 
+<Link className="linkDecoration" to={`/user/${profile._id}`}>
                         <Avatar
                                 className="profilePicture"
                                 alt={profile.username}
@@ -110,6 +131,7 @@ export default function OfferCard(props){
                                 src={profile.profileImage}
                             />
                         </Link>
+                        </Grid>
                         <Typography variant="h5" component="h5" color={'inherit'}>
                             {profile.username}
                             {displayVerifiedIcon()}
@@ -159,7 +181,6 @@ export default function OfferCard(props){
                             </Grid>
                     </CardActions>
                 </CardActionArea>
-
             </Card>
             <BookingDialog open={dialogOpen} handleClose={handleClose} offer={props.offer} profile={profile} />
 
