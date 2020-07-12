@@ -12,6 +12,7 @@ export const theme = createMuiTheme({
         text: {
             primary: grey[50],
             secondary: grey[50],
+            grey: "#b1b0c5"
         },
         primary: {
             main: '#303030',
@@ -36,7 +37,7 @@ export const theme = createMuiTheme({
             contrastText: grey[50],
         },
         indicatorColor: blue[500],
-        cardColor: grey[400]
+        cardColor: "#fafafa"
     },
     overrides: {
         MuiList: {
