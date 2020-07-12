@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
+import Availability from "../../resources/availability.png";
+import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
 
 
 const useStyles = (theme) => ({
@@ -14,8 +17,26 @@ const useStyles = (theme) => ({
         background: theme.palette.cardColor,
         display: "flex",
         width: '100%',
-        height: '50%',
+        height: '100%',
     },
+    imageStyle: {
+        height: 50,
+        width: 50,
+    },
+    availabilityBox: {
+        display: "flex",
+    },
+    contentBox: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        width: '100%',
+        padding: 5
+    },
+    times: {
+        paddingLeft: 30,
+        paddingTop: 20
+    }
 });
 
 class AvailabilityBox extends React.Component {
@@ -29,14 +50,23 @@ class AvailabilityBox extends React.Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <Card key={this.props.key} className={classes.root}>
-                    <CardContent align="left">
-                        <div>
-                            <Typography variant="h4">Availability</Typography>
-                            <Typography variant="body2">Friday: 18:00 - 20:00</Typography>
-                            <Typography variant="body2">Saturday: 18:00 - 20:00</Typography>
-                            <Typography variant="body2">Sunday: 18:00 - 20:00</Typography>
-                        </div>
-                    </CardContent>
+                    <Grid container className={classes.availabilityBox}>
+                        <Grid item xs={12} >
+                            <div className={classes.contentBox}>
+                                <img src={Availability} alt="Logo" className={classes.imageStyle}/>
+                            </div>
+                            <div className={classes.contentBox}>
+                                <Typography variant="h4">Availability</Typography>
+                            </div>
+                            <Divider orientation="horizontal" variant="fullWidth"/>
+                            <div className={classes.times}>
+                                <Typography variant="body1">1. Friday: 18:00 - 20:00</Typography>
+                                <Typography variant="body1">2. Saturday: 18:00 - 20:00</Typography>
+                                <Typography variant="body1">3. Sunday: 18:00 - 20:00</Typography>
+                            </div>
+                        </Grid>
+
+                    </Grid>
                 </Card>
             </MuiThemeProvider>
         );

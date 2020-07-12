@@ -14,6 +14,7 @@ import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Tooltip from "@material-ui/core/Tooltip";
+import Verified from "../../resources/verified_gamer.png";
 
 const useStyles = (theme) => ({
     root: {
@@ -28,6 +29,10 @@ const useStyles = (theme) => ({
     },
     description: {
         height: '100%'
+    },
+    imageStyle: {
+        height: 40,
+        width: 40,
     }
 });
 
@@ -58,12 +63,12 @@ class ProfileCard extends React.Component {
     }
 
     displayVerifiedIcon() {
+        const {classes} = this.props;
         if (this.props.profile.usertype === "professional") {
             return (
                 <Tooltip title="Professional Gamer" aria-label="pro">
-                    <VerifiedUserIcon fontSize="small" className="verifiedIcon"/>
+                    <img src={Verified} alt="Logo" className={classes.imageStyle}/>
                 </Tooltip>
-
             );
         } else {
             return '';
