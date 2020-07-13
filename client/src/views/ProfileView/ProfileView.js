@@ -35,7 +35,7 @@ import MovieService from "../../services/MovieService";
 
 const useStyles = (theme) => ({
     grid: {
-        paddingTop: 75
+        paddingTop: 100
     },
     paddingBelow: {
         paddingBottom: 15
@@ -48,7 +48,7 @@ const useStyles = (theme) => ({
         paddingTop: 20,
     },
     reviewGrid: {
-        paddingBottom: 15,
+        paddingBottom: 30,
         display: "flex",
         flexDirection: "row",
         alignItems: "flex-end",
@@ -64,7 +64,7 @@ const useStyles = (theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center"
-    }
+    },
 });
 
 class ProfileView extends React.Component {
@@ -140,32 +140,45 @@ class ProfileView extends React.Component {
     }
 
     async deleteReview(review) {
-        let postedBy = review.postedBy;
-        let me = UserService.getCurrentUser();
-        if (postedBy._id !== me.id) {
-            console.log("Not allowed to delete a review you didn't write!")
-        } else {
-            let id = review._id;
+        let id = review._id;
+        this.setState({
+            user: this.state.user,
+            loading: true
+        });
+        try {
+            let ret = await ReviewService.deleteReview(id);
+            let reviewIndex = this.state.user.reviews.indexOf(id);
+            let userWithoutReview = this.state.user;
+            userWithoutReview.reviews.splice(reviewIndex, 1);
+
             this.setState({
-                user: this.state.user,
-                loading: true
+                user: userWithoutReview,
+                loading: false
             });
-            try {
-                let ret = await ReviewService.deleteReview(id);
-                let reviewIndex = this.state.user.reviews.indexOf(id);
-                let userWithoutReview = this.state.user;
-                userWithoutReview.reviews.splice(reviewIndex, 1);
-
-                this.setState({
-                    user: userWithoutReview,
-                    loading: false
-                });
-            } catch (err) {
-                console.error(err);
-            }
+        } catch (err) {
+            console.error(err);
         }
+    }
 
+    displayOffers() {
+        if (this.state.user.offers.length === 0) {
+            return (<Typography variant="h4" color={"inherit"}>No Offers Available Yet!</Typography>);
+        } else {
+            return (<OfferList dataOffers={this.state.user.offers}/>);
+        }
+    }
 
+    displayReviews(classes) {
+        if (this.state.user.reviews.length === 0) {
+            return (<Typography variant="h4" color={"inherit"} className={classes.commentHeader}>Write The First Review!</Typography>);
+        } else {
+            return (this.state.user.reviews.map((review, i) =>
+                    <Grid item xs={12} key={i} className={classes.elementPadding}>
+                        <ReviewData key={i} review={review}
+                                    onDelete={(review) => this.deleteReview(review)}/>
+                    </Grid>)
+            );
+        }
     }
 
     render() {
@@ -198,7 +211,7 @@ class ProfileView extends React.Component {
                                                     color={"inherit"}>My Offers</Typography>
                                     </Grid>
                                     <Grid item xs={12} className={[classes.elementPadding, classes.offerElement]}>
-                                        <OfferList dataOffers={this.state.user.offers}/>
+                                        {this.displayOffers()}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -214,13 +227,11 @@ class ProfileView extends React.Component {
                                             onSubmit={(review) => {
                                                 this.createReview(review);
                                             }}
+                                            user={this.state.user}
                                             error={this.state.error}
                                         />
                                     </Grid>
-                                    {this.state.user.reviews.map((review, i) =>
-                                        <Grid item xs={12} key={i} className={classes.elementPadding}>
-                                            <ReviewData key={i} review={review} onDelete={(review) => this.deleteReview(review)}/>
-                                        </Grid>)}
+                                    {this.displayReviews(classes)}
                                 </Grid>
                             </Grid>
                         </Grid>

@@ -12,6 +12,7 @@ import {withStyles} from "@material-ui/core/styles";
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
+import UserService from "../../services/UserService";
 
 const useStyles = (theme) => ({
     root: {
@@ -132,6 +133,18 @@ class ReviewData extends React.Component {
         }
     }
 
+    showIcons() {
+        let me = UserService.getCurrentUser();
+
+        if (this.props.review.postedBy._id === me.id) {
+            return (<Tooltip title="Delete Review">
+                <IconButton aria-label="delete" onClick={() => this.props.onDelete(this.props.review)}>
+                    <DeleteIcon/>
+                </IconButton>
+            </Tooltip>);
+        }
+    }
+
     render() {
         const {classes} = this.props;
         return (
@@ -162,11 +175,7 @@ class ReviewData extends React.Component {
                     <Grid item xs={3}>
                         <CardContent align="right">
                             <Rating name="read-only" value={this.props.review.rating} readOnly size="large"/>
-                            <Tooltip title="Delete Review">
-                                <IconButton aria-label="delete" onClick={() => this.props.onDelete(this.props.review)}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Tooltip>
+                            {this.showIcons()}
                         </CardContent>
                     </Grid>
                 </Grid>
