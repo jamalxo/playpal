@@ -172,7 +172,8 @@ class ProfileView extends React.Component {
         if (this.state.user.reviews.length === 0) {
             return (<Typography variant="h4" color={"inherit"} className={classes.commentHeader}>Write The First Review!</Typography>);
         } else {
-            return (this.state.user.reviews.map((review, i) =>
+            let reviewReverse = this.state.user.reviews.reverse();
+            return (reviewReverse.map((review, i) =>
                     <Grid item xs={12} key={i} className={classes.elementPadding}>
                         <ReviewData key={i} review={review}
                                     onDelete={(review) => this.deleteReview(review)}/>
