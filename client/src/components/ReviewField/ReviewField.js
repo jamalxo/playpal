@@ -36,7 +36,8 @@ class ReviewField extends React.Component {
 
         this.state = {
             rating: 0,
-            text: ''
+            text: '',
+            errorFlag: false
         };
 
         this.handleChangeInput = this.handleChangeInput.bind(this);
@@ -45,11 +46,23 @@ class ReviewField extends React.Component {
 
 
     handleChangeInput(target, value) {
-        this.setState({
-            [target]: value
-        });
+        this.validateInput(target, value);
+        if (!this.state.errorFlag) {
+            this.setState({
+                [target]: value
+            });
+        }
+        this.state.errorFlag = false;
     }
 
+    validateInput(target, value) {
+        if (target === 'text') {
+            // review should not be over 300 characters
+            if (value.length > 300) {
+                this.state.errorFlag = true;
+            }
+        }
+    }
 
     handleSubmit(event) {
         event.preventDefault();
