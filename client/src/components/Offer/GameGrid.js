@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     imageStyleSelected: {
         width: "350px !important",
         height: "175px !important",
-        border: "2px solid #90caf9",
+        border: "5px solid #90caf9",
     },
     grid: {
         padding: 40
