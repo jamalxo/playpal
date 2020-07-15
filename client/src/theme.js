@@ -111,5 +111,14 @@ export const theme = createMuiTheme({
                 },
             },
         },
+        MuiDialogTitle: { // Name of the component ⚛️ / style sheet
+            color: 'white'
+        },
+        MuiTypography: { // Name of the component ⚛️ / style sheet
+            root: {
+                color: "white", // or 'rgba(0, 0, 0, 1)'
+            },
+        },
+
     }
 });

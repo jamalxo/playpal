@@ -87,14 +87,14 @@ class ProfileCard extends React.Component {
                                 alt={this.props.profile.username}
                                 title={this.props.profile.username}
                                 src={this.props.profile.profileImage}/>
-                            <Typography variant="h2" component="h2" color={'inherit'}>
+                            <Typography variant="h2" component="h2" color="textPrimary">
                                 {this.props.profile.username}
                                 {this.displayVerifiedIcon()}
                             </Typography>
                         </CardContent>
                         <Divider variant="middle"/>
                         <CardContent align="center">
-                            <Typography variant="body1" component="h2">
+                            <Typography variant="body1" component="h2" color="textPrimary">
                                 <div className="reviewRating">
                                     <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
                                     <span className="fontAverage">
@@ -102,16 +102,16 @@ class ProfileCard extends React.Component {
                                 </span>
                                 </div>
                             </Typography>
-                            <Typography variant="h5">
+                            <Typography variant="h5" color="textPrimary">
                                 {this.props.profile.reviews.length} Reviews
                             </Typography>
                         </CardContent>
                         <Divider variant="middle"/>
                         <CardContent align="center">
-                            <Typography variant="h6">
+                            <Typography variant="h6" color="textPrimary">
                                 About
                             </Typography>
-                            <Typography variant="body1" color="inherit" component="p">
+                            <Typography variant="body1" color="textPrimary" component="p">
                                 {this.printDescription()}
                             </Typography>
                         </CardContent>

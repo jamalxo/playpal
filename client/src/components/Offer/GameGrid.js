@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.primary.lighter,
     },
     imageStyle: {
-        width: "250px !important",
-        height: "125px !important",
+        width: "350px !important",
+        height: "175px !important",
     },
     imageStyleSelected: {
-        width: "250px !important",
-        height: "125px !important",
+        width: "350px !important",
+        height: "175px !important",
         border: "2px solid #90caf9",
     },
     grid: {
@@ -205,13 +205,13 @@ export default function GameGrid(props) {
         if (variant === 0) {
             return (
                 <React.Fragment>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} container alignItems="center" justify="center">
                         <Game game={games[0]}/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} container alignItems="center" justify="center">
                         <Game game={games[1]}/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} container alignItems="center" justify="center">
                         <Game game={games[2]}/>
                     </Grid>
                 </React.Fragment>
@@ -219,13 +219,13 @@ export default function GameGrid(props) {
         } else if (variant === 1) {
             return (
                 <React.Fragment>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} container alignItems="center" justify="center">
                         <Game game={games[3]}/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} container alignItems="center" justify="center">
                         <Game game={games[4]}/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} container alignItems="center" justify="center">
                         <Game game={games[5]}/>
                     </Grid>
                 </React.Fragment>
@@ -233,13 +233,13 @@ export default function GameGrid(props) {
         } else if (variant === 2) {
             return (
                 <React.Fragment>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} container alignItems="center" justify="center">
                         <Game game={games[6]}/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} container alignItems="center" justify="center">
                         <Game game={games[7]}/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={4} container alignItems="center" justify="center">
                         <Game game={games[8]}/>
                     </Grid>
                 </React.Fragment>
