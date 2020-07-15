@@ -59,6 +59,7 @@
     "@material-ui/pickers": "latest",
     "@unicef/material-ui-currency-textfield": "^0.8.6",
     "date-fns": "latest",
+    "material-ui-search-bar": "^0.4.2",
     "moment": "^2.27.0",
     "react": "latest",
     "react-dom": "latest",
