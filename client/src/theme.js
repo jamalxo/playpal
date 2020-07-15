@@ -119,6 +119,11 @@ export const theme = createMuiTheme({
                 color: "white", // or 'rgba(0, 0, 0, 1)'
             },
         },
+        MuiFormHelperText: {
+            root: {
+                color: "red"
+            }
+        }
 
     }
 });
