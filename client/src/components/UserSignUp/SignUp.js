@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -19,13 +16,15 @@ import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import UserService from "../../services/UserService";
+import Banner from "../../resources/console.svg";
+import Paper from "@material-ui/core/Paper";
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                Your Website
+                PlayPal
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -35,7 +34,6 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(8),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -50,7 +48,20 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
+        backgroundColor: theme.palette.primary.lighter,
+        color: theme.palette.primary.contrastText
     },
+    imageStyle: {
+        width: 50,
+        height: 50
+    },
+    paperBackground: {
+        padding: 30,
+        width: "75%"
+    },
+    grid: {
+        paddingTop: theme.spacing(8),
+    }
 }));
 
 export default function SignUp(props) {
@@ -180,12 +191,11 @@ export default function SignUp(props) {
 
     return (
         <MuiThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+            <Grid container item alignItems="center" justify="center" className={classes.grid}>
                 <CssBaseline/>
+                <Paper className={classes.paperBackground}>
                 <div className={classes.paper}>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon/>
-                    </Avatar>
+                    <img src={Banner} alt="Logo" className={classes.imageStyle}/>
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
@@ -328,7 +338,8 @@ export default function SignUp(props) {
                 <Box mt={5}>
                     <Copyright/>
                 </Box>
-            </Container>
+                </Paper>
+            </Grid>
         </MuiThemeProvider>
     );
 }

@@ -23,7 +23,7 @@ const useStyles = (theme) => ({
         padding: 5
     },
     submitReviewButton: {
-        backgroundColor: theme.palette.primary.lighter,
+        backgroundColor: theme.palette.primary.lightest,
         color: theme.palette.primary.contrastText,
         borderRadius: 25
     }

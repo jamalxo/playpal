@@ -1,8 +1,8 @@
 "use strict";
 
 import React from 'react';
-import UserSignup from '../../components/UserSignup/UserSignup';
 import UserService from '../../services/UserService';
+import UserSignup from "../../components/UserSignup";
 
 export class UserSignupView extends React.Component {
 
@@ -25,7 +25,7 @@ export class UserSignupView extends React.Component {
 
     render() {
         return (
-            <UserSignup onSubmit={(user) => this.signup(user)} error={this.state.error}></UserSignup>
+            <UserSignup onSubmit={(user) => this.signup(user)} error={this.state.error}/>
         );
     }
 }

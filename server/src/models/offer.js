@@ -37,7 +37,6 @@ const  Offer  = new mongoose.Schema({
             required: false,
         },
     }]
-
 });
 
 Offer.set('versionKey', false);
