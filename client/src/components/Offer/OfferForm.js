@@ -372,7 +372,6 @@ class OfferForm extends React.Component {
                 game: data.name
             }));
         }
-        console.log(this.state);
     }
 
     render() {

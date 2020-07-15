@@ -19,7 +19,7 @@ export default function BookingDialog(props){
 
     return (
         <Dialog open={props.open} onClose={props.onClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Book</DialogTitle>
+            <DialogTitle id="form-dialog-title" color="primary">Book</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     To confirm your booking, please enter your discord tag here. The professional Player will get your request and message you.
