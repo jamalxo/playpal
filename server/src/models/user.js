@@ -68,6 +68,11 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'Request'
     }],
+    upcomingGames:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Request'
+    }],
+
 });
 
 UserSchema.set('versionKey', false);

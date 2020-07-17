@@ -10,14 +10,27 @@ const RequestSchema  = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
+    offeringPlayer:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
     status:
         {
             type: String,
-            enum: ['pending', 'accepted','rejected'],
+            enum: ['pending', 'accepted','rejected', 'cancelled'],
             default: 'pending'
         },
     game:{
         type: String
     },
+    price:{
+        type: Number,
+    },
+    additionalInfo:{
+        type: String
+    },
+    discordTag:{
+        type: String,
+    }
 })
 module.exports = mongoose.model('Request', RequestSchema);
