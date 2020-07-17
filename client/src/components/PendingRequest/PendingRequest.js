@@ -47,6 +47,12 @@ const useStyles = makeStyles((theme) => ({
         //alignSelf: 'center',
         //marginLeft: '25px',
     },
+    button: {
+        backgroundColor: theme.palette.primary.lightest,
+        color: theme.palette.primary.contrastText,
+        marginTop: theme.spacing(1),
+        marginRight: theme.spacing(1),
+    },
 
 
 
@@ -157,11 +163,13 @@ export function PendingRequest(props) {
             <DialogActions>
                 <Button onClick={() =>{
                     RequestService.answerRequest(request._id,"declined")
-                    setDeclineDialogOpen(false)}} color="primary" autoFocus>
+                    setDeclineDialogOpen(false)}} color="primary" autoFocus
+                        className={classes.button}>
                     Yes
                 </Button>
 
-                <Button onClick={() => setDeclineDialogOpen(false)} color="primary" autoFocus>
+                <Button onClick={() => setDeclineDialogOpen(false)} color="primary" autoFocus
+                        className={classes.button}>
                     Cancel
                 </Button>
             </DialogActions>
@@ -182,13 +190,15 @@ export function PendingRequest(props) {
                 <Button onClick={() => {
                     RequestService.answerRequest(request._id, "cancelled")
                     setDeclineDialogOpen(false)
-                }} color="primary" autoFocus>
+                }}  autoFocus
+                        className={classes.button}>
 
                     Yes
                 </Button>
 
                 <Button onClick={() =>
-                    setDeclineDialogOpen(false)} color="primary" autoFocus>
+                    setDeclineDialogOpen(false)} color="primary" autoFocus
+                        className={classes.button}>
                     Cancel
                 </Button>
             </DialogActions>
@@ -230,7 +240,8 @@ export function PendingRequest(props) {
                                 {request.info}                            </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={() => setInfoDialogOpen(false)} color="primary" autoFocus>
+                            <Button onClick={() => setInfoDialogOpen(false)} color="primary" autoFocus
+                                    className={classes.button}>
                                 OK
                             </Button>
                         </DialogActions>
@@ -251,11 +262,13 @@ export function PendingRequest(props) {
                             <Button onClick={() => {
                                 RequestService.answerRequest(request._id, "accepted"),
                                 setAcceptDialogOpen(false)
-                            }} color="primary" autoFocus>
+                            }} color="primary" autoFocus
+                                    className={classes.button}>
                                 Yes
                             </Button>
 
-                            <Button onClick={() => setDeclineDialogOpen(false)} color="primary" autoFocus>
+                            <Button onClick={() => setDeclineDialogOpen(false)} color="primary" autoFocus
+                                    className={classes.button}>
                                 Cancel
                             </Button>
                         </DialogActions>

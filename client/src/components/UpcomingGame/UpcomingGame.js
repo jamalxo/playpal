@@ -45,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
         //alignSelf: 'center',
         //marginLeft: '25px',
     },
+    button: {
+        backgroundColor: theme.palette.primary.lightest,
+        color: theme.palette.primary.contrastText,
+        marginTop: theme.spacing(1),
+        marginRight: theme.spacing(1),
+    },
+
 
 
 
@@ -134,7 +141,7 @@ export function UpcomingGame(props) {
                                 {request.info}                            </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={() => setInfoDialogOpen(false)} color="primary" autoFocus>
+                            <Button onClick={() => setInfoDialogOpen(false)} color="primary" autoFocus className={classes.button}>
                                 OK
                             </Button>
                         </DialogActions>
@@ -154,11 +161,13 @@ export function UpcomingGame(props) {
                     <DialogActions>
                         <Button onClick={() =>{
                             RequestService.finishRequest(request._id)
-                            setFinishDialogOpen(false)}} color="primary" autoFocus>
+                            setFinishDialogOpen(false)}} color="primary" autoFocus
+                                className={classes.button}>
                             Yes
                         </Button>
 
-                        <Button onClick={() => setFinishDialogOpen(false)} color="primary" autoFocus>
+                        <Button onClick={() => setFinishDialogOpen(false)} color="primary" autoFocus className={classes.button}>
+
                             Cancel
                         </Button>
                     </DialogActions>
@@ -169,7 +178,7 @@ export function UpcomingGame(props) {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Cancel Game"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title" color="textPrimary" >{"Cancel Game"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
                                 Are you sure you want to cancel this game?
@@ -178,11 +187,15 @@ export function UpcomingGame(props) {
                         <DialogActions>
                             <Button onClick={() =>{
                                 RequestService.cancelGame(request._id,"declined")
-                                setCancelDialogOpen(false)}} color="primary" autoFocus>
+                                setCancelDialogOpen(false)}} color="primary" autoFocus
+                                    className={classes.button}>
+
                                 Yes
                             </Button>
 
-                            <Button onClick={() => setCancelDialogOpen(false)} color="primary" autoFocus>
+                            <Button onClick={() => setCancelDialogOpen(false)} color="primary" autoFocus
+                                    className={classes.button}>
+
                                 Cancel
                             </Button>
                         </DialogActions>

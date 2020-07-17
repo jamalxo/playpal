@@ -169,7 +169,7 @@ const cancel = async (req, res) => {
         )
         UserModel.findByIdAndUpdate(
             {_id: request.requestingPlayer},
-            {$pull:{upcomingGames:request}},
+            {$pull:{upcomingGames:req.body.requestId}},
             {safe: true, upsert: true},
             function(err, model) {
                 console.log(err);

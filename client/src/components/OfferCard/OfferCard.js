@@ -20,6 +20,7 @@ import BookingDialog from "../BookingDialog/BookingDialog";
 import {getGameIcon} from "../../services/IconService";
 import {Link} from "react-router-dom";
 import UserService from "../../services/UserService";
+import Verified from "../../resources/verified_gamer.png";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,13 +39,19 @@ const useStyles = makeStyles((theme) => ({
     bookPrice: {
         paddingLeft: '10px'
     },
+    verified:
+        {
+            width: 20,
+            height: 20,
+            marginLeft:5
+        },
     imageStyle: {
         width: 40,
         height: 40,
         marginRight: '10px'
 
     },
-    avatar: {
+    game: {
         width: 100,
         height: 100,
     },
@@ -61,11 +68,18 @@ const useStyles = makeStyles((theme) => ({
     divider: {
         backgroundColor: theme.palette.primary.contrastText
     },
+    button: {
+        backgroundColor: theme.palette.primary.lightest,
+        color: theme.palette.primary.contrastText,
+        marginTop: theme.spacing(1),
+        marginRight: theme.spacing(1),
+    },
+
 }));
 
 
 export default function OfferCard(props) {
-    const classes = useStyles();
+    const classes = useStyles(theme);
     const [profile, setProfile] = useState({})
     const [dialogOpen, setDialog] = useState(false)
     useEffect(() => {    // Update the profile value on mount
@@ -79,16 +93,12 @@ export default function OfferCard(props) {
     }, []);
 
     const displayVerifiedIcon = () => {
-        if (profile.usertype === "professional") {
             return (
                 <Tooltip title="Professional Gamer" aria-label="pro">
-                    <VerifiedUserIcon fontSize="small" className="verifiedIcon"/>
+                    <img src={Verified} alt="Logo" className={classes.verified}/>
                 </Tooltip>
-
             );
-        } else {
-            return '';
-        }
+
     };
     const handleClose = () => {
         setDialog(false)
@@ -96,90 +106,33 @@ export default function OfferCard(props) {
     const BookOrEditButton = (props.offer.owner === UserService.getCurrentUser().id) ?
 
         <Link className={classes.link} to={`/offer/edit/${props.id}`}>
-            <Button color="primary">
+            <Button className={classes.button} color="primary" variant="contained">
                 Edit
             </Button>
         </Link>
-        : <Button color="secondary" onClick={() => {
+        : <Button color="secondary" className={classes.button} onClick={() => {
             setDialog(true);
         }}>
             Book
         </Button>
 
-    console.log(props.edit);
 
 
     return (
         <MuiThemeProvider theme={theme}>
-            {props.edit ? <Link to={`/offer/edit/${props.offer._id}`} className="linkDecoration">
-                    <Card classes={{root: classes.card}} className="OfferCard" key={props.key}>
-                        <CardActionArea className={classes.description}>
-                            <CardContent align="center">
-
-                                <Avatar className="profilePicture"
-                                        alt={profile.username}
-                                        title={profile.username}
-                                        src={profile.profileImage}/>
-                                <Typography variant="h5" component="h5" color="textPrimary">
-                                    {profile.username}
-                                    {displayVerifiedIcon()}
-                                </Typography>
-                            </CardContent>
-
-                            <Divider className={classes.divider} variant="middle"/>
-
-                            <CardContent align="center">
-                                <Grid
-                                    container
-                                    direction="row"
-                                    justify="center"
-                                    alignItems="center"
-                                >
-                                    <CardMedia src={getGameIcon(props.offer.game)} component="img"
-                                               className={classes.imageStyle}/>
-                                    <Typography variant="h4" component="h4" color="textPrimary">
-                                        {props.offer.game}
-                                    </Typography>
-                                </Grid>
-                            </CardContent>
-
-                            <Divider className={classes.divider} variant="middle"/>
-
-                            <CardActions disableSpacing>
-                                <Grid container direction="column" justify="flex-start" alignItems="flex-start"
-                                      className={classes.bookPrice}>
-                                    <Typography variant="h4" color="textPrimary">
-                                        ${props.offer.price}
-                                    </Typography>
-                                </Grid>
-                                <Grid className={classes.bookButton}
-                                      container
-                                      direction="column"
-                                      justify="flex-end"
-                                      alignItems="flex-end">
-                                    {BookOrEditButton}
-                                </Grid>
-                            </CardActions>
-                        </CardActionArea>
-                    </Card>
-                </Link> :
                 <Card classes={{root: classes.card}} className="OfferCard" key={props.key}>
                     <CardActionArea className={classes.description}>
+
                         <CardContent align="center">
-                            <Link className="linkDecoration" to={`/user/${profile._id}`}>
-                                <Avatar className="profilePicture"
-                                        alt={profile.username}
-                                        title={profile.username}
-                                        src={profile.profileImage}/>
-                            </Link>
-                            <Typography variant="h5" component="h5" color="textPrimary">
-                                {profile.username}
-                                {displayVerifiedIcon()}
-                            </Typography>
+                                <CardMedia src={getGameIcon(props.offer.game)} component="img"
+                                           className={classes.game}
+                                />
+                                <Typography variant="h4" component="h4" color="textPrimary">
+                                    {props.offer.game}
+                                </Typography>
                         </CardContent>
 
                         <Divider className={classes.divider} variant="middle"/>
-
                         <CardContent align="center">
                             <Grid
                                 container
@@ -187,11 +140,18 @@ export default function OfferCard(props) {
                                 justify="center"
                                 alignItems="center"
                             >
-                                <CardMedia src={getGameIcon(props.offer.game)} component="img"
-                                           className={classes.imageStyle}/>
-                                <Typography variant="h4" component="h4" color="textPrimary">
-                                    {props.offer.game}
-                                </Typography>
+
+                            <Link className="linkDecoration" to={`/user/${profile._id}`}>
+                                <Avatar className="profilePicture"
+                                        alt={profile.username}
+                                        title={profile.username}
+                                        src={profile.profileImage}
+                                        className={classes.imageStyle}/>
+                            </Link>
+                            <Typography variant="h4" component="h5" color="textPrimary">
+                                {profile.username}
+                                {displayVerifiedIcon()}
+                            </Typography>
                             </Grid>
                         </CardContent>
 
@@ -214,7 +174,6 @@ export default function OfferCard(props) {
                         </CardActions>
                     </CardActionArea>
                 </Card>
-            }
             <BookingDialog open={dialogOpen} handleClose={handleClose} offer={props.offer} profile={profile}/>
         </MuiThemeProvider>
     );
