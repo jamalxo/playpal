@@ -18,11 +18,46 @@ export default class UserService {
         });
 
     }
-    static createRequest(offer) {
+    static finishRequest(requestId) {
         return new Promise((resolve, reject) => {
-            console.log(JSON.stringify({offer}))
-            HttpService.post(`${this.baseURL()}/create`, {offer},function(data) {
+            HttpService.put(`${this.baseURL()}/finish`,{requestId:requestId},function(data) {
                 resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+
+    }
+    static cancelGame(requestId) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${this.baseURL()}/cancel`,{requestId:requestId},function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+
+    }
+
+    static createRequest(offerId) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(`${this.baseURL()}/create`, {offerId},function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+
+    }
+    static getRequest(id){
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${this.baseURL()}/${id}`,function(data) {
+                if(data != undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                }
+                else {
+                    reject('Error while retrieving offer');
+                }
             }, function(textStatus) {
                 reject(textStatus);
             });

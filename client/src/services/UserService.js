@@ -37,15 +37,17 @@ export default class UserService {
     }
 
     static getCurrentUser() {
-        let token = window.localStorage['jwtToken'];
-        if (!token) return {};
-
-        let base64Url = token.split('.')[1];
-        let base64 = base64Url.replace('-', '+').replace('_', '/');
-        return {
-            id : JSON.parse(window.atob(base64)).id,
-            username: JSON.parse(window.atob(base64)).username
-        };
+            let token = window.localStorage['jwtToken'];
+            if (!token) return {};
+    
+            let base64Url = token.split('.')[1];
+            let base64 = base64Url.replace('-', '+').replace('_', '/');
+    
+            return {
+                id : JSON.parse(window.atob(base64)).id,
+                username: JSON.parse(window.atob(base64)).username,
+    
+            };
     }
 
     static isAuthenticated() {

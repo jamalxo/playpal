@@ -18,6 +18,7 @@ import OffersView from "./views/OffersView/OffersView";
 import {ProfileListView} from "./views/ProfileListView/ProfileListView";
 import {PendingRequestsView} from "./views/PendingRequestsView";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import {UpcomingGamesView} from "./views/UpcomingGamesView/UpcomingGamesView";
 
 
 export default class App extends React.Component {
@@ -64,6 +65,14 @@ export default class App extends React.Component {
                         else {
                             return (<Redirect to={'/login'}/>)
                         }}, path: '/requests/pending',},
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<UpcomingGamesView />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }}, path: '/games/upcoming',},
+
 
                 { component: SignInSide, path: '/login'},
                 { component: SignUp, path: '/register'},

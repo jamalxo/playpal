@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import UserService from "../services/UserService";
 import Page from "../components/Page/Page";
 import {PendingRequest} from "../components/PendingRequest/PendingRequest";
@@ -7,10 +7,12 @@ import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../theme";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import ProfileService from "../services/ProfileService";
+import RequestService from "../services/RequestService";
 
 const useStyles = (theme) => ({
     container: {
-        marginTop: '150px',
+        paddingTop: '150px',
     },
     headerPlayPal: {
         fontWeight: '450',
@@ -28,25 +30,33 @@ const useStyles = (theme) => ({
 })
 
 export function PendingRequestsView() {
+    const user = UserService.getCurrentUser()
+    const [requests, setRequests] = useState([])
+    const [playertype, setPlayertype] = useState("casual")
+    useEffect(() => {
+        // You need to restrict it at some point
+        // This is just dummy code and should be replaced by actual
 
-    const requests = UserService.getCurrentUser().pendingRequests
-    const test = [
-        {requestingPlayer: "5edb984f34c7ee3ba785d0a5", game: "LoL", info: "I would like to play this tuesday"},
-        {requestingPlayer: "5f01c25ed6e0f768a582d22b", game: "CS:GO", info: "I would like to play this tuesday"},
-        {requestingPlayer: "5f00ce545696f14503afdc63", game: "DotA 2", info: "I would like to play this tuesday"},
-        {requestingPlayer: "5edb984f34c7ee3ba785d0a5", game: "LoL", info: "I would like to play this tuesday"},
-        {requestingPlayer: "5f01c25ed6e0f768a582d22b", game: "CS:GO", info: "I would like to play this tuesday"},
-        {requestingPlayer: "5f00ce545696f14503afdc63", game: "DotA 2", info: "I would like to play this tuesday"},
-        {requestingPlayer: "5edb984f34c7ee3ba785d0a5", game: "LoL", info: "I would like to play this tuesday"},
-        {requestingPlayer: "5f01c25ed6e0f768a582d22b", game: "CS:GO", info: "I would like to play this tuesday"},
-        {requestingPlayer: "5f00ce545696f14503afdc63", game: "DotA 2", info: "I would like to play this tuesday"},
+        const fetchdata = async () => {
+            const userprof = await ProfileService.getProfile(user.id)
+            setPlayertype(userprof.usertype)
+            const newrequests = userprof.usertype ==="professional" ? userprof.pendingRequests : userprof.createdRequests
+            const newRequestsFetched = []
+            for(let i = 0; i < newrequests.length; i++)
+            {
+                let temp = await RequestService.getRequest(newrequests[i])
+                newRequestsFetched.push(temp)
+            }
+            setRequests(newRequestsFetched)
+        }
+        fetchdata()
+        }, []);
 
-    ]
     const classes = useStyles(theme)
     return (
         <Page>
             <MuiThemeProvider theme={theme}>
-                <div style={{marginTop: '150px'}}>
+                <div style={{paddingTop: '150px', backgroundColor:theme.palette.primary.dark}}>
                     <Grid
                         container
                         direction="column"
@@ -56,38 +66,10 @@ export function PendingRequestsView() {
                         <Typography variant="h4" className={classes.headerPlayPal} align="center" color="textPrimary">
                             PENDING REQUESTS
                         </Typography>
-                        <div style={{width: '1000px'}}>
-                            <Grid
-                                container
-                                direction="row"
-                                justify="space-between"
-                                alignItems="flex-end"
-                            >
-                                <Grid item>
-                                    <Box ml={1}>
-                                        <Typography variant="h5" className={classes.headerPlayPal} align="center" color="textPrimary">
-                                            Player
-                                        </Typography>
-                                    </Box>
-                                </Grid>
-                                <Grid item>
-                                    <Box ml={8}>
-
-                                        <Typography variant="h5" className={classes.headerPlayPal} align="center" color="textPrimary">
-                                            Game
-                                        </Typography>
-                                    </Box>
-                                </Grid>
-                                <Grid item>
-                                    <Typography variant="h5" className={classes.headerAccept} align="center" color="textPrimary">
-                                        Accept/Decline
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                        </div>
                         <Grid item className="PendingOfferList">
                             {
-                                test.map((item, index) => <PendingRequest request={item} index={index}/>)
+
+                                requests.map((item, index) => <PendingRequest request={item} index={index} playertype={playertype}/>)
                             }
                         </Grid>
                     </Grid>

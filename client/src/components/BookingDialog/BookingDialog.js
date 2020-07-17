@@ -8,7 +8,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import RequestService from "../../services/RequestService";
+import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
+import {theme} from "../../theme";
+import {makeStyles} from "@material-ui/core/styles";
 
+const useStyles = makeStyles((theme) => ({
+    button: {
+        backgroundColor: theme.palette.primary.lightest,
+        color: theme.palette.primary.contrastText,
+        marginTop: theme.spacing(1),
+        marginRight: theme.spacing(1),
+    },
+
+}));
 export default function BookingDialog(props){
 
     const handleBooking = async () => {
@@ -16,8 +28,11 @@ export default function BookingDialog(props){
         console.log(res)
         props.handleClose()
     }
+    const classes = useStyles(theme);
 
     return (
+        <MuiThemeProvider theme={theme}>
+
         <Dialog open={props.open} onClose={props.onClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title" color="primary">Book</DialogTitle>
             <DialogContent>
@@ -34,13 +49,17 @@ export default function BookingDialog(props){
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={props.handleClose} color="textPrimary">
+                <Button onClick={props.handleClose} className={classes.button}
+                >
                     Cancel
                 </Button>
-                <Button onClick={handleBooking} color="textPrimary">
+                <Button onClick={handleBooking}
+                className={classes.button}
+                >
                     Book
                 </Button>
             </DialogActions>
         </Dialog>
+        </MuiThemeProvider>
     )
 }
