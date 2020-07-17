@@ -126,13 +126,13 @@ export default function SignUp(props) {
 
     const validateInputBeforeSubmit = () => {
         // email must be xxx@xxx.xxx
-        // email can not be longer than 20 chars
-        let emailRegex = /^[a-zA-Z0-9]+@([a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+        // email can not be longer than 40 chars
+        let emailRegex = /^[a-zA-Z0-9]+((\.)[a-zA-Z0-9]+)*@([a-zA-Z0-9]+\.)+[A-Za-z]+$/;
         let errorTextEmail = '';
         let errorTextFirstname = '';
         let errorTextLastname = '';
         let errorTextUsername = '';
-        if (formState.email.length > 20 || !emailRegex.test(formState.email)) {
+        if (formState.email.length > 40 || !emailRegex.test(formState.email)) {
             formState.errorFlag = true;
             errorTextEmail = 'Please enter a valid email address!'
         }
