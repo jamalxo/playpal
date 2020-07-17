@@ -11,54 +11,42 @@ import RequestService from "../../services/RequestService";
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
 import {makeStyles} from "@material-ui/core/styles";
+import Checkout from "./Checkout";
 
 const useStyles = makeStyles((theme) => ({
     button: {
         backgroundColor: theme.palette.primary.lightest,
         color: theme.palette.primary.contrastText,
-        marginTop: theme.spacing(1),
-        marginRight: theme.spacing(1),
+        margin: theme.spacing(1),
+
+    },
+    dialogPaper: {
+        minHeight: '40vh',
+        maxHeight: '40vh',
     },
 
 }));
 export default function BookingDialog(props){
 
-    const handleBooking = async () => {
-        let res = await RequestService.createRequest(props.offer._id)
-        console.log(res)
-        props.handleClose()
-    }
     const classes = useStyles(theme);
 
     return (
         <MuiThemeProvider theme={theme}>
 
-        <Dialog open={props.open} onClose={props.onClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title" color="primary">Book</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    To confirm your booking, please enter your discord tag here. The professional Player will get your request and message you.
-                </DialogContentText>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Discord Name"
-                    type="email"
-                    fullWidth
-                />
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={props.handleClose} className={classes.button}
-                >
-                    Cancel
-                </Button>
-                <Button onClick={handleBooking}
-                className={classes.button}
-                >
-                    Book
-                </Button>
-            </DialogActions>
+        <Dialog open={props.open} onClose={props.onClose} aria-labelledby="form-dialog-title" maxWidth="md" fullWidth
+        >
+<Checkout handleClose={props.handleClose} offer={props.offer} profile={props.profile}/>
+{/*<DialogActions>*/}
+{/*                <Button onClick={props.handleClose} className={classes.button}*/}
+{/*                >*/}
+{/*                    Cancel*/}
+{/*                </Button>*/}
+{/*                <Button onClick={handleBooking}*/}
+{/*                className={classes.button}*/}
+{/*                >*/}
+{/*                    Book*/}
+{/*                </Button>*/}
+{/*            </DialogActions>*/}
         </Dialog>
         </MuiThemeProvider>
     )
