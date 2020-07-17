@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -18,6 +18,8 @@ import Radio from "@material-ui/core/Radio";
 import UserService from "../../services/UserService";
 import Banner from "../../resources/console.svg";
 import Paper from "@material-ui/core/Paper";
+import Times from "./Times";
+import OfferForm from "../Offer/OfferForm";
 
 function Copyright() {
     return (
@@ -79,8 +81,12 @@ export default function SignUp(props) {
         errorTextLastname: '',
         errorTextUsername: '',
         errorTextEmail: '',
-        errorFlag: false
+        errorFlag: false,
+        aval: []
     })
+
+    const [avalTmp, setAvalTmp] = useState([]);
+
     const history = props.history
 
     const handleChangeInput = (target, value) => {
@@ -92,7 +98,8 @@ export default function SignUp(props) {
             });
         }
         formState.errorFlag = false;
-    }
+    };
+
 
     const validateInput = (target, value) => {
         if (target === 'firstname') {
@@ -186,8 +193,13 @@ export default function SignUp(props) {
         } catch (err) {
             console.error(err);
         }
-    }
+    };
 
+    const timesChange = (aval) => {
+        formState.aval = aval;
+        setAvalTmp(aval);
+        console.log(formState);
+    };
 
     return (
         <MuiThemeProvider theme={theme}>
@@ -315,6 +327,9 @@ export default function SignUp(props) {
                                 </div>
                             </Grid>
                         </Grid>
+
+                        <Times onTimesChange={timesChange} aval={formState.aval} key={avalTmp} />
+
                         <Button
                             type="submit"
                             fullWidth
