@@ -244,13 +244,16 @@ class Header extends React.Component {
                             </Tabs>
                             <div className={classes.grow} />
                             <div className={classes.sectionDesktop}>
-                                <div className={classes.search}>
-                                    <ReactSearchBox
-                                        placeholder="Search for a gamer!"
-                                        value="Doe"
-                                        data={this.data}
-                                        callback={record => console.log(record)}
-                                    />
+                                {/*<div className={classes.search}>*/}
+                                    {/*<ReactSearchBox*/}
+                                    {/*    placeholder="Search for a gamer!"*/}
+                                    {/*    data={this.state.allUsers}*/}
+                                    {/*    onSelect={record => console.log(record)}*/}
+                                    {/*    onFocus={() => {*/}
+                                    {/*        console.log('This function is called when is focussed')*/}
+                                    {/*    }}*/}
+                                    {/*    onChange={value => console.log(value)}*/}
+                                    {/*/>*/}
                                     {/*<div className={classes.searchIcon}>*/}
                                     {/*    <SearchIcon />*/}
                                     {/*</div>*/}
@@ -262,12 +265,12 @@ class Header extends React.Component {
                                     {/*    }}*/}
                                     {/*    inputProps={{ 'aria-label': 'search' }}*/}
                                     {/*/>*/}
-                                </div>
-                                <IconButton aria-label="show 17 new notifications" color="inherit">
-                                    <Badge badgeContent={17} color="secondary">
-                                        <NotificationsIcon />
-                                    </Badge>
-                                </IconButton>
+                                {/*</div>*/}
+                                {/*<IconButton aria-label="show 17 new notifications" color="inherit">*/}
+                                {/*    <Badge badgeContent={17} color="secondary">*/}
+                                {/*        <NotificationsIcon />*/}
+                                {/*    </Badge>*/}
+                                {/*</IconButton>*/}
                                 <IconButton
                                     edge="end"
                                     aria-label="account of current user"
