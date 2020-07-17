@@ -60,7 +60,6 @@ const register = async (req,res) => {
         error: 'Bad Request',
         message: 'The request body must contain a email property'
     });
-
     const user = {
         username: req.body.username,
         password: bcrypt.hashSync(req.body.password, 8),
@@ -69,7 +68,8 @@ const register = async (req,res) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         description: req.body.description,
-        profileImage: "http://localhost:3000/" + req.file.path
+        profileImage: "http://localhost:3000/" + req.file.path,
+        availability: JSON.parse(req.body.availability)
     };
 
     try {

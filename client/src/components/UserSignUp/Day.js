@@ -121,7 +121,12 @@ const useStyles = (theme) => ({
     },
     textField: {
         width: '25ch',
-    }
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+        backgroundColor: theme.palette.primary.lighter,
+        color: theme.palette.primary.contrastText
+    },
 });
 
 const ITEM_HEIGHT = 48;
@@ -132,19 +137,22 @@ class Day extends React.Component {
     constructor(props) {
         super(props);
 
-        if (this.props.aval !== undefined) {
+        let startTime = new Date(2020, 0, 1, 18, 0);
+        let endTime = new Date(2020, 0, 1, 23, 0);
+
+        if (this.props.aval.startTime !== undefined && this.props.aval.endTime !== undefined) {
             this.state = {
                 startTime: this.props.aval.startTime,
                 endTime: this.props.aval.endTime,
-                away: this.props.aval.away || false,
+                away: this.props.aval.away,
                 day: this.props.aval.day
             };
         } else {
             this.state = {
-                startTime: Date(),
-                endTime: Date(),
+                startTime: startTime,
+                endTime: endTime,
                 away: false,
-                day: ""
+                day: this.props.aval.day
             };
         }
 
@@ -154,22 +162,21 @@ class Day extends React.Component {
     }
 
     handleChangeStartTime(event) {
-        this.setState(() => ({
+        this.setState({
             startTime: event
-        }));
-        this.sendToTime();
+        }, function() { this.sendToTime() })
     }
 
     handleChangeEndTime(event) {
-        this.setState(() => ({
+        this.setState({
             endTime: event
-        }));
-        this.sendToTime();
+        }, function() { this.sendToTime() })
     }
 
     handleAway(event) {
-        this.setState(Object.assign({}, this.state, {away: event.target.checked}));
-        this.sendToTime();
+        this.setState({
+            away: event.target.checked
+        }, function() { this.sendToTime() })
     }
 
     sendToTime() {

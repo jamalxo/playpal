@@ -180,6 +180,7 @@ export default function SignUp(props) {
                 user.append('lastname', formState.lastname);
                 user.append('description', formState.description);
                 user.append('profileImage', formState.profileImage);
+                user.append('availability', JSON.stringify(formState.aval));
                 console.log(Array.from(user.values()))
 
                 let ret = await UserService.register(user);
@@ -196,9 +197,14 @@ export default function SignUp(props) {
     };
 
     const timesChange = (aval) => {
+        console.log(aval);
         formState.aval = aval;
+        setFormState({
+            ...formState,
+            aval: aval
+        })
         setAvalTmp(aval);
-        console.log(formState);
+        console.log(formState.aval);
     };
 
     return (

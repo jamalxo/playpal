@@ -131,7 +131,12 @@ const useStyles = (theme) => ({
     },
     textField: {
         width: '25ch',
-    }
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+        backgroundColor: theme.palette.primary.lighter,
+        color: theme.palette.primary.contrastText
+    },
 });
 
 class Times extends React.Component {
@@ -147,9 +152,8 @@ class Times extends React.Component {
 
         this.state = {
             open: false,
+            errorFlag: false,
         };
-
-        console.log(props);
 
         if (this.props.aval.length !== 0) {
             this.state = {
@@ -167,30 +171,27 @@ class Times extends React.Component {
         this.handleChangeAvailability = this.handleChangeAvailability.bind(this);
 
         this.handleAval = this.handleAval.bind(this);
-
-        console.log(this.state);
+        this.validateInputBeforeSubmit = this.validateInputBeforeSubmit.bind(this);
 
     }
 
-    componentDidUpdate(previousProps, previousState) {
-        if (previousProps.aval !== this.props.aval) {
-            console.log(previousProps)
-        } else {
-            console.log(this.props)
-            console.log(previousProps)
+    validateInputBeforeSubmit() {
+        // startTime must be before endTime
+        this.state.errorFlag = false;
+        for (var i = 0; i < 7; i++) {
+            if (this.state.availability[i].startTime >= this.state.availability[i].endTime) {
+                this.state.errorFlag = true;
+            }
         }
-        console.log(this.state);
-
-        if (this.props.aval.length !== 0) {
-            this.state = {
-                availability: this.props.aval
-            };
+        if (this.state.errorFlag) {
+            this.setState({
+                errorFlag: true
+            });
         } else {
-            this.state = {
-                availability: [{}, {}, {}, {}, {}, {}, {}]
-            };
+            this.setState({
+                errorFlag: false
+            });
         }
-
     }
 
     handleClickOpen(event) {
@@ -205,57 +206,92 @@ class Times extends React.Component {
         });
     };
 
-    handleChangeAvailability(aval) {
+    handleChangeAvailability() {
         this.handleClose();
         this.props.onTimesChange(this.state.availability);
     }
 
     handleAval(aval) {
-        if(aval.day === "Monday") {
+        if (aval.day === "Monday") {
             let avalTemp = this.state.availability;
-            avalTemp[0] = aval;
+
+            if (aval.away) {
+                avalTemp[0] = aval;
+            } else {
+                avalTemp[0] = {};
+            }
 
             this.setState(prevState => ({
                 availability: avalTemp
             }));
-        } else if(aval.day === "Tuesday") {
+        } else if (aval.day === "Tuesday") {
             let avalTemp = this.state.availability;
-            avalTemp[1] = aval;
+
+            if (aval.away) {
+                avalTemp[1] = aval;
+            } else {
+                avalTemp[1] = {};
+            }
 
             this.setState(prevState => ({
                 availability: avalTemp
             }));
-        } else if(aval.day === "Wednesday") {
+        } else if (aval.day === "Wednesday") {
             let avalTemp = this.state.availability;
-            avalTemp[2] = aval;
+
+            if (aval.away) {
+                avalTemp[2] = aval;
+            } else {
+                avalTemp[2] = {};
+            }
 
             this.setState(prevState => ({
                 availability: avalTemp
             }));
-        } else if(aval.day === "Thursday") {
+        } else if (aval.day === "Thursday") {
             let avalTemp = this.state.availability;
-            avalTemp[3] = aval;
+
+            if (aval.away) {
+                avalTemp[3] = aval;
+            } else {
+                avalTemp[3] = {};
+            }
 
             this.setState(prevState => ({
                 availability: avalTemp
             }));
-        } else if(aval.day === "Friday") {
+        } else if (aval.day === "Friday") {
             let avalTemp = this.state.availability;
-            avalTemp[4] = aval;
+
+            if (aval.away) {
+                avalTemp[4] = aval;
+            } else {
+                avalTemp[4] = {};
+            }
 
             this.setState(prevState => ({
                 availability: avalTemp
             }));
-        } else if(aval.day === "Saturday") {
+        } else if (aval.day === "Saturday") {
             let avalTemp = this.state.availability;
-            avalTemp[5] = aval;
+
+            if (aval.away) {
+                avalTemp[5] = aval;
+            } else {
+                avalTemp[5] = {};
+            }
 
             this.setState(prevState => ({
                 availability: avalTemp
             }));
-        } else if(aval.day === "Sunday") {
+        } else if (aval.day === "Sunday") {
             let avalTemp = this.state.availability;
-            avalTemp[6] = aval;
+
+            if (aval.away) {
+                avalTemp[6] = aval;
+            } else {
+                avalTemp[6] = {};
+            }
 
             this.setState(prevState => ({
                 availability: avalTemp
@@ -263,6 +299,7 @@ class Times extends React.Component {
         } else {
             console.log("error in times aval");
         }
+        this.validateInputBeforeSubmit();
     }
 
     render() {
@@ -271,8 +308,7 @@ class Times extends React.Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div>
-                    <Button className={classes.addButton} variant="outlined"
-                            color="primary"
+                    <Button className={classes.submit} variant="outlined"
                             onClick={this.handleClickOpen}>
                         Weekly Times
                     </Button>
@@ -286,21 +322,59 @@ class Times extends React.Component {
                             <DialogContentText>
                                 Please add the times you are available in a week
                             </DialogContentText>
-                            <Day aval={{day: "Monday", startTime: this.state.availability[0].startTime, endTime: this.state.availability[0].startTime, away: this.state.availability[0].away}} onAvalChange={this.handleAval}/>
-                            <Day aval={{day: "Tuesday", startTime: this.state.availability[1].startTime, endTime: this.state.availability[1].startTime, away: this.state.availability[1].away}} onAvalChange={this.handleAval}/>
-                            <Day aval={{day: "Wednesday", startTime: this.state.availability[2].startTime, endTime: this.state.availability[2].startTime, away: this.state.availability[2].away}} onAvalChange={this.handleAval}/>
-                            <Day aval={{day: "Thursday", startTime: this.state.availability[3].startTime, endTime: this.state.availability[3].startTime, away: this.state.availability[3].away}} onAvalChange={this.handleAval}/>
-                            <Day aval={{day: "Friday", startTime: this.state.availability[4].startTime, endTime: this.state.availability[4].startTime, away: this.state.availability[4].away}} onAvalChange={this.handleAval}/>
-                            <Day aval={{day: "Saturday", startTime: this.state.availability[5].startTime, endTime: this.state.availability[5].startTime, away: this.state.availability[5].away}} onAvalChange={this.handleAval}/>
-                            <Day aval={{day: "Sunday", startTime: this.state.availability[6].startTime, endTime: this.state.availability[6].startTime, away: this.state.availability[6].away}} onAvalChange={this.handleAval}/>
+                            <Day aval={{
+                                day: "Monday",
+                                startTime: this.state.availability[0].startTime,
+                                endTime: this.state.availability[0].endTime,
+                                away: this.state.availability[0].away
+                            }} onAvalChange={this.handleAval}/>
+                            <Day aval={{
+                                day: "Tuesday",
+                                startTime: this.state.availability[1].startTime,
+                                endTime: this.state.availability[1].endTime,
+                                away: this.state.availability[1].away
+                            }} onAvalChange={this.handleAval}/>
+                            <Day aval={{
+                                day: "Wednesday",
+                                startTime: this.state.availability[2].startTime,
+                                endTime: this.state.availability[2].endTime,
+                                away: this.state.availability[2].away
+                            }} onAvalChange={this.handleAval}/>
+                            <Day aval={{
+                                day: "Thursday",
+                                startTime: this.state.availability[3].startTime,
+                                endTime: this.state.availability[3].endTime,
+                                away: this.state.availability[3].away
+                            }} onAvalChange={this.handleAval}/>
+                            <Day aval={{
+                                day: "Friday",
+                                startTime: this.state.availability[4].startTime,
+                                endTime: this.state.availability[4].endTime,
+                                away: this.state.availability[4].away
+                            }} onAvalChange={this.handleAval}/>
+                            <Day aval={{
+                                day: "Saturday",
+                                startTime: this.state.availability[5].startTime,
+                                endTime: this.state.availability[5].endTime,
+                                away: this.state.availability[5].away
+                            }} onAvalChange={this.handleAval}/>
+                            <Day aval={{
+                                day: "Sunday",
+                                startTime: this.state.availability[6].startTime,
+                                endTime: this.state.availability[6].endTime,
+                                away: this.state.availability[6].away
+                            }} onAvalChange={this.handleAval}/>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleClose}
-                                    color="primary">
+                                    className={classes.submit}
+                            >
                                 Cancel
                             </Button>
                             <Button onClick={this.handleChangeAvailability}
-                                    color="primary">
+                                    className={classes.submit}
+                                    disabled={this.state.errorFlag}
+                            >
                                 Add
                             </Button>
                         </DialogActions>

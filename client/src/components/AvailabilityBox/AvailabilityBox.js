@@ -45,13 +45,29 @@ class AvailabilityBox extends React.Component {
         super(props);
     }
 
+    displayAvailability() {
+        return (
+            this.props.profile.availability.map((aval, i) => <Typography variant="body1" color={'inherit'}>{this.displayTime(aval)}</Typography>)
+        );
+    }
+
+    displayTime(aval) {
+        if (aval.startTime !== undefined && aval.endTime !== undefined) {
+            let start = new Date(aval.startTime);
+            let end = new Date(aval.endTime);
+            return (<span>{aval.day}: {start.getHours() - 1}:{start.getMinutes()<10 ? '0'+start.getMinutes(): start.getMinutes()}  - {end.getHours() - 1}:{end.getMinutes()<10 ? '0'+end.getMinutes(): end.getMinutes()}</span>);
+        } else {
+            return null;
+        }
+    }
+
     render() {
         const {classes} = this.props;
         return (
             <MuiThemeProvider theme={theme}>
                 <Card key={this.props.key} className={classes.root}>
                     <Grid container className={classes.availabilityBox}>
-                        <Grid item xs={12} >
+                        <Grid item xs={12}>
                             <div className={classes.contentBox}>
                                 <img src={Availability} alt="Logo" className={classes.imageStyle}/>
                             </div>
@@ -60,9 +76,7 @@ class AvailabilityBox extends React.Component {
                             </div>
                             <Divider orientation="horizontal" variant="fullWidth"/>
                             <div className={classes.times}>
-                                <Typography variant="body1" color={'inherit'}>1. Friday: 18:00 - 20:00</Typography>
-                                <Typography variant="body1" color={'inherit'}>2. Saturday: 18:00 - 20:00</Typography>
-                                <Typography variant="body1" color={'inherit'}>3. Sunday: 18:00 - 20:00</Typography>
+                                {this.displayAvailability()}
                             </div>
                         </Grid>
 

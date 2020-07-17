@@ -78,7 +78,7 @@ const UserSchema = new mongoose.Schema({
             required: false,
         },
         day: {
-            type: [String],
+            type: String,
             required: false,
         },
         away: {
