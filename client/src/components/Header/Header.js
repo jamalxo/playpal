@@ -24,7 +24,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import UserService from "../../services/UserService";
 import Loading from "../Loading";
-
+import ReactSearchBox from 'react-search-box'
 
 const drawerWidth = 240;
 
@@ -245,17 +245,23 @@ class Header extends React.Component {
                             <div className={classes.grow} />
                             <div className={classes.sectionDesktop}>
                                 <div className={classes.search}>
-                                    <div className={classes.searchIcon}>
-                                        <SearchIcon />
-                                    </div>
-                                    <InputBase
-                                        placeholder="Search…" //todo: FIX THIS
-                                        classes={{
-                                            root: classes.inputRoot,
-                                            input: classes.inputInput,
-                                        }}
-                                        inputProps={{ 'aria-label': 'search' }}
+                                    <ReactSearchBox
+                                        placeholder="Search for a gamer!"
+                                        value="Doe"
+                                        data={this.data}
+                                        callback={record => console.log(record)}
                                     />
+                                    {/*<div className={classes.searchIcon}>*/}
+                                    {/*    <SearchIcon />*/}
+                                    {/*</div>*/}
+                                    {/*<InputBase*/}
+                                    {/*    placeholder="Search…" //todo: FIX THIS*/}
+                                    {/*    classes={{*/}
+                                    {/*        root: classes.inputRoot,*/}
+                                    {/*        input: classes.inputInput,*/}
+                                    {/*    }}*/}
+                                    {/*    inputProps={{ 'aria-label': 'search' }}*/}
+                                    {/*/>*/}
                                 </div>
                                 <IconButton aria-label="show 17 new notifications" color="inherit">
                                     <Badge badgeContent={17} color="secondary">

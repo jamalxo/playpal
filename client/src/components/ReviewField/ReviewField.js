@@ -93,6 +93,7 @@ class ReviewField extends React.Component {
                                 name={"review"}
                                 value={this.state.rating}
                                 size={"large"}
+                                disabled={UserService.getCurrentUser().id === this.props.user._id}
                                 onChange={(event, newValue) => {
                                     this.setState( {rating: newValue});
                                 }}
