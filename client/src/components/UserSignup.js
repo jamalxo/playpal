@@ -6,10 +6,19 @@ import { withRouter } from 'react-router-dom';
 
 import { AlertMessage } from './AlertMessage';
 import Page from './Page';
+import {makeStyles} from "@material-ui/core/styles";
 
 
-const style = { maxWidth: 500 };
+const style = {
+    maxWidth: 500,
+};
 
+const useStyles = makeStyles((theme) => ({
+    buttonSubmit: {
+        backgroundColor: theme.palette.primary.lighter,
+        color: theme.palette.primary.contrastText
+    }
+}));
 
 class UserSignup extends React.Component {
 
@@ -49,6 +58,8 @@ class UserSignup extends React.Component {
     }
 
     render() {
+        const {classes} = this.props;
+
         return (
             <Page>
                 <Card style={style} className="md-block-centered">
@@ -121,9 +132,10 @@ class UserSignup extends React.Component {
                             <option value="professional">Professional</option>
                             <option value="casual">Casual</option>
                         </select>
+                        dddd
                         <Button id="submit" type="submit"
                                 disabled={this.state.username == undefined || this.state.username == '' || this.state.password == undefined || this.state.password == '' || this.state.email == undefined || this.state.email == '' ? true : false}
-                                raised primary className="md-cell md-cell--2">Register</Button>
+                                raised primary className={classes.buttonSubmit}>Register</Button>
                         <Button id="reset" type="reset" raised secondary className="md-cell md-cell--2">Dismiss</Button>
                         <AlertMessage className="md-row md-full-width" >{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
                     </form>

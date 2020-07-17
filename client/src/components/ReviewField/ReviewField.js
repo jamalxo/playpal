@@ -23,7 +23,7 @@ const useStyles = (theme) => ({
         padding: 5
     },
     submitReviewButton: {
-        backgroundColor: theme.palette.primary.lighter,
+        backgroundColor: theme.palette.primary.lightest,
         color: theme.palette.primary.contrastText,
         borderRadius: 25
     }
@@ -36,7 +36,8 @@ class ReviewField extends React.Component {
 
         this.state = {
             rating: 0,
-            text: ''
+            text: '',
+            errorFlag: false
         };
 
         this.handleChangeInput = this.handleChangeInput.bind(this);
@@ -45,11 +46,23 @@ class ReviewField extends React.Component {
 
 
     handleChangeInput(target, value) {
-        this.setState({
-            [target]: value
-        });
+        this.validateInput(target, value);
+        if (!this.state.errorFlag) {
+            this.setState({
+                [target]: value
+            });
+        }
+        this.state.errorFlag = false;
     }
 
+    validateInput(target, value) {
+        if (target === 'text') {
+            // review should not be over 300 characters
+            if (value.length > 300) {
+                this.state.errorFlag = true;
+            }
+        }
+    }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -80,6 +93,7 @@ class ReviewField extends React.Component {
                                 name={"review"}
                                 value={this.state.rating}
                                 size={"large"}
+                                disabled={UserService.getCurrentUser().id === this.props.user._id}
                                 onChange={(event, newValue) => {
                                     this.setState( {rating: newValue});
                                 }}

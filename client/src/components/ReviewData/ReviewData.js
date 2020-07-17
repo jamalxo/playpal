@@ -10,9 +10,12 @@ import Avatar from '@material-ui/core/Avatar';
 import "./ReviewData.css";
 import {withStyles} from "@material-ui/core/styles";
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import UserService from "../../services/UserService";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = (theme) => ({
     root: {
@@ -38,6 +41,20 @@ const useStyles = (theme) => ({
     text: {
         fontSize: 20,
         paddingTop: 10
+    },
+    submitEditReviewButton: {
+        backgroundColor: theme.palette.primary.lightest,
+        color: theme.palette.primary.contrastText,
+        borderRadius: 25,
+        marginRight: 10
+    },
+    cancelEditReviewButton: {
+        backgroundColor: theme.palette.primary.lightest,
+        color: theme.palette.primary.contrastText,
+        borderRadius: 25
+    },
+    fullWidth: {
+        width: '100%'
     }
 });
 
@@ -46,6 +63,18 @@ class ReviewData extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            rating: this.props.review.rating,
+            text: this.props.review.text,
+            editMode: false,
+            errorFlag: false,
+            errorText: ''
+        };
+
+        this.handleCancel = this.handleCancel.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeInput = this.handleChangeInput.bind(this);
     }
 
     displayPassedTime() {
@@ -137,13 +166,123 @@ class ReviewData extends React.Component {
         let me = UserService.getCurrentUser();
 
         if (this.props.review.postedBy._id === me.id) {
-            return (<Tooltip title="Delete Review">
-                <IconButton aria-label="delete" onClick={() => this.props.onDelete(this.props.review)}>
-                    <DeleteIcon/>
-                </IconButton>
-            </Tooltip>);
+            return (
+                <div>
+                    <Tooltip title="Edit Review">
+                        <IconButton aria-label="edit" onClick={() => this.setState({editMode: true})}>
+                            <EditIcon/>
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete Review">
+                        <IconButton aria-label="delete" onClick={() => this.props.onDelete(this.props.review)}>
+                            <DeleteIcon/>
+                        </IconButton>
+                    </Tooltip>
+                </div>
+            );
         }
     }
+
+    showButtons(classes) {
+        if (this.state.editMode) {
+            return (
+                <div>
+                    <Button
+                        variant="contained"
+                        onClick={this.handleSubmit}
+                        className={classes.submitEditReviewButton}
+                    > Save </Button>
+                    <Button
+                        variant="contained"
+                        onClick={this.handleCancel}
+                        className={classes.cancelEditReviewButton}
+                    > Cancel </Button>
+                </div>
+            );
+        }
+    }
+
+    displayText(classes) {
+        if (this.state.editMode) {
+            return (
+                <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    fullWidth
+                    multiline={true}
+                    rows={3}
+                    value={this.state.text}
+                    helperText={this.state.errorText}
+                    onChange={(inp) => this.handleChangeInput('text', inp.target.value)}
+                />
+            );
+        } else {
+            return (
+                <Typography variant="body1" color={"inherit"} className={classes.text}>
+                    {this.state.text}
+                </Typography>
+            );
+        }
+    }
+
+    handleCancel() {
+        this.setState({
+            rating: this.props.review.rating,
+            text: this.props.review.text,
+            editMode: false,
+            errorFlag: false,
+            errorText: '',
+        })
+    }
+
+    validateInput(target, value) {
+        if (target === 'text') {
+            // review should not be over 300 characters
+            if (value.length > 300) {
+                this.state.errorFlag = true;
+            }
+        }
+    }
+
+    handleChangeInput(target, value) {
+        this.validateInput(target, value);
+        if (!this.state.errorFlag) {
+            this.setState({
+                [target]: value
+            });
+        }
+        this.state.errorFlag = false;
+    }
+    validateInputBeforeSubmit() {
+        if (this.state.text.length === 0) {
+            this.setState({
+                errorFlag: true,
+                errorText: 'Review can not be empty'
+            })
+        }
+    }
+
+    handleSubmit(event) {
+        try {
+            event.preventDefault();
+            this.validateInputBeforeSubmit();
+            if (!this.state.errorFlag) {
+                let updatedReview = {
+                    _id: this.props.review._id,
+                    ratedUser: this.props.ratedUser,
+                    postedBy: this.props.review.postedBy._id,
+                    rating: this.state.rating,
+                    text: this.state.text
+                }
+                this.props.onUpdate(updatedReview);
+            }
+            this.state.errorFlag = false;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+
 
     render() {
         const {classes} = this.props;
@@ -160,22 +299,28 @@ class ReviewData extends React.Component {
                             > {this.props.review.postedBy.username.charAt(0)}
                             </Avatar>
                         </CardContent>
-                        <CardContent>
+                        <CardContent className={classes.fullWidth}>
                             <div>
                                 <Typography variant="h4" color={"inherit"}>
                                     {this.props.review.postedBy.username}
                                 </Typography>
                                 {this.displayPassedTime()}
-                                <Typography variant="body1" color={"inherit"} className={classes.text}>
-                                    {this.props.review.text}
-                                </Typography>
+                                {this.displayText(classes)}
                             </div>
                         </CardContent>
                     </Grid>
                     <Grid item xs={3}>
                         <CardContent align="right">
-                            <Rating name="read-only" value={this.props.review.rating} readOnly size="large"/>
+                            <Rating name="read-only"
+                                    value={this.state.rating}
+                                    readOnly={!this.state.editMode}
+                                    size="large"
+                                    onChange={(event, newValue) => {
+                                        this.setState({rating: newValue});
+                                    }}
+                            />
                             {this.showIcons()}
+                            {this.showButtons(classes)}
                         </CardContent>
                     </Grid>
                 </Grid>

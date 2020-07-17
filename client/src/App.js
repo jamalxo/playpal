@@ -17,6 +17,7 @@ import {theme} from "./theme";
 import OffersView from "./views/OffersView/OffersView";
 import {ProfileListView} from "./views/ProfileListView/ProfileListView";
 import {PendingRequestsView} from "./views/PendingRequestsView";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import {UpcomingGamesView} from "./views/UpcomingGamesView/UpcomingGamesView";
 
 
@@ -89,9 +90,11 @@ export default class App extends React.Component {
             <MuiThemeProvider theme={theme}>
                 <div>
                     <Router>
-                        <Switch>
-                            {this.state.routes.map((route, i) => (<Route key={i} {...route}/>))}
-                        </Switch>
+                        <ScrollToTop>
+                            <Switch>
+                                {this.state.routes.map((route, i) => (<Route key={i} {...route}/>))}
+                            </Switch>
+                        </ScrollToTop>
                     </Router>
                 </div>
             </MuiThemeProvider>

@@ -68,10 +68,28 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'Request'
     }],
+    availability: [{
+        startTime: {
+            type: Date,
+            required: false,
+        },
+        endTime: {
+            type: Date,
+            required: false,
+        },
+        day: {
+            type: [String],
+            required: false,
+        },
+        away: {
+            type: Boolean,
+            required: false
+        }
+    }],
     upcomingGames:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Request'
-    }],
+    }]
 
 });
 

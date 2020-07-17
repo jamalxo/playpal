@@ -147,12 +147,32 @@ class ProfileView extends React.Component {
         });
         try {
             let ret = await ReviewService.deleteReview(id);
-            let reviewIndex = this.state.user.reviews.indexOf(id);
+            let review = this.state.user.reviews.find(element => element._id === id);
+            let reviewIndex = this.state.user.reviews.indexOf(review);
             let userWithoutReview = this.state.user;
             userWithoutReview.reviews.splice(reviewIndex, 1);
-
             this.setState({
                 user: userWithoutReview,
+                loading: false
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async updateReview(review) {
+        this.setState({
+            user: this.state.user,
+            loading: true
+        });
+        try {
+            let ret = await ReviewService.updateReview(review);
+            let changedReview = this.state.user.reviews.find(element => element._id === ret._id);
+            let reviewIndex = this.state.user.reviews.indexOf(changedReview);
+            this.state.user.reviews[reviewIndex] = ret;
+            let userWithUpdatedReview = this.state.user;
+            this.setState({
+                user: userWithUpdatedReview,
                 loading: false
             });
         } catch (err) {
@@ -170,12 +190,19 @@ class ProfileView extends React.Component {
 
     displayReviews(classes) {
         if (this.state.user.reviews.length === 0) {
-            return (<Typography variant="h4" color={"inherit"} className={classes.commentHeader}>Write The First Review!</Typography>);
+            return (<Typography variant="h4" color={"inherit"} className={classes.commentHeader}>Write The First
+                Review!</Typography>);
         } else {
-            return (this.state.user.reviews.map((review, i) =>
+            let reviewReverse = this.state.user.reviews.slice();
+            reviewReverse = reviewReverse.reverse();
+            return (reviewReverse.map((review, i) =>
                     <Grid item xs={12} key={i} className={classes.elementPadding}>
-                        <ReviewData key={i} review={review}
-                                    onDelete={(review) => this.deleteReview(review)}/>
+                        <ReviewData key={i}
+                                    review={review}
+                                    ratedUser={this.state.user._id}
+                                    onDelete={(review) => this.deleteReview(review)}
+                                    onUpdate={(review) => this.updateReview(review)}
+                        />
                     </Grid>)
             );
         }
