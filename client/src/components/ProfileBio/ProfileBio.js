@@ -18,7 +18,9 @@ import Verified from "../../resources/verified_gamer.png";
 
 const useStyles = (theme) => ({
     root: {
-        background: theme.palette.primary.light
+        background: theme.palette.primary.light,
+        display: "flex",
+        width: '100%'
     },
     star: {
         height: 60,
@@ -42,7 +44,10 @@ const useStyles = (theme) => ({
     imageStyle: {
         height: 30,
         width: 30,
-    }
+    },
+    divider: {
+        backgroundColor: theme.palette.primary.contrastText
+    },
 });
 
 class ProfileCard extends React.Component {

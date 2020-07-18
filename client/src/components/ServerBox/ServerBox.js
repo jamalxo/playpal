@@ -35,8 +35,12 @@ const useStyles = (theme) => ({
     },
     times: {
         paddingLeft: 30,
-        paddingTop: 20
-    }
+        paddingTop: 20,
+        paddingBottom: 20
+    },
+    divider: {
+        backgroundColor: theme.palette.primary.contrastText
+    },
 });
 
 class ServerBox extends React.Component {
@@ -58,7 +62,7 @@ class ServerBox extends React.Component {
                             <div className={classes.contentBox}>
                                 <Typography variant="h4" color={'inherit'}>Server</Typography>
                             </div>
-                            <Divider orientation="horizontal" variant="fullWidth"/>
+                            <Divider orientation="horizontal" variant="fullWidth" className={classes.divider}/>
                             <div className={classes.times}>
                                 <Typography variant="body1" color={'inherit'}>1. EU</Typography>
                                 <Typography variant="body1" color={'inherit'}>2. ASIA</Typography>

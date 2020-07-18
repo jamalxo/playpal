@@ -51,7 +51,7 @@ const useStyles = (theme) => ({
         paddingBottom: 30,
         display: "flex",
         flexDirection: "row",
-        alignItems: "flex-end",
+        alignItems: "center",
         alignSelf: "stretch"
     },
     elementPadding: {
@@ -218,7 +218,7 @@ class ProfileView extends React.Component {
             <Page>
                 <Container maxWidth="lg" className={classes.grid}>
                     <Grid container spacing={2} className={classes.reviewGrid}>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} className={classes.reviewGrid}>
                             <ProfileBio profile={this.state.user}/>
                         </Grid>
                         <Grid item xs={3} className={classes.reviewGrid}>

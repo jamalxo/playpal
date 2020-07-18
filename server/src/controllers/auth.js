@@ -137,7 +137,7 @@ const getProfiles = async (req, res) => {
                 model: 'Offer',
                 select: 'price game server availability'
             });
-        console.log(users);
+        // console.log(users);
 
         return res.status(200).json(users);
     } catch(err) {
@@ -178,6 +178,29 @@ const getProfile = async (req, res) => {
         });
     }
 };
+
+
+const updateAvailability = async (req, res) => {
+    try{
+        UserModel.findById(req.params.id, function(err, user) {
+            if (err) return console.log("err");
+            if (!user) return console.log("no user");
+
+            user.availability = req.body;
+            user.save(function(err) {
+                if (err) return console.log('err availability');
+            });
+            return res.status(200).json(user.availability);
+        });
+
+    } catch(err) {
+        return res.status(500).json({
+            error: 'Internal server error',
+            message: err.message
+        });
+    }
+}
+
 const addPendingOffer = async (req, res) => {
     try{
         UserModel.findByIdAndUpdate(
@@ -248,4 +271,5 @@ module.exports = {
     addRequestedOffer,
     removeRequestedOffer,
     removePendingOffer,
+    updateAvailability
 };

@@ -2,39 +2,16 @@ import React from 'react';
 import {ThemeProvider as MuiThemeProvider, withStyles} from '@material-ui/core/styles';
 import {theme} from '../../theme';
 import {withRouter} from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
-import {KeyboardTimePicker, MuiPickersUtilsProvider,} from '@material-ui/pickers';
-
-import DateFnsUtils from "@date-io/date-fns";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Moment from "react-moment";
-import Loading from "../Loading";
-import Checkbox from "@material-ui/core/Checkbox";
-import Typography from "@material-ui/core/Typography";
 import Day from "./Day";
-
-
-function getSteps() {
-    return ['Choose game', 'Complete Information'];
-}
-
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return `You can only choose one game per created offer.`;
-        case 1:
-            return `Fill out some more information about your offer.`;
-        default:
-            return 'Unknown step';
-    }
-}
+import Availability from "../../resources/availability.png";
+import Tooltip from "@material-ui/core/Tooltip";
+import UserService from "../../services/UserService";
 
 const useStyles = (theme) => ({
     root: {
@@ -137,6 +114,10 @@ const useStyles = (theme) => ({
         backgroundColor: theme.palette.primary.lighter,
         color: theme.palette.primary.contrastText
     },
+    imageStyle: {
+        height: 50,
+        width: 50,
+    },
 });
 
 class Times extends React.Component {
@@ -155,9 +136,22 @@ class Times extends React.Component {
             errorFlag: false,
         };
 
+        let avalArray = [...this.props.aval];
+        for (var i = 0; i < 7; i++) {
+            let avalEntry = {
+                startTime: avalArray[i].startTime,
+                endTime: avalArray[i].endTime,
+                away: avalArray[i].away,
+                day: avalArray[i].day,
+            }
+            avalArray[i] = avalEntry;
+        }
+        avalArray = avalArray.map((aval, i) => aval.startTime !== undefined ? aval : {});
+        console.log(avalArray);
+
         if (this.props.aval.length !== 0) {
             this.state = {
-                availability: this.props.aval
+                availability: avalArray
             };
         } else {
             this.state = {
@@ -175,6 +169,26 @@ class Times extends React.Component {
         this.validateInputBeforeSubmit = this.validateInputBeforeSubmit.bind(this);
 
     }
+
+    // componentDidUpdate(previousProps, previousState) {
+    //     if (previousProps.aval !== this.props.aval) {
+    //         console.log(previousProps)
+    //     } else {
+    //         console.log(this.props)
+    //         console.log(previousProps)
+    //     }
+    //     console.log(this.state);
+    //
+    //     if (this.props.aval.length !== 0) {
+    //         this.state = {
+    //             availability: this.props.aval
+    //         };
+    //     } else {
+    //         this.state = {
+    //             availability: [{}, {}, {}, {}, {}, {}, {}]
+    //         };
+    //     }
+    // }
 
     validateInputBeforeSubmit() {
         // startTime must be before endTime
@@ -196,9 +210,11 @@ class Times extends React.Component {
     }
 
     handleClickOpen(event) {
-        this.setState({
-            open: true
-        });
+        if (UserService.getCurrentUser().id === this.props.user) {
+            this.setState({
+                open: true
+            });
+        }
     };
 
     handleClose() {
@@ -208,6 +224,8 @@ class Times extends React.Component {
     };
 
     handleCloseAndReset() {
+        console.log(this.props.aval);
+        console.log(this.state.availability);
         this.setState({
             open: false,
             availability: [...this.props.aval]
@@ -216,6 +234,7 @@ class Times extends React.Component {
 
     handleChangeAvailability() {
         this.handleClose();
+        console.log(this.state.availability);
         this.props.onTimesChange(this.state.availability);
     }
 
@@ -312,19 +331,21 @@ class Times extends React.Component {
 
     render() {
         const {classes} = this.props;
+
         return (
             <MuiThemeProvider theme={theme}>
+                <div className={classes.imageStyle}>
+                    <Tooltip title="Edit Availability" aria-label="pro" onClick={this.handleClickOpen}>
+                        <img src={Availability} alt="Logo" className={classes.imageStyle}/>
+                    </Tooltip>
+                </div>
                 <div>
-                    <Button className={classes.submit} variant="outlined"
-                            onClick={this.handleClickOpen}>
-                        Weekly Times
-                    </Button>
                     <Dialog open={this.state.open || false}
                             onClose={this.handleCloseAndReset}
                             maxWidth="md"
                             fullWidth>
                         <DialogTitle
-                            id="form-dialog-title">Add</DialogTitle>
+                            id="form-dialog-title">Change Availability</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
                                 Please add the times you are available in a week
@@ -382,7 +403,7 @@ class Times extends React.Component {
                                     className={classes.submit}
                                     disabled={this.state.errorFlag}
                             >
-                                Add
+                                Change
                             </Button>
                         </DialogActions>
                     </Dialog>

@@ -334,7 +334,7 @@ export default function SignUp(props) {
                             </Grid>
                         </Grid>
 
-                        <Times onTimesChange={timesChange} aval={formState.aval} key={avalTmp} />
+                        <Times onTimesChange={timesChange} aval={formState.aval}  />
 
                         <Button
                             type="submit"
