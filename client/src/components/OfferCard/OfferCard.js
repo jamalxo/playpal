@@ -122,7 +122,6 @@ export default function OfferCard(props) {
     return (
         <MuiThemeProvider theme={theme}>
                 <Card classes={{root: classes.card}} className="OfferCard" key={props.key}>
-                    <CardActionArea className={classes.description}>
 
                         <CardContent align="center">
                                 <CardMedia src={getGameIcon(props.offer.game)} component="img"
@@ -173,7 +172,6 @@ export default function OfferCard(props) {
                                 {BookOrEditButton}
                             </Grid>
                         </CardActions>
-                    </CardActionArea>
                 </Card>
             <BookingDialog open={dialogOpen} handleClose={handleClose} offer={props.offer} profile={profile}/>
         </MuiThemeProvider>

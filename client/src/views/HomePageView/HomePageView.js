@@ -188,7 +188,7 @@ class HomePageView extends React.Component {
                         {/*INTRO*/}
 
                         <Paper elevation={3} className={classes.paper}>
-                            <Grid  xs={12}  container
+                            <Grid   container
                                   direction="column"
                                   justify="center"
                                   alignItems="center">
@@ -206,7 +206,7 @@ class HomePageView extends React.Component {
                         </Paper>
 
                         <Paper elevation={3} className={classes.paper}>
-                            <Grid xs={12}  container
+                            <Grid  container
                                   direction="column"
                                   justify="center"
                                   alignItems="center">

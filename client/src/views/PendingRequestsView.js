@@ -66,10 +66,10 @@ export function PendingRequestsView() {
                         <Typography variant="h4" className={classes.headerPlayPal} align="center" color="textPrimary">
                             PENDING REQUESTS
                         </Typography>
-                        <Grid item className="PendingOfferList">
+                        <Grid item>
                             {
 
-                                requests.map((item, index) => <PendingRequest request={item} index={index} playertype={playertype}/>)
+                                requests.map((item, index) => <PendingRequest request={item} key={index} playertype={playertype}/>)
                             }
                         </Grid>
                     </Grid>

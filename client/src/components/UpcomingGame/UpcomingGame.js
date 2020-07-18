@@ -103,7 +103,6 @@ export function UpcomingGame(props) {
                         </Typography>
                         <Box ml={1} mr={1}>
                         <Avatar
-                            className="profilePicture"
                             alt={requestProfile.username}
                             title={requestProfile.username}
                             src={requestProfile.profileImage}
@@ -136,7 +135,7 @@ export function UpcomingGame(props) {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Additional Request information"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Additional information"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
                                 {request.message}                            </DialogContentText>

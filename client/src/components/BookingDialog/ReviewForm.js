@@ -24,7 +24,7 @@ export default function ReviewForm(props){
                         justify="flex-start"
                         alignItems="flex-start"
                     >
-                        <Typography variant="h7" gutterBottom>
+                        <Typography variant="h6" gutterBottom>
                             Game of {props.offer.game} with {props.profile.username}
                         </Typography>
 
@@ -35,7 +35,7 @@ export default function ReviewForm(props){
                         justify="flex-end"
                         alignItems="flex-end"
                     >
-                        <Typography variant="h7" gutterBottom>
+                        <Typography variant="h6" gutterBottom>
                             ${props.offer.price}
                         </Typography>
 
@@ -49,7 +49,7 @@ export default function ReviewForm(props){
                 justify="flex-end"
                 alignItems="flex-end"
             >
-                <Typography variant="h7" gutterBottom>
+                <Typography variant="h6" gutterBottom>
                     ${props.offer.price}
                 </Typography>
 
