@@ -39,9 +39,9 @@ export default class UserService {
 
     }
 
-    static createRequest(offerId) {
+    static createRequest(offerId, discordTag, message) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${this.baseURL()}/create`, {offerId},function(data) {
+            HttpService.post(`${this.baseURL()}/create`, {offerId: offerId, discordTag:discordTag, message:message},function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);

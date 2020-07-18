@@ -13,6 +13,7 @@ import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
 import Grid from "@material-ui/core/Grid";
 import RequestService from "../../services/RequestService";
+import {useState} from "react";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -25,14 +26,16 @@ const useStyles = makeStyles((theme) => ({
 const steps = ['Additional Information', 'Payment details', 'Review your order'];
 export default function Checkout(props) {
     const classes = useStyles(theme);
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = useState(0);
+    const [discordTag, setDiscordTag] = useState("")
+    const [message, setMessage] = useState("")
     const handleNext = () => {
         setActiveStep(activeStep + 1);
     };
     function getStepContent(step) {
         switch (step) {
             case 0:
-                return <AdditionalInformationForm />;
+                return <AdditionalInformationForm discordTag={discordTag} setDiscordTag={setDiscordTag} message={message} setMessage={setMessage} />;
             case 1:
                 return <PaymentForm />;
             case 2:
@@ -42,7 +45,7 @@ export default function Checkout(props) {
         }
     }
     const handleBooking = async () => {
-        let res = await RequestService.createRequest(props.offer._id)
+        let res = await RequestService.createRequest(props.offer._id, discordTag, message)
         handleNext()
     }
 

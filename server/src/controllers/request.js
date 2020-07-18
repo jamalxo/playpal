@@ -76,8 +76,8 @@ const create = async (req, res) => {
             game: offer.game,
             offeringPlayer: offer.owner,
             price: offer.price,
-            additionalInfo: req.body.additionalInfo,
-            discord: req.body.discordTag
+            message: req.body.message,
+            discordTag: req.body.discordTag
         }
         let request = await RequestModel.create(requestObj);
 
