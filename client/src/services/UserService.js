@@ -63,4 +63,14 @@ export default class UserService {
             });
         });
     }
+
+    static updateServer(id, server) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${UserService.baseURL()}/server/${id}`, server, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
 }

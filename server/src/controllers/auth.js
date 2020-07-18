@@ -69,7 +69,8 @@ const register = async (req,res) => {
         lastname: req.body.lastname,
         description: req.body.description,
         profileImage: "http://localhost:3000/" + req.file.path,
-        availability: JSON.parse(req.body.availability)
+        availability: JSON.parse(req.body.availability),
+        server: req.body.server
     };
 
     try {
@@ -201,6 +202,28 @@ const updateAvailability = async (req, res) => {
     }
 }
 
+const updateServer = async (req, res) => {
+    // console.log(req.body);
+    // try{
+    //     UserModel.findById(req.params.id, function(err, user) {
+    //         if (err) return console.log("err");
+    //         if (!user) return console.log("no user");
+    //
+    //         user.server = req.body;
+    //         user.save(function(err) {
+    //             if (err) return console.log('err server');
+    //         });
+    //         return res.status(200).json(user.server);
+    //     });
+    //
+    // } catch(err) {
+    //     return res.status(500).json({
+    //         error: 'Internal server error',
+    //         message: err.message
+    //     });
+    // }
+}
+
 const addPendingOffer = async (req, res) => {
     try{
         UserModel.findByIdAndUpdate(
@@ -271,5 +294,6 @@ module.exports = {
     addRequestedOffer,
     removeRequestedOffer,
     removePendingOffer,
-    updateAvailability
+    updateAvailability,
+    updateServer
 };

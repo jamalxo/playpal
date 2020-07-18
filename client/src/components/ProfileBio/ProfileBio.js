@@ -36,7 +36,9 @@ const useStyles = (theme) => ({
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        width: 200,
+        height: 200
     },
     about: {
         fontSize: 16
@@ -47,6 +49,10 @@ const useStyles = (theme) => ({
     },
     divider: {
         backgroundColor: theme.palette.primary.contrastText
+    },
+    profilePicture: {
+        width: 150,
+        height: 150
     },
 });
 
@@ -98,7 +104,7 @@ class ProfileCard extends React.Component {
                         <Grid container spacing={2}>
                             <Grid item xs={4} className={classes.picture}>
                                 <Avatar
-                                    className="profilePicture"
+                                    className={classes.profilePicture}
                                     alt={this.props.profile.username}
                                     title={this.props.profile.username}
                                     src={this.props.profile.profileImage}/>

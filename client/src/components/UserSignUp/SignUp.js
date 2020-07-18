@@ -20,6 +20,9 @@ import Banner from "../../resources/console.svg";
 import Paper from "@material-ui/core/Paper";
 import Times from "./Times";
 import OfferForm from "../Offer/OfferForm";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
 
 function Copyright() {
     return (
@@ -63,6 +66,9 @@ const useStyles = makeStyles((theme) => ({
     },
     grid: {
         paddingTop: theme.spacing(8),
+    },
+    serverForm: {
+        minWidth: 200
     }
 }));
 
@@ -82,7 +88,8 @@ export default function SignUp(props) {
         errorTextUsername: '',
         errorTextEmail: '',
         errorFlag: false,
-        aval: []
+        aval: [],
+        server: ''
     })
 
     const [avalTmp, setAvalTmp] = useState([]);
@@ -90,6 +97,7 @@ export default function SignUp(props) {
     const history = props.history
 
     const handleChangeInput = (target, value) => {
+        console.log(formState);
         validateInput(target, value);
         if (!formState.errorFlag) {
             setFormState({
@@ -98,6 +106,7 @@ export default function SignUp(props) {
             });
         }
         formState.errorFlag = false;
+        console.log(formState);
     };
 
 
@@ -181,6 +190,7 @@ export default function SignUp(props) {
                 user.append('description', formState.description);
                 user.append('profileImage', formState.profileImage);
                 user.append('availability', JSON.stringify(formState.aval));
+                user.append('server', formState.server);
                 console.log(Array.from(user.values()))
 
                 let ret = await UserService.register(user);
@@ -309,7 +319,7 @@ export default function SignUp(props) {
 
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                                 <FormControl component="fieldset">
                                     <FormLabel component="legend">Playertype</FormLabel>
                                     <RadioGroup aria-label="usertype" name="usertype" required
@@ -322,19 +332,36 @@ export default function SignUp(props) {
                                     </RadioGroup>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12}>
-
-                                <div style={{paddingLeft: '10px'}}>
-                                    <div style={{paddingRight: '10px'}}>
-                                        Profile Picture:
-                                    </div>
-                                    <input type="file" name="profileImage" accept=".png, .jpg, .jpeg"
-                                           onChange={(inp) => handleChangeInput('profileImage', inp.target.files[0])}/>
+                            <Grid item xs={6}>
+                                <div style={{paddingRight: '10px'}}>
+                                    Profile Picture:
                                 </div>
+                                <input type="file" name="profileImage" accept=".png, .jpg, .jpeg"
+                                       onChange={(inp) => handleChangeInput('profileImage', inp.target.files[0])}/>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Times onTimesChange={timesChange} aval={formState.aval}  />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl variant="outlined" className={classes.serverForm}>
+                                    <InputLabel>Server</InputLabel>
+                                    <Select
+                                        value={formState.server}
+                                        onChange={(inp) => handleChangeInput('server', inp.target.value)}
+                                    >
+                                        <MenuItem value={'Europe'}>Europe</MenuItem>
+                                        <MenuItem value={'USA'}>USA</MenuItem>
+                                        <MenuItem value={'Asia'}>Asia</MenuItem>
+                                        <MenuItem value={'Russia'}>Russia</MenuItem>
+                                        <MenuItem value={'Australia'}>Australia</MenuItem>
+                                        <MenuItem value={'South Africa'}>South Africa</MenuItem>
+                                        <MenuItem value={'South America'}>South America</MenuItem>
+                                    </Select>
+                                </FormControl>
                             </Grid>
                         </Grid>
 
-                        <Times onTimesChange={timesChange} aval={formState.aval}  />
+
 
                         <Button
                             type="submit"
