@@ -22,9 +22,10 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import RequestService from "../../services/RequestService";
+import Discord from "../../resources/discord.png"
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '1000px',
+        width: '1300px',
         height: '70px',
         //maxWidth: 360,
         backgroundColor: theme.palette.primary.light,
@@ -92,7 +93,7 @@ export function UpcomingGame(props) {
                         alignItems="center"
                     >
                         <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
-                            You have an upcoming of
+                            You have an upcoming game of
                         </Typography>
                         <CardMedia src={getGameIcon(request.game)} component="img"
                                    className={classes.imageStyle}/>
@@ -138,7 +139,20 @@ export function UpcomingGame(props) {
                         <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Additional Request information"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                                {request.info}                            </DialogContentText>
+                                {request.message}                            </DialogContentText>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems="center"
+                            >                            <CardMedia src={Discord} component="img"
+                                       className={classes.imageStyle}/>
+                            <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
+
+                                {request.discordTag}
+                            </Typography>
+                            </Grid>
+
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => setInfoDialogOpen(false)} color="primary" autoFocus className={classes.button}>

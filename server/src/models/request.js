@@ -26,7 +26,7 @@ const RequestSchema  = new mongoose.Schema({
     price:{
         type: Number,
     },
-    additionalInfo:{
+    message:{
         type: String
     },
     discordTag:{

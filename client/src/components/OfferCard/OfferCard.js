@@ -84,6 +84,7 @@ export default function OfferCard(props) {
     const [dialogOpen, setDialog] = useState(false)
     useEffect(() => {    // Update the profile value on mount
         const fetchdata = async () => {
+
             const newprof = await ProfileService.getProfile(props.offer.owner)
             setProfile(newprof)
         }
@@ -105,7 +106,7 @@ export default function OfferCard(props) {
     }
     const BookOrEditButton = (props.offer.owner === UserService.getCurrentUser().id) ?
 
-        <Link className={classes.link} to={`/offer/edit/${props.id}`}>
+        <Link className={classes.link} to={`/offer/edit/${props.offer._id}`}>
             <Button className={classes.button} color="primary" variant="contained">
                 Edit
             </Button>

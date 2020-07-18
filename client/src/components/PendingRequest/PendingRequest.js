@@ -218,7 +218,7 @@ export function PendingRequest(props) {
                                   justify="flex-end"
                             >
                         <Grid item>
-                            <IconButton edge="end" aria-label="info" onClick={() => setInfoDialogOpen(true)}>
+                            <IconButton edge="end" aria-label="info" onClick={() =>{setInfoDialogOpen(true)}}>
                                 <InfoIcon style={{ color: "white" }}/>
                             </IconButton>
                             {AcceptIcon}
@@ -237,7 +237,7 @@ export function PendingRequest(props) {
                         <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Additional Request information"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                                {request.info}                            </DialogContentText>
+                                {request.message}                            </DialogContentText>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => setInfoDialogOpen(false)} color="primary" autoFocus
