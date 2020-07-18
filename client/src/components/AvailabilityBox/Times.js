@@ -329,15 +329,27 @@ class Times extends React.Component {
         this.validateInputBeforeSubmit();
     }
 
+    displayIcon(classes) {
+        if (UserService.getCurrentUser().id === this.props.user) {
+            return(
+                <Tooltip title="Edit Availability" aria-label="pro" onClick={this.handleClickOpen}>
+                    <img src={Availability} alt="Logo" className={classes.imageStyle}/>
+                </Tooltip>
+            );
+        } else {
+            return(
+                <img src={Availability} alt="Logo" className={classes.imageStyle}/>
+            );
+        }
+    }
+
     render() {
         const {classes} = this.props;
 
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={classes.imageStyle}>
-                    <Tooltip title="Edit Availability" aria-label="pro" onClick={this.handleClickOpen}>
-                        <img src={Availability} alt="Logo" className={classes.imageStyle}/>
-                    </Tooltip>
+                    {this.displayIcon(classes)}
                 </div>
                 <div>
                     <Dialog open={this.state.open || false}
