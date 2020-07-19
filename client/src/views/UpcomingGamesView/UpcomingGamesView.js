@@ -31,18 +31,17 @@ export function UpcomingGamesView() {
     const user = UserService.getCurrentUser();
 
     const [games, setGames] = useState([])
-    useEffect(() => {
-        const fetchdata = async () => {
-            const profile = await ProfileService.getProfile(user.id)
-            const gameIds = profile.upcomingGames
-            const newRequestsFetched = []
-            for (let i = 0; i < gameIds.length; i++) {
-                let temp = await RequestService.getRequest(gameIds[i])
-                newRequestsFetched.push(temp)
-            }
-            setGames(newRequestsFetched)
+    const fetchdata = async () => {
+        const profile = await ProfileService.getProfile(user.id)
+        const gameIds = profile.upcomingGames
+        const newRequestsFetched = []
+        for (let i = 0; i < gameIds.length; i++) {
+            let temp = await RequestService.getRequest(gameIds[i])
+            newRequestsFetched.push(temp)
         }
-
+        setGames(newRequestsFetched)
+    }
+    useEffect(() => {
         fetchdata()
     }, [])
 
@@ -62,7 +61,7 @@ export function UpcomingGamesView() {
                         </Typography>
                         <Grid item className="PendingOfferList">
                             {
-                                games.map((item, index) => <UpcomingGame game={item} index={index} key={index}/>)
+                                games.map((item, index) => <UpcomingGame game={item} index={index} key={index} fetchdata={fetchdata}/>)
                             }
                         </Grid>
                     </Grid>

@@ -181,6 +181,7 @@ export function UpcomingGame(props) {
                         <DialogActions>
                             <Button onClick={() => {
                                 RequestService.finishRequest(request._id)
+                                setTimeout(function(){props.fetchdata()},100)
                                 setFinishDialogOpen(false)
                             }} color="primary" autoFocus
                                     className={classes.button}>
@@ -209,6 +210,7 @@ export function UpcomingGame(props) {
                         <DialogActions>
                             <Button onClick={() => {
                                 RequestService.cancelGame(request._id, "declined")
+                                setTimeout(function(){props.fetchdata()},100)
                                 setCancelDialogOpen(false)
                             }} color="primary" autoFocus
                                     className={classes.button}>
