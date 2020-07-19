@@ -82,7 +82,6 @@ class AvailabilityBox extends React.Component {
     }
 
     async timesChange(aval) {
-        console.log(aval);
         let avalArray = aval;
         for (var i = 0; i < 7; i++) {
             let avalEntry = {
@@ -94,14 +93,12 @@ class AvailabilityBox extends React.Component {
             avalArray[i] = avalEntry;
         }
         avalArray = avalArray.map((aval, i) => aval.startTime !== undefined ? aval : {});
-        console.log(avalArray);
         let id = this.props.profile._id;
         this.setState({
             loading: true
         });
         try {
             let ret = await UserService.updateAvailability(id, aval);
-            console.log(ret);
             this.state.availability = ret;
             this.setState({
                 loading: false
