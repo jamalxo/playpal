@@ -33,22 +33,23 @@ export function PendingRequestsView() {
     const user = UserService.getCurrentUser()
     const [requests, setRequests] = useState([])
     const [playertype, setPlayertype] = useState("casual")
+    const fetchdata = async () => {
+        const userprof = await ProfileService.getProfile(user.id)
+        setPlayertype(userprof.usertype)
+        const newrequests = userprof.usertype ==="professional" ? userprof.pendingRequests : userprof.createdRequests
+        const newRequestsFetched = []
+        for(let i = 0; i < newrequests.length; i++)
+        {
+            let temp = await RequestService.getRequest(newrequests[i])
+            newRequestsFetched.push(temp)
+        }
+        setRequests(newRequestsFetched)
+    }
+
     useEffect(() => {
         // You need to restrict it at some point
         // This is just dummy code and should be replaced by actual
 
-        const fetchdata = async () => {
-            const userprof = await ProfileService.getProfile(user.id)
-            setPlayertype(userprof.usertype)
-            const newrequests = userprof.usertype ==="professional" ? userprof.pendingRequests : userprof.createdRequests
-            const newRequestsFetched = []
-            for(let i = 0; i < newrequests.length; i++)
-            {
-                let temp = await RequestService.getRequest(newrequests[i])
-                newRequestsFetched.push(temp)
-            }
-            setRequests(newRequestsFetched)
-        }
         fetchdata()
         }, []);
 
@@ -69,7 +70,7 @@ export function PendingRequestsView() {
                         <Grid item>
                             {
 
-                                requests.map((item, index) => <PendingRequest request={item} key={index} playertype={playertype}/>)
+                                requests.map((item, index) => <PendingRequest request={item} key={index} playertype={playertype} fetchdata={fetchdata}/>)
                             }
                         </Grid>
                     </Grid>

@@ -161,6 +161,8 @@ export function PendingRequest(props) {
             <DialogActions>
                 <Button onClick={() =>{
                     RequestService.answerRequest(request._id,"declined")
+                    setTimeout(function(){props.fetchdata();},100)
+
                     setDeclineDialogOpen(false)}} color="primary" autoFocus
                         className={classes.button}>
                     Yes
@@ -186,7 +188,8 @@ export function PendingRequest(props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => {
-                    RequestService.answerRequest(request._id, "cancelled")
+                    RequestService.answerRequest(request._id, "cancelled");
+                    setTimeout(function(){props.fetchdata();},100)
                     setDeclineDialogOpen(false)
                 }}  autoFocus
                         className={classes.button}>
@@ -258,7 +261,8 @@ export function PendingRequest(props) {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => {
-                                RequestService.answerRequest(request._id, "accepted"),
+                                RequestService.answerRequest(request._id, "accepted");
+                                setTimeout(function(){props.fetchdata();},100)
                                 setAcceptDialogOpen(false)
                             }} color="primary" autoFocus
                                     className={classes.button}>
