@@ -66,7 +66,8 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(8),
     },
     serverForm: {
-        minWidth: 200
+        minWidth: 200,
+        marginTop: 15
     }
 }));
 
@@ -334,9 +335,11 @@ export default function SignUp(props) {
                                            onChange={(inp) => handleChangeInput('profileImage', inp.target.files[0])}/>
                                 </Grid>
                                 <Grid item xs={6}>
+                                    <FormLabel component="legend">Please enter the times you are available in a week</FormLabel>
                                     <Times onTimesChange={timesChange} aval={formState.aval}/>
                                 </Grid>
                                 <Grid item xs={6}>
+                                    <FormLabel component="legend">Please choose the server you play in</FormLabel>
                                     <FormControl variant="outlined" className={classes.serverForm}>
                                         <InputLabel>Server</InputLabel>
                                         <Select

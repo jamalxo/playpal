@@ -20,6 +20,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import UserService from "../../services/UserService";
 import Loading from "../Loading/Loading";
+import ProfileService from "../../services/ProfileService";
+import OfferService from "../../services/OfferService";
 
 const drawerWidth = 240;
 
@@ -132,34 +134,42 @@ class Header extends React.Component {
             currentTab = 1
         } else if (path === '/') {
             currentTab = 0
-        }
-        else if (path === '/requests/pending') {
+        } else if (path === '/requests/pending') {
             currentTab = 2
-        }
-        else if (path === '/games/upcoming') {
+        } else if (path === '/games/upcoming') {
             currentTab = 3
-        }
-
-        else {
+        } else {
             currentTab = false
         }
-
-
+        this.getUser();
 
         this.state = {
-            loading: false,
+            loading: true,
             value: currentTab,
             anchorEl: null,
             isMenuOpen: false,
             user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
         };
 
-
+        this.getUser = this.getUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleMenuClose = this.handleMenuClose.bind(this);
         this.handleMenuOpen = this.handleMenuOpen.bind(this);
     }
 
+    async getUser() {
+        try {
+            this.setState(Object.assign({}, this.state, {loading: true}));
+            let ret = await ProfileService.getProfile(UserService.getCurrentUser().id)
+                .then(res => {
+                    this.setState(Object.assign({}, this.state, {userState: res.usertype}));
+                    this.setState(Object.assign({}, this.state, {loading: false}));
+                });
+        } catch (err) {
+            this.setState(Object.assign({}, this.state, {error: 'Error while loading user state'}));
+            this.setState(Object.assign({}, this.state, {loading: false}));
+        }
+    }
 
     handleChange(event, value) {
         this.setState(Object.assign({}, this.state, {value: value}));
@@ -184,10 +194,9 @@ class Header extends React.Component {
         this.state = {
             user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
         };
-        if(this.props.location.pathname !== '/') {
+        if (this.props.location.pathname !== '/') {
             this.props.history.push('/');
-        }
-        else {
+        } else {
             window.location.reload();
         }
     }
@@ -219,11 +228,11 @@ class Header extends React.Component {
                             >
                                 <MenuIcon/>
                             </IconButton>
-                            <div className={classes.logo} >
+                            <div className={classes.logo}>
                                 <img src={Banner} alt="Logo" className={classes.imageStyle}/>
                                 <Typography variant="h6" className={classes.title} color={'inherit'}>
                                     PlayPal
-                                 </Typography>
+                                </Typography>
                             </div>
 
                             <Tabs
@@ -234,36 +243,35 @@ class Header extends React.Component {
                                 className={classes.tabs}
                             >
                                 <Tab label="Home"
-                                     onClick={() => this.props.history.push('/')} />
-                                <Tab label="Offers"
-                                     onClick={() => this.props.history.push('/offers')} />
+                                     onClick={() => this.props.history.push('/')}/>
+                                {this.state.userState === "professional" ? <Tab label="My Offers"
+                                                                                    onClick={() => this.props.history.push('/offers')}/> : null}
                                 <Tab label="Requests" onClick={() => this.props.history.push('/requests/pending')}/>
                                 <Tab label="Upcoming Games" onClick={() => this.props.history.push('/games/upcoming')}/>
-
                             </Tabs>
-                            <div className={classes.grow} />
+                            <div className={classes.grow}/>
                             <div className={classes.sectionDesktop}>
                                 {/*<div className={classes.search}>*/}
-                                    {/*<ReactSearchBox*/}
-                                    {/*    placeholder="Search for a gamer!"*/}
-                                    {/*    data={this.state.allUsers}*/}
-                                    {/*    onSelect={record => console.log(record)}*/}
-                                    {/*    onFocus={() => {*/}
-                                    {/*        console.log('This function is called when is focussed')*/}
-                                    {/*    }}*/}
-                                    {/*    onChange={value => console.log(value)}*/}
-                                    {/*/>*/}
-                                    {/*<div className={classes.searchIcon}>*/}
-                                    {/*    <SearchIcon />*/}
-                                    {/*</div>*/}
-                                    {/*<InputBase*/}
-                                    {/*    placeholder="Search…" //todo: FIX THIS*/}
-                                    {/*    classes={{*/}
-                                    {/*        root: classes.inputRoot,*/}
-                                    {/*        input: classes.inputInput,*/}
-                                    {/*    }}*/}
-                                    {/*    inputProps={{ 'aria-label': 'search' }}*/}
-                                    {/*/>*/}
+                                {/*<ReactSearchBox*/}
+                                {/*    placeholder="Search for a gamer!"*/}
+                                {/*    data={this.state.allUsers}*/}
+                                {/*    onSelect={record => console.log(record)}*/}
+                                {/*    onFocus={() => {*/}
+                                {/*        console.log('This function is called when is focussed')*/}
+                                {/*    }}*/}
+                                {/*    onChange={value => console.log(value)}*/}
+                                {/*/>*/}
+                                {/*<div className={classes.searchIcon}>*/}
+                                {/*    <SearchIcon />*/}
+                                {/*</div>*/}
+                                {/*<InputBase*/}
+                                {/*    placeholder="Search…" //todo: FIX THIS*/}
+                                {/*    classes={{*/}
+                                {/*        root: classes.inputRoot,*/}
+                                {/*        input: classes.inputInput,*/}
+                                {/*    }}*/}
+                                {/*    inputProps={{ 'aria-label': 'search' }}*/}
+                                {/*/>*/}
                                 {/*</div>*/}
                                 {/*<IconButton aria-label="show 17 new notifications" color="inherit">*/}
                                 {/*    <Badge badgeContent={17} color="secondary">*/}
@@ -278,25 +286,25 @@ class Header extends React.Component {
                                     onClick={this.handleMenuOpen}
                                     color="inherit"
                                 >
-                                    <AccountCircle />
+                                    <AccountCircle/>
                                 </IconButton>
                                 <Menu
                                     anchorEl={this.state.anchorEl}
-                                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                                     keepMounted
-                                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                    transformOrigin={{vertical: 'top', horizontal: 'right'}}
                                     open={this.state.isMenuOpen}
                                     onClose={this.handleMenuClose}
                                 >
                                     {
                                         this.state.user ?
-                                            <div >
+                                            <div>
                                                 <MenuItem
                                                     onClick={() => this.props.history.push('/user/' + this.getUserId())}>Profile</MenuItem>
                                                 <MenuItem
                                                     onClick={() => this.logout()}>Logout</MenuItem>
                                             </div>
-                                        : <MenuItem onClick={() => this.props.history.push('/login')}/>
+                                            : <MenuItem onClick={() => this.props.history.push('/login')}/>
                                     }
                                 </Menu>
                             </div>

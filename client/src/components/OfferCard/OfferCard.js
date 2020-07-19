@@ -83,6 +83,12 @@ const useStyles = makeStyles((theme) => ({
         height: 50,
         backgroundColor: theme.palette.primary.light
     },
+    perGame: {
+        paddingLeft: 5,
+    },
+    dollar: {
+        color: "#fcad3a"
+    }
 }));
 
 
@@ -166,10 +172,13 @@ export default function OfferCard(props) {
                     <Divider className={classes.divider} variant="middle"/>
 
                     <CardActions disableSpacing>
-                        <Grid container direction="column" justify="flex-start" alignItems="flex-start"
+                        <Grid container direction="row" justify="flex-start" alignItems="flex-end"
                               className={classes.bookPrice}>
-                            <Typography variant="h4" color="textPrimary">
+                            <Typography variant="h4" color="textPrimary" className={classes.dollar}>
                                 ${props.offer.price}
+                            </Typography>
+                            <Typography variant="subtitle1" color="textPrimary" className={classes.perGame}>
+                                /Game
                             </Typography>
                         </Grid>
                         <Grid className={classes.bookButton}

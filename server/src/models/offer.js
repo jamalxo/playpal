@@ -11,29 +11,11 @@ const Offer = new mongoose.Schema({
         type: String,
         required: true,
     },
-    server: {
-        type: String,
-        required: true,
-    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: false
     },
-    availability: [{
-        startTime: {
-            type: Date,
-            required: false,
-        },
-        endTime: {
-            type: Date,
-            required: false,
-        },
-        day: {
-            type: [String],
-            required: false,
-        },
-    }]
 });
 
 Offer.set('versionKey', false);

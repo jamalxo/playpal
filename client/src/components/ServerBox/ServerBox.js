@@ -27,6 +27,7 @@ const useStyles = (theme) => ({
     imageStyle: {
         height: 50,
         width: 50,
+        cursor: "pointer"
     },
     serverBox: {
         display: "flex",
