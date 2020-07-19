@@ -14,7 +14,7 @@ import {theme} from "../../theme";
 import Tooltip from "@material-ui/core/Tooltip";
 import './ProfileBio.css';
 import Grid from "@material-ui/core/Grid";
-import Verified from "../../resources/verified_gamer.png";
+import Verified from "../../resources/ProfileIcons/verified_gamer.png";
 
 const useStyles = (theme) => ({
     root: {

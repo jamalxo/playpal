@@ -19,7 +19,7 @@ export default class ReviewService {
         });
     }
 
-    static getReviews(){
+    static getAllReviews(){
         return new Promise((resolve, reject) => {
             HttpService.get(this.baseURL(), function(data) {
                 resolve(data);

@@ -2,10 +2,8 @@
 
 import React from 'react';
 
-import { ProfileList } from '../../components/ProfileList/ProfileList';
+import {ProfileList} from '../../components/ProfileList/ProfileList';
 import ProfileService from '../../services/ProfileService';
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
 import Page from "../../components/Page/Page";
 import Loading from "../../components/Loading";
 
@@ -25,7 +23,7 @@ export class ProfileListView extends React.Component {
             loading: true
         });
 
-        ProfileService.getProfiles().then((data) => {
+        ProfileService.getAllProfiles().then((data) => {
             this.setState({
                 data: [...data],
                 loading: false

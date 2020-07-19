@@ -4,7 +4,6 @@ import Page from "../../components/Page/Page";
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {PendingRequest} from "../../components/PendingRequest/PendingRequest";
 import {UpcomingGame} from "../../components/UpcomingGame/UpcomingGame";
 import UserService from "../../services/UserService";
 import ProfileService from "../../services/ProfileService";

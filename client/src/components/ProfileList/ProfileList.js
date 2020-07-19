@@ -7,9 +7,9 @@ import ProfileCard from "../ProfileCard/ProfileCard";
 import {Link} from "react-router-dom";
 import './ProfileList.css';
 import Badge from "@material-ui/core/Badge";
-import GoldMedal from "../../resources/rankBadges/gold-medal.png";
-import SilverMedal from "../../resources/rankBadges/silver-medal.png";
-import BronzeMedal from "../../resources/rankBadges/bronze-medal.png";
+import GoldMedal from "../../resources/Medals/gold-medal.png";
+import SilverMedal from "../../resources/Medals/silver-medal.png";
+import BronzeMedal from "../../resources/Medals/bronze-medal.png";
 import {withStyles} from "@material-ui/core/styles";
 
 const useStyles = (theme) => ({

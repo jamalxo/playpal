@@ -20,7 +20,7 @@ import BookingDialog from "../BookingDialog/BookingDialog";
 import {getGameIcon} from "../../services/IconService";
 import {Link} from "react-router-dom";
 import UserService from "../../services/UserService";
-import Verified from "../../resources/verified_gamer.png";
+import Verified from "../../resources/ProfileIcons/verified_gamer.png";
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -10,7 +10,7 @@ import {theme} from '../../theme';
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
-import Banner from '../../resources/console.svg';
+import Banner from '../../resources/HeaderIcons/console.svg';
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import InputBase from "@material-ui/core/InputBase"; // Tell webpack this JS file uses this image

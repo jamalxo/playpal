@@ -1,8 +1,8 @@
 import React from 'react';
 
-import OfferService from '../services/OfferService';
-import OfferForm from "../components/Offer/OfferForm";
-import Loading from "../components/Loading";
+import OfferService from '../../services/OfferService';
+import OfferForm from "../../components/Offer/OfferForm";
+import Loading from "../../components/Loading";
 
 export class OfferFormView extends React.Component {
 
@@ -49,7 +49,7 @@ export class OfferFormView extends React.Component {
     async updateOffer(offer) {
         if (this.state.offer === undefined) {
             try {
-                let ret = await OfferService.createoffer(offer)
+                let ret = await OfferService.createOffer(offer)
                     .then(res => {
                         this.setState(Object.assign({}, this.state, {openRes: true}));
                     });

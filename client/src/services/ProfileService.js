@@ -9,7 +9,7 @@ export default class ProfileService {
 
     static baseURL() { return 'http://localhost:3000/auth' }
 
-    static getProfiles(){
+    static getAllProfiles(){
         return new Promise((resolve, reject) => {
             HttpService.get(this.baseURL(), function(data) {
                 resolve(data);

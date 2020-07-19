@@ -7,20 +7,16 @@ import Grid from "@material-ui/core/Grid";
 import ProfileList from "../../components/ProfileList/ProfileList";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import {withStyles} from "@material-ui/core/styles";
-import './HomePageView.css'
+import {ThemeProvider as MuiThemeProvider, withStyles} from "@material-ui/core/styles";
 import OfferService from "../../services/OfferService";
 import OfferList from "../../components/Offer/OfferList";
-import Search from "../../resources/suche.svg";
-import Order from "../../resources/einkaufswagen.svg";
-import Match from "../../resources/herz-new.svg";
-import Trophy from "../../resources/trophaee.svg";
-import New from "../../resources/neu.svg";
-import Like from "../../resources/like.svg";
+import Search from "../../resources/HomePageIcons/suche.svg";
+import Order from "../../resources/HomePageIcons/einkaufswagen.svg";
+import Match from "../../resources/HomePageIcons/herz-new.svg";
+import Trophy from "../../resources/HomePageIcons/trophaee.svg";
+import New from "../../resources/HomePageIcons/neu.svg";
+import Like from "../../resources/HomePageIcons/like.svg";
 import Paper from '@material-ui/core/Paper';
-import LinearProgress from '@material-ui/core/LinearProgress';
-
-import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import {theme} from '../../theme';
 import Loading from "../../components/Loading";
 
@@ -120,7 +116,7 @@ class HomePageView extends React.Component {
             loading: true
         });
 
-        ProfileService.getProfiles().then((data) => {
+        ProfileService.getAllProfiles().then((data) => {
             this.setState({
                 data: [...data],
                 loading: false
@@ -129,7 +125,7 @@ class HomePageView extends React.Component {
             console.error(e);
         });
 
-        OfferService.getOffers().then((data) => {
+        OfferService.getAllOffers().then((data) => {
             this.setState({
                 dataOffers: [...data],
                 loading: false

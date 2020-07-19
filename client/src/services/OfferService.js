@@ -20,8 +20,7 @@ export default class OfferService {
         });
     }
 
-    //capitlizie
-    static createoffer(offer) {
+    static createOffer(offer) {
         offer.id = Math.floor((Math.random() * 100000000) + 1).toString();
         return new Promise((resolve, reject) => {
             HttpService.post(OfferService.baseURL(), offer, function(data) {
@@ -47,8 +46,7 @@ export default class OfferService {
         });
     }
 
-    //get all offers instead
-    static getOffers(){
+    static getAllOffers(){
         return new Promise((resolve, reject) => {
             HttpService.get(this.baseURL(), function(data) {
                 resolve(data);

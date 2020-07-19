@@ -22,7 +22,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import RequestService from "../../services/RequestService";
-import Discord from "../../resources/discord.png"
+import Discord from "../../resources/RequestIcons/discord.png"
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '1300px',

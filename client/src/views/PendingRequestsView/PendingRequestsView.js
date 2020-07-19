@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import UserService from "../services/UserService";
-import Page from "../components/Page/Page";
-import {PendingRequest} from "../components/PendingRequest/PendingRequest";
+import UserService from "../../services/UserService";
+import Page from "../../components/Page/Page";
+import {PendingRequest} from "../../components/PendingRequest/PendingRequest";
 import Grid from "@material-ui/core/Grid";
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
-import {theme} from "../theme";
+import {theme} from "../../theme";
 import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import ProfileService from "../services/ProfileService";
-import RequestService from "../services/RequestService";
+import ProfileService from "../../services/ProfileService";
+import RequestService from "../../services/RequestService";
 
 const useStyles = (theme) => ({
     container: {

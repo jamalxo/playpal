@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import dota from "../../resources/game_grid/dota2.jpg";
-import csgo from "../../resources/game_grid/csgo.jpg";
-import lol from "../../resources/game_grid/lol.jpg";
-import overwatch from "../../resources/game_grid/overwatch.jpg";
-import valorant from "../../resources/game_grid/valorant.jpg";
-import pubg from "../../resources/game_grid/pubg.jpg";
-import cod from "../../resources/game_grid/cod.jpeg";
-import wow from "../../resources/game_grid/wow.jpg";
-import hots from "../../resources/game_grid/hots.jpg";
+import dota from "../../resources/GameGrid/dota2.jpg";
+import csgo from "../../resources/GameGrid/csgo.jpg";
+import lol from "../../resources/GameGrid/lol.jpg";
+import overwatch from "../../resources/GameGrid/overwatch.jpg";
+import valorant from "../../resources/GameGrid/valorant.jpg";
+import pubg from "../../resources/GameGrid/pubg.jpg";
+import cod from "../../resources/GameGrid/cod.jpeg";
+import wow from "../../resources/GameGrid/wow.jpg";
+import hots from "../../resources/GameGrid/hots.jpg";
 
 const useStyles = makeStyles((theme) => ({
     root: {

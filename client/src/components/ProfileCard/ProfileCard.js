@@ -14,7 +14,7 @@ import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Tooltip from "@material-ui/core/Tooltip";
-import Verified from "../../resources/verified_gamer.png";
+import Verified from "../../resources/ProfileIcons/verified_gamer.png";
 
 const useStyles = (theme) => ({
     root: {

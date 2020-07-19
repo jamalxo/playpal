@@ -2,7 +2,6 @@
 
 import React from 'react';
 import ProfileService from '../../services/ProfileService';
-import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import Page from '../../components/Page/Page';
 import Grid from "@material-ui/core/Grid";
 import ReviewField from "../../components/ReviewField/ReviewField";
@@ -10,28 +9,15 @@ import ReviewService from "../../services/ReviewService";
 import ReviewData from "../../components/ReviewData/ReviewData";
 import AvailabilityBox from "../../components/AvailabilityBox/AvailabilityBox";
 import ServerBox from "../../components/ServerBox/ServerBox";
-import './ProfileView.css'
 import UserService from "../../services/UserService";
 import Container from "@material-ui/core/Container";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import ProfileBio from "../../components/ProfileBio/ProfileBio";
 import OfferService from "../../services/OfferService";
 import OfferList from "../../components/Offer/OfferList";
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import RateReviewIcon from '@material-ui/icons/RateReview';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import TabPanel from '@material-ui/lab/TabPanel';
-import TabContext from '@material-ui/lab/TabContext';
-import {theme} from "../../theme";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import OfferCard from "../../components/OfferCard/OfferCard";
 import Loading from "../../components/Loading";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Paper from "@material-ui/core/Paper";
-import MovieService from "../../services/MovieService";
 
 const useStyles = (theme) => ({
     grid: {
@@ -98,7 +84,7 @@ class ProfileView extends React.Component {
         (async () => {
             try {
                 let user = await ProfileService.getProfile(id);
-                let data = await OfferService.getOffers();
+                let data = await OfferService.getAllOffers();
                 this.setState({
                     dataOffers: [...data],
                     user: user,

@@ -2,21 +2,18 @@
 
 import React from 'react';
 import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
-
-import {MovieDetailView} from './views/MovieDetailView';
-import {MovieFormView} from './views/MovieFormView';
 import UserService from "./services/UserService";
 import ProfileView from "./views/ProfileView/ProfileView";
 import HomePageView from "./views/HomePageView/HomePageView";
 import SignInSide from "./components/SignInSide/SignInSide";
 import SignUp from "./components/UserSignUp/SignUp";
-import {OfferFormView} from "./views/OfferFormView";
+import {OfferFormView} from "./views/OfferFormView/OfferFormView";
 
 import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import {theme} from "./theme";
 import OffersView from "./views/OffersView/OffersView";
 import {ProfileListView} from "./views/ProfileListView/ProfileListView";
-import {PendingRequestsView} from "./views/PendingRequestsView";
+import {PendingRequestsView} from "./views/PendingRequestsView/PendingRequestsView";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import {UpcomingGamesView} from "./views/UpcomingGamesView/UpcomingGamesView";
 

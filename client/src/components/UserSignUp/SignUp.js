@@ -16,7 +16,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import UserService from "../../services/UserService";
-import Banner from "../../resources/console.svg";
+import Banner from "../../resources/HeaderIcons/console.svg";
 import Paper from "@material-ui/core/Paper";
 import Times from "./Times";
 import OfferForm from "../Offer/OfferForm";

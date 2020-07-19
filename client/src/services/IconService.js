@@ -1,7 +1,7 @@
-import LoL from "../resources/games/lol.png";
-import Dota from "../resources/games/dota2.png";
-import CSGO from "../resources/games/csgo.png";
-import Search from "../resources/suche.svg";
+import LoL from "../resources/GameLogos/lol.png";
+import Dota from "../resources/GameLogos/dota2.png";
+import CSGO from "../resources/GameLogos/csgo.png";
+import Search from "../resources/HomePageIcons/suche.svg";
 
 export function getGameIcon(game) {
     switch (game) {
