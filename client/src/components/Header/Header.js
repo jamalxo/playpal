@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import {theme} from '../../theme';
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from '@material-ui/icons/Menu';
 import Banner from '../../resources/HeaderIcons/console.svg';
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -21,7 +20,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import UserService from "../../services/UserService";
 import Loading from "../Loading/Loading";
 import ProfileService from "../../services/ProfileService";
-import OfferService from "../../services/OfferService";
 
 const drawerWidth = 240;
 
@@ -220,14 +218,6 @@ class Header extends React.Component {
                             })}
                     >
                         <Toolbar2>
-                            <IconButton
-                                aria-label="open drawer"
-                                onClick={() => this.props.toggleDrawer(true)}
-                                edge="start"
-                                className={clsx(classes.menuButton, this.props.sideBarOpen && classes.hide)}
-                            >
-                                <MenuIcon/>
-                            </IconButton>
                             <div className={classes.logo}>
                                 <img src={Banner} alt="Logo" className={classes.imageStyle}/>
                                 <Typography variant="h6" className={classes.title} color={'inherit'}>
@@ -245,39 +235,12 @@ class Header extends React.Component {
                                 <Tab label="Home"
                                      onClick={() => this.props.history.push('/')}/>
                                 {this.state.userState === "professional" ? <Tab label="My Offers"
-                                                                                    onClick={() => this.props.history.push('/offers')}/> : null}
+                                                                                onClick={() => this.props.history.push('/offers')}/> : null}
                                 <Tab label="Requests" onClick={() => this.props.history.push('/requests/pending')}/>
                                 <Tab label="Upcoming Games" onClick={() => this.props.history.push('/games/upcoming')}/>
                             </Tabs>
                             <div className={classes.grow}/>
                             <div className={classes.sectionDesktop}>
-                                {/*<div className={classes.search}>*/}
-                                {/*<ReactSearchBox*/}
-                                {/*    placeholder="Search for a gamer!"*/}
-                                {/*    data={this.state.allUsers}*/}
-                                {/*    onSelect={record => console.log(record)}*/}
-                                {/*    onFocus={() => {*/}
-                                {/*        console.log('This function is called when is focussed')*/}
-                                {/*    }}*/}
-                                {/*    onChange={value => console.log(value)}*/}
-                                {/*/>*/}
-                                {/*<div className={classes.searchIcon}>*/}
-                                {/*    <SearchIcon />*/}
-                                {/*</div>*/}
-                                {/*<InputBase*/}
-                                {/*    placeholder="Search…" //todo: FIX THIS*/}
-                                {/*    classes={{*/}
-                                {/*        root: classes.inputRoot,*/}
-                                {/*        input: classes.inputInput,*/}
-                                {/*    }}*/}
-                                {/*    inputProps={{ 'aria-label': 'search' }}*/}
-                                {/*/>*/}
-                                {/*</div>*/}
-                                {/*<IconButton aria-label="show 17 new notifications" color="inherit">*/}
-                                {/*    <Badge badgeContent={17} color="secondary">*/}
-                                {/*        <NotificationsIcon />*/}
-                                {/*    </Badge>*/}
-                                {/*</IconButton>*/}
                                 <IconButton
                                     edge="end"
                                     aria-label="account of current user"
