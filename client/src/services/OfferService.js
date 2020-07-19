@@ -56,4 +56,19 @@ export default class OfferService {
             });
         });
     }
+
+
+    static deleteOffer(id) {
+        return new Promise((resolve, reject) => {
+            HttpService.remove(`${OfferService.baseURL()}/${id}`, function (data) {
+                if (data.message !== undefined) {
+                    resolve(data.message);
+                } else {
+                    reject('Error while deleting');
+                }
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
 }

@@ -18,6 +18,8 @@ import {getGameIcon} from "../../services/IconService";
 import {Link} from "react-router-dom";
 import UserService from "../../services/UserService";
 import Verified from "../../resources/ProfileIcons/verified_gamer.png";
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import OfferService from "../../services/OfferService";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -88,14 +90,26 @@ const useStyles = makeStyles((theme) => ({
     },
     dollar: {
         color: "#fcad3a"
+    },
+    deleteIcon: {
+        cursor: "pointer"
     }
 }));
 
+function useForceUpdate() {
+    const [value, setValue] = useState(0); // integer state
+    return () => setValue(value => ++value); // update the state to force render
+}
+
+function refreshPage() {
+    window.location.reload(false);
+}
 
 export default function OfferCard(props) {
     const classes = useStyles(theme);
     const [profile, setProfile] = useState({})
     const [dialogOpen, setDialog] = useState(false)
+    const forceUpdate = useForceUpdate();
     useEffect(() => {    // Update the profile value on mount
         const fetchdata = async () => {
 
@@ -115,6 +129,12 @@ export default function OfferCard(props) {
         );
 
     };
+
+    const deleteOffer = async () => {
+        const deleteOffer = await OfferService.deleteOffer(props.offer._id);
+        refreshPage();
+    }
+
     const handleClose = () => {
         setDialog(false)
     }
@@ -130,6 +150,11 @@ export default function OfferCard(props) {
         }}>
             Book
         </Button>
+
+    const DeleteButton = (props.offer.owner === UserService.getCurrentUser().id) ?
+
+        <DeleteOutlineIcon onClick={deleteOffer} className={classes.deleteIcon}/>
+        : null
 
 
     return (
@@ -183,9 +208,10 @@ export default function OfferCard(props) {
                         </Grid>
                         <Grid className={classes.bookButton}
                               container
-                              direction="column"
-                              justify="flex-end"
-                              alignItems="flex-end">
+                              direction="row"
+                              justify="center"
+                              alignItems="center">
+                            {DeleteButton}
                             {BookOrEditButton}
                         </Grid>
                     </CardActions>
