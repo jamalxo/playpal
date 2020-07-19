@@ -147,7 +147,6 @@ class Times extends React.Component {
             avalArray[i] = avalEntry;
         }
         avalArray = avalArray.map((aval, i) => aval.startTime !== undefined ? aval : {});
-        console.log(avalArray);
 
         if (this.props.aval.length !== 0) {
             this.state = {
@@ -224,8 +223,6 @@ class Times extends React.Component {
     };
 
     handleCloseAndReset() {
-        console.log(this.props.aval);
-        console.log(this.state.availability);
         this.setState({
             open: false,
             availability: [...this.props.aval]
@@ -234,7 +231,6 @@ class Times extends React.Component {
 
     handleChangeAvailability() {
         this.handleClose();
-        console.log(this.state.availability);
         this.props.onTimesChange(this.state.availability);
     }
 

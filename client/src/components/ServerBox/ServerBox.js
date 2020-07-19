@@ -109,20 +109,29 @@ class ServerBox extends React.Component {
                 </FormControl>
             );
         } else {
-            return (
-                <div className={classes.times}>
-                    <Typography variant="body1" color={'inherit'}>{this.state.server}</Typography>
-                </div>
-            );
+            if (this.state.server === undefined) {
+                return (
+                    <div className={classes.times}>
+                        <Typography variant="body1" color={'inherit'}>No Server Set!</Typography>
+                    </div>
+                );
+            } else {
+                return (
+                    <div className={classes.times}>
+                        <Typography variant="body1" color={'inherit'}>{this.state.server}</Typography>
+                    </div>
+                );
+            }
         }
     }
 
     async changeServer(server) {
-        let serverString = server;
         let id = this.props.profile._id;
+        let serverJSON = {
+            server: server
+        }
         try {
-            let ret = await UserService.updateServer(id, serverString);
-            console.log(ret);
+            let ret = await UserService.updateServer(id, serverJSON);
             this.state.server = ret;
             this.setState({
                 editMode: false
