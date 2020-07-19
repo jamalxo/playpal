@@ -223,10 +223,8 @@ class OfferForm extends React.Component {
             this.state = {
                 price: props.offer.price,
                 game: props.offer.game,
-                server: props.offer.server,
                 days: props.offer.days,
                 day: props.offer.day,
-                availability: props.offer.availability,
                 editMode: editMode,
                 activeStep: 0
             };
@@ -376,8 +374,6 @@ class OfferForm extends React.Component {
 
     render() {
         const {classes} = this.props;
-        const avalShow = this.state.availability.length !== 0;
-        const avalList = this.state.availability;
         if (this.state.loading) {
             return (<Loading/>);
         }
