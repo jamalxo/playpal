@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
 import FormControl from "@material-ui/core/FormControl";
@@ -19,7 +18,6 @@ import UserService from "../../services/UserService";
 import Banner from "../../resources/HeaderIcons/console.svg";
 import Paper from "@material-ui/core/Paper";
 import Times from "./Times";
-import OfferForm from "../Offer/OfferForm";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -88,8 +86,8 @@ export default function SignUp(props) {
         errorTextUsername: '',
         errorTextEmail: '',
         errorFlag: false,
-        aval: [],
-        server: ''
+        server: '',
+        aval: [{},{},{},{},{},{},{}],
     })
 
     const [avalTmp, setAvalTmp] = useState([]);
@@ -97,7 +95,6 @@ export default function SignUp(props) {
     const history = props.history
 
     const handleChangeInput = (target, value) => {
-        console.log(formState);
         validateInput(target, value);
         if (!formState.errorFlag) {
             setFormState({
@@ -106,7 +103,6 @@ export default function SignUp(props) {
             });
         }
         formState.errorFlag = false;
-        console.log(formState);
     };
 
 
@@ -191,10 +187,10 @@ export default function SignUp(props) {
                 user.append('profileImage', formState.profileImage);
                 user.append('availability', JSON.stringify(formState.aval));
                 user.append('server', formState.server);
-                console.log(Array.from(user.values()))
+                // console.log(Array.from(user.values()))
 
                 let ret = await UserService.register(user);
-                console.log(ret)
+                // console.log(ret)
 
                 setTimeout(function () {
                     history.push('/')
@@ -207,14 +203,12 @@ export default function SignUp(props) {
     };
 
     const timesChange = (aval) => {
-        console.log(aval);
         formState.aval = aval;
         setFormState({
             ...formState,
             aval: aval
         })
         setAvalTmp(aval);
-        console.log(formState.aval);
     };
 
     return (

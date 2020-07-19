@@ -50,7 +50,11 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
         marginRight: theme.spacing(1),
     },
-
+    profilePicture: {
+        width: 50,
+        height: 50,
+        backgroundColor: theme.palette.primary.light
+    },
 
 }));
 
@@ -91,7 +95,7 @@ export function PendingRequest(props) {
             alignItems="center"
         ><Box ml={1} mr={1}>
             <Avatar
-                className="profilePicture"
+                className={classes.profilePicture}
                 alt={requestProfile.username}
                 title={requestProfile.username}
                 src={requestProfile.profileImage}
@@ -128,7 +132,7 @@ export function PendingRequest(props) {
 
                 <Box ml={1} mr={1}>
                     <Avatar
-                        className="profilePicture"
+                        className={classes.profilePicture}
                         alt={requestProfile.username}
                         title={requestProfile.username}
                         src={requestProfile.profileImage}

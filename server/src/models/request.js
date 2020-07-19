@@ -1,36 +1,37 @@
 "use strict";
 
 const mongoose = require('mongoose');
-const RequestSchema  = new mongoose.Schema({
-    offer:{
+
+const Request = new mongoose.Schema({
+    offer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Offer',
     },
-    requestingPlayer:{
+    requestingPlayer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    offeringPlayer:{
+    offeringPlayer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    status:
-        {
-            type: String,
-            enum: ['pending', 'accepted','rejected', 'cancelled'],
-            default: 'pending'
-        },
-    game:{
+    status: {
+        type: String,
+        enum: ['pending', 'accepted', 'rejected', 'cancelled'],
+        default: 'pending'
+    },
+    game: {
         type: String
     },
-    price:{
+    price: {
         type: Number,
     },
-    message:{
+    message: {
         type: String
     },
-    discordTag:{
+    discordTag: {
         type: String,
     }
 })
-module.exports = mongoose.model('Request', RequestSchema);
+
+module.exports = mongoose.model('Request', Request);

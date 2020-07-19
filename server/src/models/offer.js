@@ -1,11 +1,8 @@
-
 "use strict";
 
 const mongoose = require('mongoose');
 
-
-// Define the user schema
-const  Offer  = new mongoose.Schema({
+const Offer = new mongoose.Schema({
     price: {
         type: Number,
         required: false
@@ -41,6 +38,4 @@ const  Offer  = new mongoose.Schema({
 
 Offer.set('versionKey', false);
 
-
-// Export the Movie model
 module.exports = mongoose.model('Offer', Offer);

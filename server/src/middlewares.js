@@ -1,8 +1,8 @@
 "use strict";
 
-const jwt    = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-const config = require ('./config');
+const config = require('./config');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -38,8 +38,7 @@ const allowCrossDomain = (req, res, next) => {
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
         res.status(200).json(200);
-    }
-    else {
+    } else {
         next();
     }
 };
@@ -48,7 +47,7 @@ const checkAuthentication = (req, res, next) => {
 
     // check header or url parameters or post parameters for token
     let token = ""
-    if(req.headers.authorization) {
+    if (req.headers.authorization) {
         token = req.headers.authorization.substring(4);
     }
 
@@ -78,7 +77,7 @@ const errorHandler = (err, req, res, next) => {
         return next(err)
     }
     res.status(500);
-    res.render('error', { error: err })
+    res.render('error', {error: err})
 };
 
 

@@ -107,7 +107,7 @@ class ServerBox extends React.Component {
                 </FormControl>
             );
         } else {
-            if (this.state.server === undefined) {
+            if (this.state.server === '') {
                 return (
                     <div className={classes.times}>
                         <Typography variant="body1" color={'inherit'}>No Server Set!</Typography>

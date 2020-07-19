@@ -75,7 +75,14 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
         marginRight: theme.spacing(1),
     },
-
+    linkDecoration: {
+        textDecoration: "none"
+    },
+    profilePicture: {
+        width: 50,
+        height: 50,
+        backgroundColor: theme.palette.primary.light
+    },
 }));
 
 
@@ -142,8 +149,8 @@ export default function OfferCard(props) {
                             alignItems="center"
                         >
 
-                            <Link className="linkDecoration" to={`/user/${profile._id}`}>
-                                <Avatar className="profilePicture"
+                            <Link className={classes.linkDecoration} to={`/user/${profile._id}`}>
+                                <Avatar className={classes.profilePicture}
                                         alt={profile.username}
                                         title={profile.username}
                                         src={profile.profileImage}

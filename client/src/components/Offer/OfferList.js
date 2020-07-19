@@ -9,7 +9,7 @@ export default function OfferList(props) {
         <MuiThemeProvider theme={theme}>
             <Grid container spacing={2} justify="center">
                 {props.dataOffers.map((item, index) => (
-                    <Grid key={index} item className="profileList">
+                    <Grid key={index} item>
                         <OfferCard offer={item} edit={props.edit}/>
                     </Grid>
                 ))}

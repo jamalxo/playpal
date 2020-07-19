@@ -1,13 +1,13 @@
 "use strict";
 
-const jwt        = require('jsonwebtoken');
-const bcrypt     = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
-const config     = require('../config');
-const UserModel  = require('../models/user');
+const config = require('../config');
+const UserModel = require('../models/user');
 
 
-const login = async (req,res) => {
+const login = async (req, res) => {
     if (!Object.prototype.hasOwnProperty.call(req.body, 'password')) return res.status(400).json({
         error: 'Bad Request',
         message: 'The request body must contain a password property'
@@ -32,7 +32,7 @@ const login = async (req,res) => {
         });
 
         return res.status(200).json({token: token});
-    } catch(err) {
+    } catch (err) {
         return res.status(404).json({
             error: 'User Not Found',
             message: err.message
@@ -41,7 +41,7 @@ const login = async (req,res) => {
 };
 
 
-const register = async (req,res) => {
+const register = async (req, res) => {
     if (!Object.prototype.hasOwnProperty.call(req.body, 'password')) return res.status(400).json({
         error: 'Bad Request',
         message: 'The request body must contain a password property'
@@ -83,7 +83,7 @@ const register = async (req,res) => {
         });
 
         res.status(200).json({token: token});
-    } catch(err) {
+    } catch (err) {
         if (err.code == 11000) {
             return res.status(400).json({
                 error: 'User exists',
@@ -109,7 +109,7 @@ const me = async (req, res) => {
         });
 
         return res.status(200).json(user);
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal Server Error',
             message: err.message
@@ -118,12 +118,12 @@ const me = async (req, res) => {
 };
 
 const logout = (req, res) => {
-    res.status(200).send({ token: null });
+    res.status(200).send({token: null});
 };
 
-const getProfiles = async (req, res) => {
+const getAllProfiles = async (req, res) => {
     try {
-        let users = await UserModel.find({ usertype: "professional" })
+        let users = await UserModel.find({usertype: "professional"})
             .populate({
                 path: 'reviews',
                 select: 'rating text createdAt',
@@ -138,10 +138,9 @@ const getProfiles = async (req, res) => {
                 model: 'Offer',
                 select: 'owner price game server availability'
             });
-        // console.log(users);
 
         return res.status(200).json(users);
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal server error',
             message: err.message
@@ -172,7 +171,7 @@ const getProfile = async (req, res) => {
         });
 
         return res.status(200).json(user);
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal server error',
             message: err.message
@@ -182,19 +181,19 @@ const getProfile = async (req, res) => {
 
 
 const updateAvailability = async (req, res) => {
-    try{
-        UserModel.findById(req.params.id, function(err, user) {
+    try {
+        UserModel.findById(req.params.id, function (err, user) {
             if (err) return console.log("err");
             if (!user) return console.log("no user");
 
             user.availability = req.body;
-            user.save(function(err) {
+            user.save(function (err) {
                 if (err) return console.log('err availability');
             });
             return res.status(200).json(user.availability);
         });
 
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal server error',
             message: err.message
@@ -203,20 +202,19 @@ const updateAvailability = async (req, res) => {
 }
 
 const updateServer = async (req, res) => {
-    console.log(req.body);
-    try{
-        UserModel.findById(req.params.id, function(err, user) {
+    try {
+        UserModel.findById(req.params.id, function (err, user) {
             if (err) return console.log("err");
             if (!user) return console.log("no user");
 
             user.server = req.body.server;
-            user.save(function(err) {
+            user.save(function (err) {
                 if (err) return console.log('err server');
             });
             return res.status(200).json(user.server);
         });
 
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal server error',
             message: err.message
@@ -225,25 +223,25 @@ const updateServer = async (req, res) => {
 }
 
 const addPendingOffer = async (req, res) => {
-    try{
+    try {
         UserModel.findByIdAndUpdate(
             {_id: req.body.playerId},
-            {$push:{pendingOffers:req.body.offerId}}
-            )
-    } catch(err) {
+            {$push: {pendingOffers: req.body.offerId}}
+        )
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal server error',
             message: err.message
         });
-}
+    }
 }
 const removePendingOffer = async (req, res) => {
-    try{
+    try {
         UserModel.findByIdAndUpdate(
             {_id: req.body.playerId},
-            {$pull:{pendingOffers:req.body.offerId}}
+            {$pull: {pendingOffers: req.body.offerId}}
         )
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal server error',
             message: err.message
@@ -253,26 +251,12 @@ const removePendingOffer = async (req, res) => {
 
 
 const addRequestedOffer = async (req, res) => {
-        try{
-            UserModel.findByIdAndUpdate(
-                {_id: req.body.playerId},
-                {$push:{requestedOffers:req.body.offerId}}
-            )
-        } catch(err) {
-            return res.status(500).json({
-                error: 'Internal server error',
-                message: err.message
-            });
-        }
-}
-
-const removeRequestedOffer = async (req, res) => {
-    try{
+    try {
         UserModel.findByIdAndUpdate(
             {_id: req.body.playerId},
-            {$pull:{requestedOffers:req.body.offerId}}
+            {$push: {requestedOffers: req.body.offerId}}
         )
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal server error',
             message: err.message
@@ -280,8 +264,19 @@ const removeRequestedOffer = async (req, res) => {
     }
 }
 
-
-
+const removeRequestedOffer = async (req, res) => {
+    try {
+        UserModel.findByIdAndUpdate(
+            {_id: req.body.playerId},
+            {$pull: {requestedOffers: req.body.offerId}}
+        )
+    } catch (err) {
+        return res.status(500).json({
+            error: 'Internal server error',
+            message: err.message
+        });
+    }
+}
 
 module.exports = {
     login,
@@ -289,7 +284,7 @@ module.exports = {
     logout,
     me,
     getProfile,
-    getProfiles,
+    getAllProfiles,
     addPendingOffer,
     addRequestedOffer,
     removeRequestedOffer,
