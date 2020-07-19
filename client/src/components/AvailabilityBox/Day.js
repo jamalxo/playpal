@@ -148,19 +148,25 @@ class Day extends React.Component {
     handleChangeStartTime(event) {
         this.setState({
             startTime: event
-        }, function() { this.sendToTime() })
+        }, function () {
+            this.sendToTime()
+        })
     }
 
     handleChangeEndTime(event) {
         this.setState({
             endTime: event
-        }, function() { this.sendToTime() })
+        }, function () {
+            this.sendToTime()
+        })
     }
 
     handleAway(event) {
         this.setState({
             away: event.target.checked
-        }, function() { this.sendToTime() })
+        }, function () {
+            this.sendToTime()
+        })
     }
 
     sendToTime() {
@@ -192,20 +198,20 @@ class Day extends React.Component {
                             <Checkbox onChange={(e) => this.handleAway(e)} checked={this.state.away}/>
                         </Grid>
                         {this.state.away ?
-                                <Grid item xs={3}>
-                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                        <KeyboardTimePicker
-                                            margin="normal"
-                                            id="time-picker"
-                                            label="From"
-                                            value={this.state.startTime}
-                                            onChange={this.handleChangeStartTime}
-                                            KeyboardButtonProps={{
-                                                'aria-label': 'change time',
-                                            }}
-                                        />
-                                    </MuiPickersUtilsProvider>
-                                </Grid>
+                            <Grid item xs={3}>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <KeyboardTimePicker
+                                        margin="normal"
+                                        id="time-picker"
+                                        label="From"
+                                        value={this.state.startTime}
+                                        onChange={this.handleChangeStartTime}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change time',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>
                             : null
                         }
                         {this.state.away ?

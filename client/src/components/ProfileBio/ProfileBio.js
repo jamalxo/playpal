@@ -8,11 +8,9 @@ import Rating from '@material-ui/lab/Rating';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from "@material-ui/core/Divider";
 import {withStyles} from '@material-ui/core/styles';
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
 import Tooltip from "@material-ui/core/Tooltip";
-import './ProfileBio.css';
 import Grid from "@material-ui/core/Grid";
 import Verified from "../../resources/ProfileIcons/verified_gamer.png";
 
@@ -54,6 +52,9 @@ const useStyles = (theme) => ({
         width: 150,
         height: 150
     },
+    rating: {
+        fontSize: 35
+    }
 });
 
 class ProfileCard extends React.Component {
@@ -118,7 +119,7 @@ class ProfileCard extends React.Component {
                                             {this.displayVerifiedIcon()}
                                         </Typography>
                                         <div className={classes.container}>
-                                            <Rating name="read-only" value={this.getAvg()} readOnly className="rating"/>
+                                            <Rating name="read-only" value={this.getAvg()} readOnly className={classes.rating}/>
                                             <span>
                                                 {this.getAvg().toFixed(1)}
                                             </span>

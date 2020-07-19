@@ -13,18 +13,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Banner from '../../resources/HeaderIcons/console.svg';
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import InputBase from "@material-ui/core/InputBase"; // Tell webpack this JS file uses this image
-import SearchIcon from '@material-ui/icons/Search';
 import {fade} from "@material-ui/core";
-import Badge from "@material-ui/core/Badge";
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import UserService from "../../services/UserService";
-import Loading from "../Loading";
-import ReactSearchBox from 'react-search-box'
+import Loading from "../Loading/Loading";
 
 const drawerWidth = 240;
 

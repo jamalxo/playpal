@@ -10,22 +10,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import FormLabel from "@material-ui/core/FormLabel";
 
-
-function getSteps() {
-    return ['Choose game', 'Complete Information'];
-}
-
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return `You can only choose one game per created offer.`;
-        case 1:
-            return `Fill out some more information about your offer.`;
-        default:
-            return 'Unknown step';
-    }
-}
-
 const useStyles = (theme) => ({
     root: {
         '& > *': {
@@ -164,19 +148,25 @@ class Day extends React.Component {
     handleChangeStartTime(event) {
         this.setState({
             startTime: event
-        }, function() { this.sendToTime() })
+        }, function () {
+            this.sendToTime()
+        })
     }
 
     handleChangeEndTime(event) {
         this.setState({
             endTime: event
-        }, function() { this.sendToTime() })
+        }, function () {
+            this.sendToTime()
+        })
     }
 
     handleAway(event) {
         this.setState({
             away: event.target.checked
-        }, function() { this.sendToTime() })
+        }, function () {
+            this.sendToTime()
+        })
     }
 
     sendToTime() {
@@ -208,20 +198,20 @@ class Day extends React.Component {
                             <Checkbox onChange={(e) => this.handleAway(e)} checked={this.state.away}/>
                         </Grid>
                         {this.state.away ?
-                                <Grid item xs={3}>
-                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                        <KeyboardTimePicker
-                                            margin="normal"
-                                            id="time-picker"
-                                            label="From"
-                                            value={this.state.startTime}
-                                            onChange={this.handleChangeStartTime}
-                                            KeyboardButtonProps={{
-                                                'aria-label': 'change time',
-                                            }}
-                                        />
-                                    </MuiPickersUtilsProvider>
-                                </Grid>
+                            <Grid item xs={3}>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <KeyboardTimePicker
+                                        margin="normal"
+                                        id="time-picker"
+                                        label="From"
+                                        value={this.state.startTime}
+                                        onChange={this.handleChangeStartTime}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change time',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>
                             : null
                         }
                         {this.state.away ?

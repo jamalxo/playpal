@@ -36,8 +36,7 @@ export function UpcomingGamesView() {
             const profile = await ProfileService.getProfile(user.id)
             const gameIds = profile.upcomingGames
             const newRequestsFetched = []
-            for(let i = 0; i < gameIds.length; i++)
-            {
+            for (let i = 0; i < gameIds.length; i++) {
                 let temp = await RequestService.getRequest(gameIds[i])
                 newRequestsFetched.push(temp)
             }
@@ -45,13 +44,13 @@ export function UpcomingGamesView() {
         }
 
         fetchdata()
-    },[])
+    }, [])
 
     const classes = useStyles(theme)
     return (
         <Page>
             <MuiThemeProvider theme={theme}>
-                <div style={{paddingTop: '100px', backgroundColor:theme.palette.primary.dark}}>
+                <div style={{paddingTop: '100px', backgroundColor: theme.palette.primary.dark}}>
                     <Grid
                         container
                         direction="column"

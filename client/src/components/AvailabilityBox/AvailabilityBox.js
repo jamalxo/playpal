@@ -2,20 +2,14 @@
 
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
-import Availability from "../../resources/ProfileIcons/availability.png";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-import Button from "@material-ui/core/Button";
-import Tooltip from "@material-ui/core/Tooltip";
-import Verified from "../../resources/ProfileIcons/verified_gamer.png";
 import UserService from "../../services/UserService";
 import Times from "../AvailabilityBox/Times";
-import ReviewService from "../../services/ReviewService";
 
 
 const useStyles = (theme) => ({
@@ -90,7 +84,7 @@ class AvailabilityBox extends React.Component {
     async timesChange(aval) {
         console.log(aval);
         let avalArray = aval;
-        for (var i = 0; i < 7; i++){
+        for (var i = 0; i < 7; i++) {
             let avalEntry = {
                 startTime: avalArray[i].startTime,
                 endTime: avalArray[i].endTime,
@@ -125,7 +119,8 @@ class AvailabilityBox extends React.Component {
                     <Grid container className={classes.availabilityBox}>
                         <Grid item xs={12}>
                             <div className={classes.contentBox}>
-                                <Times onTimesChange={this.timesChange} aval={this.state.availability} user={this.props.profile._id}/>
+                                <Times onTimesChange={this.timesChange} aval={this.state.availability}
+                                       user={this.props.profile._id}/>
                             </div>
                             <div className={classes.contentBox}>
                                 <Typography variant="h4" color={'inherit'}>Availability</Typography>

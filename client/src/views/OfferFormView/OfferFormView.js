@@ -2,7 +2,7 @@ import React from 'react';
 
 import OfferService from '../../services/OfferService';
 import OfferForm from "../../components/Offer/OfferForm";
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 
 export class OfferFormView extends React.Component {
 
@@ -11,7 +11,7 @@ export class OfferFormView extends React.Component {
     }
 
     componentWillMount() {
-        if (this.props.history.location.pathname ==='/offer/create') {
+        if (this.props.history.location.pathname === '/offer/create') {
             this.setState({
                 loading: false,
                 offer: undefined,
@@ -66,7 +66,7 @@ export class OfferFormView extends React.Component {
                         this.setState(Object.assign({}, this.state, {openRes: true}));
                     });
                 //this.props.history.goBack();
-            } catch(err) {
+            } catch (err) {
                 console.error(err);
                 this.setState(Object.assign({}, this.state, {error: 'Error while creating movie'}));
             }

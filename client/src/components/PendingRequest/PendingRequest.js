@@ -5,9 +5,8 @@ import ProfileService from "../../services/ProfileService";
 import CheckIcon from '@material-ui/icons/Check';
 import IconButton from "@material-ui/core/IconButton";
 import ClearIcon from '@material-ui/icons/Clear';
-import {ThemeProvider as MuiThemeProvider} from "@material-ui/core/styles";
+import {makeStyles, ThemeProvider as MuiThemeProvider} from "@material-ui/core/styles";
 import {theme} from "../../theme";
-import {makeStyles} from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -19,8 +18,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Button from "@material-ui/core/Button";
-import OfferService from "../../services/OfferService";
-import UserService from "../../services/UserService";
 import Typography from "@material-ui/core/Typography";
 import RequestService from "../../services/RequestService";
 
@@ -55,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
     },
 
 
-
 }));
 
 export function PendingRequest(props) {
@@ -73,11 +69,9 @@ export function PendingRequest(props) {
             var newprof
             if (playertype === "casual") {
                 newprof = await ProfileService.getProfile(request.offeringPlayer)
+            } else {
+                newprof = await ProfileService.getProfile(request.requestingPlayer)
             }
-            else
-            {
-            newprof = await ProfileService.getProfile(request.requestingPlayer)
-                }
 
             setRequestProfile(newprof)
         }
@@ -85,12 +79,12 @@ export function PendingRequest(props) {
 
     }, []);
 
-    const AcceptIcon = playertype==="professional" ? <IconButton edge="end" aria-label="accept">
-        <CheckIcon style={{ color: "white" }} onClick={() => setAcceptDialogOpen(true)}/>
-    </IconButton>:""
+    const AcceptIcon = playertype === "professional" ? <IconButton edge="end" aria-label="accept">
+        <CheckIcon style={{color: "white"}} onClick={() => setAcceptDialogOpen(true)}/>
+    </IconButton> : ""
 
 
-    const RequestText = playertype==="professional"? (<Grid
+    const RequestText = playertype === "professional" ? (<Grid
             container
             direction="row"
             justify="flex-start"
@@ -104,66 +98,68 @@ export function PendingRequest(props) {
                 className={classes.small}
             />
         </Box>
-        <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
+            <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
 
-            {requestProfile.username} requests to play
-        </Typography>
-    <CardMedia src={getGameIcon(request.game)} component="img"
-               className={classes.imageStyle}/>
-    <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
+                {requestProfile.username} requests to play
+            </Typography>
+            <CardMedia src={getGameIcon(request.game)} component="img"
+                       className={classes.imageStyle}/>
+            <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
 
-        {request.game} for ${request.price}
-    </Typography></Grid>):
+                {request.game} for ${request.price}
+            </Typography></Grid>) :
         (<Grid
-            container
-            direction="row"
-            justify="flex-start"
-            alignItems="center"
-            xs={12}
-        >
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+                xs={12}
+            >
                 <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
 
-               You request to play {request.game}
-            </Typography>
+                    You request to play {request.game}
+                </Typography>
                 <CardMedia src={getGameIcon(request.game)} component="img"
                            className={classes.imageStyle}/>
-            <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
+                <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
 
-            for ${request.price} with
-            </Typography>
+                    for ${request.price} with
+                </Typography>
 
                 <Box ml={1} mr={1}>
-            <Avatar
-                className="profilePicture"
-                alt={requestProfile.username}
-                title={requestProfile.username}
-                src={requestProfile.profileImage}
-                className={classes.small}
-            />
-        </Box>
-            <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
+                    <Avatar
+                        className="profilePicture"
+                        alt={requestProfile.username}
+                        title={requestProfile.username}
+                        src={requestProfile.profileImage}
+                        className={classes.small}
+                    />
+                </Box>
+                <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
 
-                {requestProfile.username}
-            </Typography>
-</Grid>
-)
+                    {requestProfile.username}
+                </Typography>
+            </Grid>
+        )
 
-    const DeclineDialog = playertype==="professional"?(                    <Dialog
+    const DeclineDialog = playertype === "professional" ? (<Dialog
             open={declineDialogOpen}
             onClose={() => setDeclineDialogOpen(false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Decline Request"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title"
+                         style={{color: theme.palette.primary.contrastText}}>{"Decline Request"}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
                     Are you sure you want to decline this request?
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() =>{
-                    RequestService.answerRequest(request._id,"declined")
-                    setDeclineDialogOpen(false)}} color="primary" autoFocus
+                <Button onClick={() => {
+                    RequestService.answerRequest(request._id, "declined")
+                    setDeclineDialogOpen(false)
+                }} color="primary" autoFocus
                         className={classes.button}>
                     Yes
                 </Button>
@@ -174,13 +170,14 @@ export function PendingRequest(props) {
                 </Button>
             </DialogActions>
         </Dialog>
-    ):(                    <Dialog
+    ) : (<Dialog
             open={declineDialogOpen}
             onClose={() => setDeclineDialogOpen(false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Cancel Request"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title"
+                         style={{color: theme.palette.primary.contrastText}}>{"Cancel Request"}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
                     Are you sure you want to cancel this request?
@@ -190,7 +187,7 @@ export function PendingRequest(props) {
                 <Button onClick={() => {
                     RequestService.answerRequest(request._id, "cancelled")
                     setDeclineDialogOpen(false)
-                }}  autoFocus
+                }} autoFocus
                         className={classes.button}>
 
                     Yes
@@ -206,35 +203,37 @@ export function PendingRequest(props) {
     )
 
 
-
     return (
         <MuiThemeProvider theme={theme}>
             <Box borderRadius="50%">
                 <ListItem classes={{root: classes.root}}>
-                        {RequestText}
-                            <Grid container
-                                  direction="row"
-                                  alignItems="center"
-                                  justify="flex-end"
-                            >
+                    {RequestText}
+                    <Grid container
+                          direction="row"
+                          alignItems="center"
+                          justify="flex-end"
+                    >
                         <Grid item>
-                            <IconButton edge="end" aria-label="info" onClick={() =>{setInfoDialogOpen(true)}}>
-                                <InfoIcon style={{ color: "white" }}/>
+                            <IconButton edge="end" aria-label="info" onClick={() => {
+                                setInfoDialogOpen(true)
+                            }}>
+                                <InfoIcon style={{color: "white"}}/>
                             </IconButton>
                             {AcceptIcon}
                             <IconButton edge="end" aria-label="decline">
-                                <ClearIcon style={{ color: "white" }} onClick={() =>setDeclineDialogOpen(true)}/>
+                                <ClearIcon style={{color: "white"}} onClick={() => setDeclineDialogOpen(true)}/>
                             </IconButton>
 
                         </Grid>
-                            </Grid>
+                    </Grid>
                     <Dialog
                         open={infoDialogOpen}
                         onClose={() => setInfoDialogOpen(false)}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Additional Request information"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title"
+                                     style={{color: theme.palette.primary.contrastText}}>{"Additional Request information"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
                                 {request.message}                            </DialogContentText>
@@ -253,15 +252,16 @@ export function PendingRequest(props) {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Accept Request"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title"
+                                     style={{color: theme.palette.primary.contrastText}}>{"Accept Request"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                                Are you sure you want to accept this request?                            </DialogContentText>
+                                Are you sure you want to accept this request? </DialogContentText>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => {
                                 RequestService.answerRequest(request._id, "accepted"),
-                                setAcceptDialogOpen(false)
+                                    setAcceptDialogOpen(false)
                             }} color="primary" autoFocus
                                     className={classes.button}>
                                 Yes

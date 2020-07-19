@@ -222,170 +222,169 @@ export default function SignUp(props) {
             <Grid container item alignItems="center" justify="center" className={classes.grid}>
                 <CssBaseline/>
                 <Paper className={classes.paperBackground}>
-                <div className={classes.paper}>
-                    <img src={Banner} alt="Logo" className={classes.imageStyle}/>
-                    <Typography component="h1" variant="h5">
-                        Sign up
-                    </Typography>
-                    <form className={classes.form} noValidate onSubmit={signup}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    autoComplete="fname"
-                                    name="firstname"
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    label="First Name"
-                                    autoFocus
-                                    onChange={(inp) => handleChangeInput('firstname', inp.target.value)}
-                                    value={formState.firstname}
-                                    helperText={formState.errorTextFirstname}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastname"
-                                    autoComplete="lname"
-                                    onChange={(inp) => handleChangeInput('lastname', inp.target.value)}
-                                    value={formState.lastname}
-                                    helperText={formState.errorTextLastname}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="username"
-                                    label="Username"
-                                    name="username"
-                                    autoComplete="username"
-                                    onChange={(inp) => handleChangeInput('username', inp.target.value)}
-                                    value={formState.username}
-                                    helperText={formState.errorTextUsername}
-                                />
+                    <div className={classes.paper}>
+                        <img src={Banner} alt="Logo" className={classes.imageStyle}/>
+                        <Typography component="h1" variant="h5">
+                            Sign up
+                        </Typography>
+                        <form className={classes.form} noValidate onSubmit={signup}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        autoComplete="fname"
+                                        name="firstname"
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="firstName"
+                                        label="First Name"
+                                        autoFocus
+                                        onChange={(inp) => handleChangeInput('firstname', inp.target.value)}
+                                        value={formState.firstname}
+                                        helperText={formState.errorTextFirstname}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="lastName"
+                                        label="Last Name"
+                                        name="lastname"
+                                        autoComplete="lname"
+                                        onChange={(inp) => handleChangeInput('lastname', inp.target.value)}
+                                        value={formState.lastname}
+                                        helperText={formState.errorTextLastname}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="username"
+                                        label="Username"
+                                        name="username"
+                                        autoComplete="username"
+                                        onChange={(inp) => handleChangeInput('username', inp.target.value)}
+                                        value={formState.username}
+                                        helperText={formState.errorTextUsername}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        autoComplete="email"
+                                        onChange={(inp) => handleChangeInput('email', inp.target.value)}
+                                        value={formState.email}
+                                        helperText={formState.errorTextEmail}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="current-password"
+                                        onChange={(inp) => handleChangeInput('password', inp.target.value)}
+                                        value={formState.password}
+
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        label="Description"
+                                        id="DescriptionField"
+                                        name="description"
+                                        type="text"
+                                        className="md-row"
+                                        required={false}
+                                        multiline
+                                        fullWidth
+                                        rows={4}
+                                        onChange={(inp) => handleChangeInput('description', inp.target.value)}
+                                        value={formState.description}
+
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormControl component="fieldset">
+                                        <FormLabel component="legend">Playertype</FormLabel>
+                                        <RadioGroup aria-label="usertype" name="usertype" required
+                                                    onChange={(inp) => handleChangeInput('usertype', inp.target.value)}
+                                                    value={formState.usertype}
+                                        >
+                                            <FormControlLabel value="professional" control={<Radio/>}
+                                                              label="Professional Player"/>
+                                            <FormControlLabel value="casual" control={<Radio/>} label="Casual Player"/>
+                                        </RadioGroup>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <div style={{paddingRight: '10px'}}>
+                                        Profile Picture:
+                                    </div>
+                                    <input type="file" name="profileImage" accept=".png, .jpg, .jpeg"
+                                           onChange={(inp) => handleChangeInput('profileImage', inp.target.files[0])}/>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Times onTimesChange={timesChange} aval={formState.aval}/>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormControl variant="outlined" className={classes.serverForm}>
+                                        <InputLabel>Server</InputLabel>
+                                        <Select
+                                            value={formState.server}
+                                            onChange={(inp) => handleChangeInput('server', inp.target.value)}
+                                        >
+                                            <MenuItem value={'Europe'}>Europe</MenuItem>
+                                            <MenuItem value={'USA'}>USA</MenuItem>
+                                            <MenuItem value={'Asia'}>Asia</MenuItem>
+                                            <MenuItem value={'Russia'}>Russia</MenuItem>
+                                            <MenuItem value={'Australia'}>Australia</MenuItem>
+                                            <MenuItem value={'South Africa'}>South Africa</MenuItem>
+                                            <MenuItem value={'South America'}>South America</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
                             </Grid>
 
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    onChange={(inp) => handleChangeInput('email', inp.target.value)}
-                                    value={formState.email}
-                                    helperText={formState.errorTextEmail}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                    onChange={(inp) => handleChangeInput('password', inp.target.value)}
-                                    value={formState.password}
 
-                                />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                disabled={formState.firstname === '' || formState.lastname === '' || formState.username === '' ||
+                                formState.email === '' || formState.password === '' || formState.usertype === ''}
+                            >
+                                Sign Up
+                            </Button>
+                            <Grid container justify="flex-end">
+                                <Grid item>
+                                    <Link href="/#/login" variant="body2">
+                                        Already have an account? Sign in
+                                    </Link>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    label="Description"
-                                    id="DescriptionField"
-                                    name="description"
-                                    type="text"
-                                    className="md-row"
-                                    required={false}
-                                    multiline
-                                    fullWidth
-                                    rows={4}
-                                    onChange={(inp) => handleChangeInput('description', inp.target.value)}
-                                    value={formState.description}
-
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <FormControl component="fieldset">
-                                    <FormLabel component="legend">Playertype</FormLabel>
-                                    <RadioGroup aria-label="usertype" name="usertype" required
-                                                onChange={(inp) => handleChangeInput('usertype', inp.target.value)}
-                                                value={formState.usertype}
-                                    >
-                                        <FormControlLabel value="professional" control={<Radio/>}
-                                                          label="Professional Player"/>
-                                        <FormControlLabel value="casual" control={<Radio/>} label="Casual Player"/>
-                                    </RadioGroup>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <div style={{paddingRight: '10px'}}>
-                                    Profile Picture:
-                                </div>
-                                <input type="file" name="profileImage" accept=".png, .jpg, .jpeg"
-                                       onChange={(inp) => handleChangeInput('profileImage', inp.target.files[0])}/>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Times onTimesChange={timesChange} aval={formState.aval}  />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <FormControl variant="outlined" className={classes.serverForm}>
-                                    <InputLabel>Server</InputLabel>
-                                    <Select
-                                        value={formState.server}
-                                        onChange={(inp) => handleChangeInput('server', inp.target.value)}
-                                    >
-                                        <MenuItem value={'Europe'}>Europe</MenuItem>
-                                        <MenuItem value={'USA'}>USA</MenuItem>
-                                        <MenuItem value={'Asia'}>Asia</MenuItem>
-                                        <MenuItem value={'Russia'}>Russia</MenuItem>
-                                        <MenuItem value={'Australia'}>Australia</MenuItem>
-                                        <MenuItem value={'South Africa'}>South Africa</MenuItem>
-                                        <MenuItem value={'South America'}>South America</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                        </Grid>
-
-
-
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            disabled={formState.firstname === '' || formState.lastname === '' || formState.username === '' ||
-                            formState.email === '' || formState.password === '' || formState.usertype === ''}
-                        >
-                            Sign Up
-                        </Button>
-                        <Grid container justify="flex-end">
-                            <Grid item>
-                                <Link href="/#/login" variant="body2">
-                                    Already have an account? Sign in
-                                </Link>
-                            </Grid>
-                        </Grid>
-                    </form>
-                </div>
-                <Box mt={5}>
-                    <Copyright/>
-                </Box>
+                        </form>
+                    </div>
+                    <Box mt={5}>
+                        <Copyright/>
+                    </Box>
                 </Paper>
             </Grid>
         </MuiThemeProvider>

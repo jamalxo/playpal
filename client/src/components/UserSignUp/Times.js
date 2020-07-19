@@ -2,39 +2,13 @@ import React from 'react';
 import {ThemeProvider as MuiThemeProvider, withStyles} from '@material-ui/core/styles';
 import {theme} from '../../theme';
 import {withRouter} from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
-import {KeyboardTimePicker, MuiPickersUtilsProvider,} from '@material-ui/pickers';
-
-import DateFnsUtils from "@date-io/date-fns";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Moment from "react-moment";
-import Loading from "../Loading";
-import Checkbox from "@material-ui/core/Checkbox";
-import Typography from "@material-ui/core/Typography";
 import Day from "./Day";
-
-
-function getSteps() {
-    return ['Choose game', 'Complete Information'];
-}
-
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return `You can only choose one game per created offer.`;
-        case 1:
-            return `Fill out some more information about your offer.`;
-        default:
-            return 'Unknown step';
-    }
-}
 
 const useStyles = (theme) => ({
     root: {

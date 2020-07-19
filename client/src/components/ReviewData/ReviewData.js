@@ -7,7 +7,6 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from '@material-ui/core/Avatar';
-import "./ReviewData.css";
 import {withStyles} from "@material-ui/core/styles";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -253,6 +252,7 @@ class ReviewData extends React.Component {
         }
         this.state.errorFlag = false;
     }
+
     validateInputBeforeSubmit() {
         if (this.state.text.length === 0) {
             this.setState({
@@ -281,7 +281,6 @@ class ReviewData extends React.Component {
             console.error(err);
         }
     }
-
 
 
     render() {

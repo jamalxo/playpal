@@ -16,7 +16,7 @@ import OfferService from "../../services/OfferService";
 import OfferList from "../../components/Offer/OfferList";
 import {withStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 import Paper from "@material-ui/core/Paper";
 
 const useStyles = (theme) => ({

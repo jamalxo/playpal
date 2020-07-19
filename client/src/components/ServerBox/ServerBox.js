@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
@@ -12,7 +11,6 @@ import Server from "../../resources/ProfileIcons/game-server.png";
 import Divider from "@material-ui/core/Divider";
 import UserService from "../../services/UserService";
 import Tooltip from "@material-ui/core/Tooltip";
-import Availability from "../../resources/ProfileIcons/availability.png";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
@@ -77,13 +75,13 @@ class ServerBox extends React.Component {
 
     displayIcon(classes) {
         if (UserService.getCurrentUser().id === this.props.profile._id) {
-            return(
+            return (
                 <Tooltip title="Edit Server" aria-label="pro" onClick={this.handleEditMode}>
                     <img src={Server} alt="Logo" className={classes.imageStyle}/>
                 </Tooltip>
             );
         } else {
-            return(
+            return (
                 <img src={Server} alt="Logo" className={classes.imageStyle}/>
             );
         }
@@ -147,7 +145,7 @@ class ServerBox extends React.Component {
             <MuiThemeProvider theme={theme}>
                 <Card key={this.props.key} className={classes.root}>
                     <Grid container className={classes.serverBox}>
-                        <Grid item xs={12} >
+                        <Grid item xs={12}>
                             <div className={classes.contentBox}>
                                 {this.displayIcon(classes)}
                             </div>

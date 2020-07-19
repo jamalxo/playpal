@@ -18,7 +18,7 @@ import New from "../../resources/HomePageIcons/neu.svg";
 import Like from "../../resources/HomePageIcons/like.svg";
 import Paper from '@material-ui/core/Paper';
 import {theme} from '../../theme';
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 
 const useStyles = (theme) => ({
     container: {
@@ -144,92 +144,92 @@ class HomePageView extends React.Component {
         return (
             <MuiThemeProvider theme={theme}>
 
-            <Page>
-                <Container maxWidth="lg">
-                    <Grid container spacing={10} classes={{root: classes.container}} direction="row"
-                          justify="center"
-                          alignItems="center">
-                        <Grid item xs={12} className={classes.image}/>
+                <Page>
+                    <Container maxWidth="lg">
+                        <Grid container spacing={10} classes={{root: classes.container}} direction="row"
+                              justify="center"
+                              alignItems="center">
+                            <Grid item xs={12} className={classes.image}/>
 
-                        {/*INTRO*/}
-                        <Grid item xs={3} container direction="column" spacing={2} justify="center"
-                              alignItems="center">
-                            <img src={Search} alt="Logo" className={classes.imageStyle}/>
-                            <Typography variant="h5" className={classes.headerInfo}>
-                                SEARCH FOR OFFERS
-                            </Typography>
-                            <Typography variant="subtitle1" className={classes.headerInfo}>
-                                Search through over 1000+ offers
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3} container direction="column" spacing={2} justify="center"
-                              alignItems="center">
-                            <img src={Order} alt="Logo" className={classes.imageStyle}/>
-                            <Typography variant="h5" className={classes.headerInfo}>
-                                CHOOSE ONE OF THEM
-                            </Typography>
-                            <Typography variant="subtitle1" className={classes.headerInfo}>
-                                Decide on your favourite person to play with
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3} container direction="column" spacing={2} justify="center"
-                              alignItems="center">
-                            <img src={Like} alt="Logo" className={classes.imageStyle}/>
-                            <Typography variant="h5" className={classes.headerInfo}>
-                                WAIT FOR ACCEPT
-                            </Typography>
-                            <Typography variant="subtitle1" className={classes.headerInfo}>
-                                Professional Players still have to accept you request to play with them
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3} container direction="column" spacing={2} justify="center"
-                              alignItems="center">
-                            <img src={Match} alt="Logo" className={classes.imageStyle}/>
-                            <Typography variant="h5" className={classes.headerInfo}>
-                                PLAY TOGETHER!
-                            </Typography>
-                            <Typography variant="subtitle1" className={classes.headerInfo}>
-                                Enjoy and leave a review if you liked them
-                            </Typography>
-                        </Grid>
-                        {/*INTRO*/}
-
-                        <Paper elevation={3} className={classes.paper}>
-                            <Grid container
-                                  direction="column"
-                                  justify="center"
+                            {/*INTRO*/}
+                            <Grid item xs={3} container direction="column" spacing={2} justify="center"
                                   alignItems="center">
-                                <div className={classes.headerPlayPalDiv}>
-                                    <img src={Trophy} alt="Logo" className={classes.imageIcon}/>
-                                    <Typography variant="h4" className={classes.headerPlayPal} align="center">
-                                        Best Play-Pals
-                                    </Typography>
-                                </div>
-
+                                <img src={Search} alt="Logo" className={classes.imageStyle}/>
+                                <Typography variant="h5" className={classes.headerInfo}>
+                                    SEARCH FOR OFFERS
+                                </Typography>
+                                <Typography variant="subtitle1" className={classes.headerInfo}>
+                                    Search through over 1000+ offers
+                                </Typography>
                             </Grid>
-                            <Grid item xs={12}>
-                                <ProfileList data={this.state.data}/>
-                            </Grid>
-                        </Paper>
-
-                        <Paper elevation={3} className={classes.paper}>
-                            <Grid container
-                                  direction="column"
-                                  justify="center"
+                            <Grid item xs={3} container direction="column" spacing={2} justify="center"
                                   alignItems="center">
-                                <div className={classes.headerPlayPalDiv}>
-                                    <img src={New} alt="Logo" className={classes.imageIcon}/>
-                                    <Typography variant="h4" className={classes.headerPlayPal} align="center">
-                                        Checkout The Latest Offers!
-                                    </Typography>
-                                </div>
-                                <OfferList dataOffers={this.state.dataOffers}/>
+                                <img src={Order} alt="Logo" className={classes.imageStyle}/>
+                                <Typography variant="h5" className={classes.headerInfo}>
+                                    CHOOSE ONE OF THEM
+                                </Typography>
+                                <Typography variant="subtitle1" className={classes.headerInfo}>
+                                    Decide on your favourite person to play with
+                                </Typography>
                             </Grid>
-                        </Paper>
+                            <Grid item xs={3} container direction="column" spacing={2} justify="center"
+                                  alignItems="center">
+                                <img src={Like} alt="Logo" className={classes.imageStyle}/>
+                                <Typography variant="h5" className={classes.headerInfo}>
+                                    WAIT FOR ACCEPT
+                                </Typography>
+                                <Typography variant="subtitle1" className={classes.headerInfo}>
+                                    Professional Players still have to accept you request to play with them
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3} container direction="column" spacing={2} justify="center"
+                                  alignItems="center">
+                                <img src={Match} alt="Logo" className={classes.imageStyle}/>
+                                <Typography variant="h5" className={classes.headerInfo}>
+                                    PLAY TOGETHER!
+                                </Typography>
+                                <Typography variant="subtitle1" className={classes.headerInfo}>
+                                    Enjoy and leave a review if you liked them
+                                </Typography>
+                            </Grid>
+                            {/*INTRO*/}
 
-                    </Grid>
-                </Container>
-            </Page>
+                            <Paper elevation={3} className={classes.paper}>
+                                <Grid container
+                                      direction="column"
+                                      justify="center"
+                                      alignItems="center">
+                                    <div className={classes.headerPlayPalDiv}>
+                                        <img src={Trophy} alt="Logo" className={classes.imageIcon}/>
+                                        <Typography variant="h4" className={classes.headerPlayPal} align="center">
+                                            Best Play-Pals
+                                        </Typography>
+                                    </div>
+
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <ProfileList data={this.state.data}/>
+                                </Grid>
+                            </Paper>
+
+                            <Paper elevation={3} className={classes.paper}>
+                                <Grid container
+                                      direction="column"
+                                      justify="center"
+                                      alignItems="center">
+                                    <div className={classes.headerPlayPalDiv}>
+                                        <img src={New} alt="Logo" className={classes.imageIcon}/>
+                                        <Typography variant="h4" className={classes.headerPlayPal} align="center">
+                                            Checkout The Latest Offers!
+                                        </Typography>
+                                    </div>
+                                    <OfferList dataOffers={this.state.dataOffers}/>
+                                </Grid>
+                            </Paper>
+
+                        </Grid>
+                    </Container>
+                </Page>
             </MuiThemeProvider>
 
         );

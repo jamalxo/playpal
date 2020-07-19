@@ -23,6 +23,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import RequestService from "../../services/RequestService";
 import Discord from "../../resources/RequestIcons/discord.png"
+
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '1300px',
@@ -54,9 +55,8 @@ const useStyles = makeStyles((theme) => ({
     },
 
 
-
-
 }));
+
 export function UpcomingGame(props) {
     const classes = useStyles(theme)
 
@@ -71,9 +71,7 @@ export function UpcomingGame(props) {
             var newprof
             if (playertype === "casual") {
                 newprof = await ProfileService.getProfile(request.offeringPlayer)
-            }
-            else
-            {
+            } else {
                 newprof = await ProfileService.getProfile(request.requestingPlayer)
             }
 
@@ -102,41 +100,42 @@ export function UpcomingGame(props) {
                             {request.game} with
                         </Typography>
                         <Box ml={1} mr={1}>
-                        <Avatar
-                            className="profilePicture"
-                            alt={requestProfile.username}
-                            title={requestProfile.username}
-                            src={requestProfile.profileImage}
-                            className={classes.small}
-                        />
+                            <Avatar
+                                className="profilePicture"
+                                alt={requestProfile.username}
+                                title={requestProfile.username}
+                                src={requestProfile.profileImage}
+                                className={classes.small}
+                            />
                         </Box>
                         <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
 
                             {requestProfile.username}
                         </Typography>
 
-                    </Grid>                    <Grid container
-                          direction="row"
-                          alignItems="center"
-                          justify="flex-end"
-                    >
-                        <Grid item>
-                            <IconButton edge="end" aria-label="info" onClick={() => setInfoDialogOpen(true)}>
-                                <InfoIcon style={{ color: "white" }}/>
-                            </IconButton>
-                            <IconButton edge="end" aria-label="accept">
-                                <CheckIcon style={{ color: "white" }} onClick={() => setFinishDialogOpen(true)}/></IconButton>
-                            <IconButton edge="end" aria-label="accept">
-                                <ClearIcon style={{ color: "white" }} onClick={() => setCancelDialogOpen(true)} /></IconButton>
-                        </Grid>
+                    </Grid> <Grid container
+                                  direction="row"
+                                  alignItems="center"
+                                  justify="flex-end"
+                >
+                    <Grid item>
+                        <IconButton edge="end" aria-label="info" onClick={() => setInfoDialogOpen(true)}>
+                            <InfoIcon style={{color: "white"}}/>
+                        </IconButton>
+                        <IconButton edge="end" aria-label="accept">
+                            <CheckIcon style={{color: "white"}} onClick={() => setFinishDialogOpen(true)}/></IconButton>
+                        <IconButton edge="end" aria-label="accept">
+                            <ClearIcon style={{color: "white"}} onClick={() => setCancelDialogOpen(true)}/></IconButton>
                     </Grid>
+                </Grid>
                     <Dialog
                         open={infoDialogOpen}
                         onClose={() => setInfoDialogOpen(false)}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Additional Request information"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title"
+                                     style={{color: theme.palette.primary.contrastText}}>{"Additional Request information"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
                                 {request.message}                            </DialogContentText>
@@ -145,63 +144,69 @@ export function UpcomingGame(props) {
                                 direction="row"
                                 justify="center"
                                 alignItems="center"
-                            >                            <CardMedia src={Discord} component="img"
-                                       className={classes.imageStyle}/>
-                            <Typography variant="h6" className={classes.description} align="center" color="textPrimary">
+                            > <CardMedia src={Discord} component="img"
+                                         className={classes.imageStyle}/>
+                                <Typography variant="h6" className={classes.description} align="center"
+                                            color="textPrimary">
 
-                                {request.discordTag}
-                            </Typography>
+                                    {request.discordTag}
+                                </Typography>
                             </Grid>
 
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={() => setInfoDialogOpen(false)} color="primary" autoFocus className={classes.button}>
+                            <Button onClick={() => setInfoDialogOpen(false)} color="primary" autoFocus
+                                    className={classes.button}>
                                 OK
                             </Button>
                         </DialogActions>
                     </Dialog>
                     <Dialog
-                    open={finishDialogOpen}
-                    onClose={() => setFinishDialogOpen(false)}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title" style={{color:theme.palette.primary.contrastText}}>{"Finish Game"}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Did you finish the game?
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() =>{
-                            RequestService.finishRequest(request._id)
-                            setFinishDialogOpen(false)}} color="primary" autoFocus
-                                className={classes.button}>
-                            Yes
-                        </Button>
+                        open={finishDialogOpen}
+                        onClose={() => setFinishDialogOpen(false)}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title"
+                                     style={{color: theme.palette.primary.contrastText}}>{"Finish Game"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                Did you finish the game?
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={() => {
+                                RequestService.finishRequest(request._id)
+                                setFinishDialogOpen(false)
+                            }} color="primary" autoFocus
+                                    className={classes.button}>
+                                Yes
+                            </Button>
 
-                        <Button onClick={() => setFinishDialogOpen(false)} color="primary" autoFocus className={classes.button}>
+                            <Button onClick={() => setFinishDialogOpen(false)} color="primary" autoFocus
+                                    className={classes.button}>
 
-                            Cancel
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                                Cancel
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                     <Dialog
                         open={cancelDialogOpen}
                         onClose={() => setCancelDialogOpen(false)}
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title" color="textPrimary" >{"Cancel Game"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title" color="textPrimary">{"Cancel Game"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
                                 Are you sure you want to cancel this game?
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={() =>{
-                                RequestService.cancelGame(request._id,"declined")
-                                setCancelDialogOpen(false)}} color="primary" autoFocus
+                            <Button onClick={() => {
+                                RequestService.cancelGame(request._id, "declined")
+                                setCancelDialogOpen(false)
+                            }} color="primary" autoFocus
                                     className={classes.button}>
 
                                 Yes
@@ -214,7 +219,6 @@ export function UpcomingGame(props) {
                             </Button>
                         </DialogActions>
                     </Dialog>
-
 
 
                 </ListItem>

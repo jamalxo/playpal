@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 
 import ProfileCard from "../ProfileCard/ProfileCard";
 import {Link} from "react-router-dom";
-import './ProfileList.css';
 import Badge from "@material-ui/core/Badge";
 import GoldMedal from "../../resources/Medals/gold-medal.png";
 import SilverMedal from "../../resources/Medals/silver-medal.png";
@@ -30,6 +29,12 @@ const useStyles = (theme) => ({
         width: 70,
         marginRight: 35,
         marginTop: 35
+    },
+    profileList: {
+        paddingTop: 15
+    },
+    linkDecoration: {
+        textDecoration: "none"
     }
 });
 
@@ -74,8 +79,8 @@ class ProfileList extends React.Component {
         return (
             <Grid container justify="center" spacing={2}>
                 {this.props.data.sort((a, b) => this.getAvg(b) - this.getAvg(a)).slice(0, 8).map((profile, i) => (
-                    <Grid key={i} item className="profileList">
-                        <Link className="linkDecoration" to={`/user/${profile._id}`}>
+                    <Grid key={i} item className={classes.profileList}>
+                        <Link className={classes.linkDecoration} to={`/user/${profile._id}`}>
                             {this.displayProfilesWithBadges(profile, i)}
                         </Link>
                     </Grid>
