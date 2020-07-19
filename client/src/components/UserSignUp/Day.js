@@ -185,7 +185,7 @@ class Day extends React.Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div>
-                    <Grid item container direction="row" alignItems="center" justify="center">
+                    <Grid item container direction="row" alignItems="center" justify="flex-start">
                         <Grid item xs={3}>
                             <Typography color="textPrimary">{this.state.day}</Typography>
                         </Grid>

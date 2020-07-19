@@ -117,6 +117,7 @@ const useStyles = (theme) => ({
     imageStyle: {
         height: 50,
         width: 50,
+        cursor: "pointer"
     },
 });
 
@@ -168,26 +169,6 @@ class Times extends React.Component {
         this.validateInputBeforeSubmit = this.validateInputBeforeSubmit.bind(this);
 
     }
-
-    // componentDidUpdate(previousProps, previousState) {
-    //     if (previousProps.aval !== this.props.aval) {
-    //         console.log(previousProps)
-    //     } else {
-    //         console.log(this.props)
-    //         console.log(previousProps)
-    //     }
-    //     console.log(this.state);
-    //
-    //     if (this.props.aval.length !== 0) {
-    //         this.state = {
-    //             availability: this.props.aval
-    //         };
-    //     } else {
-    //         this.state = {
-    //             availability: [{}, {}, {}, {}, {}, {}, {}]
-    //         };
-    //     }
-    // }
 
     validateInputBeforeSubmit() {
         // startTime must be before endTime
@@ -328,7 +309,7 @@ class Times extends React.Component {
     displayIcon(classes) {
         if (UserService.getCurrentUser().id === this.props.user) {
             return (
-                <Tooltip title="Edit Availability" aria-label="pro" onClick={this.handleClickOpen}>
+                <Tooltip title="Edit Availability" aria-label="pro" onClick={this.handleClickOpen} >
                     <img src={Availability} alt="Logo" className={classes.imageStyle}/>
                 </Tooltip>
             );
