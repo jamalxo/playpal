@@ -289,7 +289,7 @@ class ReviewData extends React.Component {
         return (
             <Card className={classes.root}>
                 <Grid container alignItems="center">
-                    <Grid item xs={9} className={[classes.profilePicturePosition, classes.reviewPadding]}>
+                    <Grid item xs={9} className={classes.profilePicturePosition + ' ' + classes.reviewPadding}>
                         <CardContent>
                             <Avatar
                                 className={classes.profilePicture}

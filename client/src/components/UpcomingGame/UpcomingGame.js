@@ -85,7 +85,7 @@ export function UpcomingGame(props) {
     return (
         <MuiThemeProvider theme={theme}>
             <Box borderRadius="50%">
-                <ListItem classes={{root: classes.root}} key={props.key}>
+                <ListItem classes={{root: classes.root}}>
                     <Grid
                         container
                         direction="row"

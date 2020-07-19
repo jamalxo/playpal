@@ -71,7 +71,7 @@ class AvailabilityBox extends React.Component {
         } else {
             return (
                 avalArray.map((aval, i) => <Typography variant="body1"
-                                                       color={'inherit'}>{this.displayTime(aval)}</Typography>)
+                                                       color={'inherit'} key={i}>{this.displayTime(aval)}</Typography>)
             );
         }
     }

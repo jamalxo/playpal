@@ -210,7 +210,7 @@ export function PendingRequest(props) {
     return (
         <MuiThemeProvider theme={theme}>
             <Box borderRadius="50%">
-                <ListItem classes={{root: classes.root}} key={props.key}>
+                <ListItem classes={{root: classes.root}}>
                         {RequestText}
                             <Grid container
                                   direction="row"

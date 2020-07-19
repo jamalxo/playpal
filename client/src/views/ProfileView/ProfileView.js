@@ -237,7 +237,7 @@ class ProfileView extends React.Component {
                                                     className={classes.offerHeader}
                                                     color={"inherit"}>My Offers</Typography>
                                     </Grid>
-                                    <Grid item xs={12} className={[classes.elementPadding, classes.offerElement]}>
+                                    <Grid item xs={12} className={classes.elementPadding + ' ' + classes.offerElement}>
                                         {this.displayOffers()}
                                     </Grid>
                                 </Grid>

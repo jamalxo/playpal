@@ -15,10 +15,10 @@ const useStyles = (theme) => ({
         paddingTop: '150px',
     },
     headerPlayPal: {
-        fontWeight: '450',
-        color: theme.palette.primary.contrastText,
-        alignSelf: 'center',
-        marginLeft: '25px',
+        // fontWeight: '450',
+        // color: theme.palette.primary.contrastText,
+        // alignSelf: 'center',
+        // marginLeft: '25px',
     },
     headerAccept: {
         fontWeight: '450',
@@ -52,24 +52,24 @@ export function PendingRequestsView() {
         fetchdata()
         }, []);
 
-    const classes = useStyles(theme)
+    const classes = useStyles(theme);
     return (
         <Page>
             <MuiThemeProvider theme={theme}>
-                <div style={{paddingTop: '150px', backgroundColor:theme.palette.primary.dark}}>
+                <div style={{paddingTop: '100px', backgroundColor:theme.palette.primary.dark}}>
                     <Grid
                         container
                         direction="column"
                         justify="center"
                         alignItems="center"
                     >
-                        <Typography variant="h4" className={classes.headerPlayPal} align="center" color="textPrimary">
+                        <Typography variant="h4" classes={classes.headerPlayPal} align="center" color="textPrimary">
                             PENDING REQUESTS
                         </Typography>
                         <Grid item className="PendingOfferList">
                             {
 
-                                requests.map((item, index) => <PendingRequest request={item} index={index} playertype={playertype}/>)
+                                requests.map((item, index) => <PendingRequest request={item} index={index} playertype={playertype} key={index}/>)
                             }
                         </Grid>
                     </Grid>
