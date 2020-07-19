@@ -6,25 +6,17 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import Avatar from '@material-ui/core/Avatar';
-import './ProfileCard.css';
 import Divider from "@material-ui/core/Divider";
 import {withStyles} from '@material-ui/core/styles';
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Tooltip from "@material-ui/core/Tooltip";
-import Verified from "../../resources/verified_gamer.png";
+import Verified from "../../resources/ProfileIcons/verified_gamer.png";
 
 const useStyles = (theme) => ({
     root: {
         background: theme.palette.primary.lighter,
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
         flexGrow: 1,
     },
     description: {
@@ -33,6 +25,23 @@ const useStyles = (theme) => ({
     imageStyle: {
         height: 30,
         width: 30,
+    },
+    profileCard: {
+        width: 280,
+        height: 425
+    },
+    profilePicture: {
+        width: 150,
+        height: 150
+    },
+    reviewRating: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row",
+    },
+    fontAverage: {
+        fontSize: "medium"
     }
 });
 
@@ -46,7 +55,7 @@ class ProfileCard extends React.Component {
         const ratings = this.props.profile.reviews;
         var sum = 0;
         for (var i = 0; i < ratings.length; i++) {
-            sum += parseInt(ratings[i].rating, 10); //don't forget to add the base
+            sum += parseInt(ratings[i].rating, 10);
         }
         const avg = (sum / ratings.length) || 0;
         return avg;
@@ -79,11 +88,11 @@ class ProfileCard extends React.Component {
         const {classes} = this.props;
         return (
             <MuiThemeProvider theme={theme}>
-                <Card classes={{root: classes.root}} className="profileCard" key={this.props.key}>
+                <Card classes={{root: classes.root}} className={classes.profileCard} key={this.props.key}>
                     <CardActionArea className={classes.description}>
                         <CardContent align="center">
                             <Avatar
-                                className="profilePicture"
+                                className={classes.profilePicture}
                                 alt={this.props.profile.username}
                                 title={this.props.profile.username}
                                 src={this.props.profile.profileImage}/>
@@ -95,9 +104,9 @@ class ProfileCard extends React.Component {
                         <Divider variant="middle"/>
                         <CardContent align="center">
                             <Typography variant="body1" component="h2" color="textPrimary">
-                                <div className="reviewRating">
+                                <div className={classes.reviewRating}>
                                     <Rating name="read-only" value={this.getAvg()} readOnly size="large"/>
-                                    <span className="fontAverage">
+                                    <span className={classes.fontAverage}>
                                     {this.getAvg().toFixed(1)}
                                 </span>
                                 </div>

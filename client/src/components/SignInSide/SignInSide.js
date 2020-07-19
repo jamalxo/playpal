@@ -13,7 +13,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import UserService from "../../services/UserService";
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import {theme} from "../../theme";
-import Banner from "../../resources/console.svg";
+import Banner from "../../resources/HeaderIcons/console.svg";
 
 function Copyright() {
     return (

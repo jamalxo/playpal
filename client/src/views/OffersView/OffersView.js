@@ -12,9 +12,9 @@ import Paper from "@material-ui/core/Paper/Paper";
 import Button from "@material-ui/core/Button";
 import ProfileService from "../../services/ProfileService";
 import UserService from "../../services/UserService";
-import Pencil from "../../resources/pencil.svg";
+import Pencil from "../../resources/OfferIcons/pencil.svg";
 import Divider from '@material-ui/core/Divider';
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 
 
 const useStyles = (theme) => ({

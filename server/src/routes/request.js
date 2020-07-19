@@ -2,14 +2,14 @@
 
 const express = require('express');
 const router = express.Router();
-const requestController = require('../controllers/request')
 
 const middlewares = require('../middlewares');
-router.get('/:id', requestController.read); // Answer Request
+const requestController = require('../controllers/request')
 
-router.post('/create', middlewares.checkAuthentication, requestController.create ); // Create Request
-router.put('/answer', middlewares.checkAuthentication, requestController.answer); // Answer Request
-router.put('/finish', middlewares.checkAuthentication, requestController.finish); // Answer Request
-router.put('/cancel', middlewares.checkAuthentication, requestController.cancel); // Answer Request
+router.get('/:id', requestController.read);
+router.post('/create', middlewares.checkAuthentication, requestController.create);
+router.put('/answer', middlewares.checkAuthentication, requestController.answer);
+router.put('/finish', middlewares.checkAuthentication, requestController.finish);
+router.put('/cancel', middlewares.checkAuthentication, requestController.cancel);
 
 module.exports = router;

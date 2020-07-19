@@ -1,13 +1,8 @@
 "use strict";
 
 import React from 'react';
-
 import Header from '../Header/Header';
-import {Footer} from '../Footer';
 import SideBar from "../Sidebar/SideBar";
-
-import "./Page.css"
-
 
 export default class Page extends React.Component {
 
@@ -24,14 +19,15 @@ export default class Page extends React.Component {
 
     }
 
-    componentDidMount(){
-       this.setState({
-           title: document.title
-       });
+    componentDidMount() {
+        this.setState({
+            title: document.title
+        });
     }
-    toggleSideBar(boo){
+
+    toggleSideBar(boo) {
         this.setState(
-            {sideBarOpen:boo}
+            {sideBarOpen: boo}
         )
     }
 
@@ -41,9 +37,9 @@ export default class Page extends React.Component {
             <section>
                 <div id="wrapper">
                     <div>
-                        <Header title={this.state.title} toggleDrawer={this.toggleSideBar} sideBarOpen={this.state.sideBarOpen}/>
+                        <Header title={this.state.title} toggleDrawer={this.toggleSideBar}
+                                sideBarOpen={this.state.sideBarOpen}/>
                         {this.props.children}
-                        <Footer />
                     </div>
                     <div>
                         <SideBar open={this.state.sideBarOpen} toggleDrawer={this.toggleSideBar}></SideBar>

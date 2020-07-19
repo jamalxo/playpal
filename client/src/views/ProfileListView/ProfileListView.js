@@ -2,12 +2,10 @@
 
 import React from 'react';
 
-import { ProfileList } from '../../components/ProfileList/ProfileList';
+import {ProfileList} from '../../components/ProfileList/ProfileList';
 import ProfileService from '../../services/ProfileService';
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
 import Page from "../../components/Page/Page";
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 
 export class ProfileListView extends React.Component {
 
@@ -20,12 +18,12 @@ export class ProfileListView extends React.Component {
         };
     }
 
-    componentWillMount(){
+    componentWillMount() {
         this.setState({
             loading: true
         });
 
-        ProfileService.getProfiles().then((data) => {
+        ProfileService.getAllProfiles().then((data) => {
             this.setState({
                 data: [...data],
                 loading: false

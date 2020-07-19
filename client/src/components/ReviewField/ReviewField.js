@@ -8,7 +8,6 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import "./ReviewField.css";
 import {withStyles} from "@material-ui/core/styles";
 import UserService from "../../services/UserService";
 
@@ -95,7 +94,7 @@ class ReviewField extends React.Component {
                                 size={"large"}
                                 disabled={UserService.getCurrentUser().id === this.props.user._id}
                                 onChange={(event, newValue) => {
-                                    this.setState( {rating: newValue});
+                                    this.setState({rating: newValue});
                                 }}
                             />
                         </Grid>
@@ -126,4 +125,5 @@ class ReviewField extends React.Component {
         );
     }
 }
+
 export default withStyles(useStyles)(ReviewField);

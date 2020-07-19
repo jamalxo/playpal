@@ -34,7 +34,7 @@ import GameGrid from "./GameGrid";
 
 import PublicIcon from '@material-ui/icons/Public';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import Loading from "../Loading";
+import Loading from "../Loading/Loading";
 
 
 function getSteps() {

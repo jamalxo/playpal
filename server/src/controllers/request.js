@@ -10,41 +10,38 @@ const answer = async (req, res) => {
         message: 'The request body is empty'
     });
     try {
-        console.log(req.body.requestId)
         let request = await RequestModel.findByIdAndUpdate({_id: req.body.requestId},
-            {status:req.body.status});
-        console.log("Got answer")
+            {status: req.body.status});
         await UserModel.findByIdAndUpdate(
             {_id: request.requestingPlayer},
-            {$pull:{createdRequests:request._id}},
+            {$pull: {createdRequests: request._id}},
             {safe: true, upsert: true},
-            function(err, model) {
+            function (err, model) {
                 console.log(err);
             }
         )
         await UserModel.findByIdAndUpdate(
             {_id: request.offeringPlayer},
-            {$pull:{pendingRequests:request._id}},
+            {$pull: {pendingRequests: request._id}},
             {safe: true, upsert: true},
-            function(err, model) {
+            function (err, model) {
                 console.log(err);
             }
         )
-        if(req.body.status ==="accepted")
-        {
+        if (req.body.status === "accepted") {
             UserModel.findByIdAndUpdate(
                 {_id: request.requestingPlayer},
-                {$push:{upcomingGames:request._id}},
+                {$push: {upcomingGames: request._id}},
                 {safe: true, upsert: true},
-                function(err, model) {
+                function (err, model) {
                     console.log(err);
                 }
             )
             UserModel.findByIdAndUpdate(
                 {_id: request.offeringPlayer},
-                {$push:{upcomingGames:request._id}},
+                {$push: {upcomingGames: request._id}},
                 {safe: true, upsert: true},
-                function(err, model) {
+                function (err, model) {
                     console.log(err);
                 }
             )
@@ -52,7 +49,7 @@ const answer = async (req, res) => {
         }
 
         return res.status(201).json(request)
-    } catch(err) {
+    } catch (err) {
         console.log(err)
         return res.status(500).json({
             error: 'Internal server error',
@@ -72,7 +69,7 @@ const create = async (req, res) => {
         let requestObj = {
             requestingPlayer: req.userId,
             offer: req.body.offerId,
-            status:'pending',
+            status: 'pending',
             game: offer.game,
             offeringPlayer: offer.owner,
             price: offer.price,
@@ -83,23 +80,23 @@ const create = async (req, res) => {
 
         UserModel.findByIdAndUpdate(
             {_id: offer.owner},
-            {$push:{"pendingRequests":request}},
+            {$push: {"pendingRequests": request}},
             {safe: true, upsert: true},
-            function(err, model) {
+            function (err, model) {
                 console.log(err);
             }
         )
         UserModel.findByIdAndUpdate(
             {_id: req.userId},
-            {$push:{"createdRequests":request}},
+            {$push: {"createdRequests": request}},
             {safe: true, upsert: true},
-            function(err, model) {
+            function (err, model) {
                 console.log(err);
             }
         )
 
         return res.status(201).json(request)
-    } catch(err) {
+    } catch (err) {
         console.log(err)
 
         return res.status(500).json({
@@ -118,7 +115,7 @@ const read = async (req, res) => {
         });
 
         return res.status(200).json(request)
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal Server Error',
             message: err.message
@@ -132,18 +129,18 @@ const finish = async (req, res) => {
     });
     try {
         let request = RequestModel.findByIdAndUpdate({_id: req.body.requestId},
-            {status:"finished"});
+            {status: "finished"});
 
         UserModel.findByIdAndUpdate(
             {_id: req.userId},
-            {$pull:{upcomingGames:req.body.requestId}},
+            {$pull: {upcomingGames: req.body.requestId}},
             {safe: true, upsert: true},
-            function(err, model) {
+            function (err, model) {
                 console.log(err);
             }
         )
         return res.status(201).json(request)
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal server error',
             message: err.message
@@ -157,27 +154,27 @@ const cancel = async (req, res) => {
     });
     try {
         let request = await RequestModel.findByIdAndUpdate({_id: req.body.requestId},
-            {status:"cancelled"});
+            {status: "cancelled"});
 
         UserModel.findByIdAndUpdate(
             {_id: request.offeringPlayer},
-            {$pull:{upcomingGames:req.body.requestId}},
+            {$pull: {upcomingGames: req.body.requestId}},
             {safe: true, upsert: true},
-            function(err, model) {
+            function (err, model) {
                 console.log(err);
             }
         )
         UserModel.findByIdAndUpdate(
             {_id: request.requestingPlayer},
-            {$pull:{upcomingGames:req.body.requestId}},
+            {$pull: {upcomingGames: req.body.requestId}},
             {safe: true, upsert: true},
-            function(err, model) {
+            function (err, model) {
                 console.log(err);
             }
         )
 
         return res.status(201).json(request)
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             error: 'Internal server error',
             message: err.message

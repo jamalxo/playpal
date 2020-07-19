@@ -1,18 +1,13 @@
 import React from 'react';
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Radio from "@material-ui/core/Radio";
-import { PayPalButton } from "react-paypal-button-v2";
+import {PayPalButton} from "react-paypal-button-v2";
 
-export default function PaymentForm(){
+export default function PaymentForm() {
     const [selectedValue, setSelectedValue] = React.useState('a');
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
     };
-    return (    <React.Fragment>
+    return (<React.Fragment>
         <Grid
             container
             direction="column"

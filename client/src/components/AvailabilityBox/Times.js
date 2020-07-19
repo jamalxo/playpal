@@ -9,7 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Day from "./Day";
-import Availability from "../../resources/availability.png";
+import Availability from "../../resources/ProfileIcons/availability.png";
 import Tooltip from "@material-ui/core/Tooltip";
 import UserService from "../../services/UserService";
 
@@ -327,13 +327,13 @@ class Times extends React.Component {
 
     displayIcon(classes) {
         if (UserService.getCurrentUser().id === this.props.user) {
-            return(
+            return (
                 <Tooltip title="Edit Availability" aria-label="pro" onClick={this.handleClickOpen}>
                     <img src={Availability} alt="Logo" className={classes.imageStyle}/>
                 </Tooltip>
             );
         } else {
-            return(
+            return (
                 <img src={Availability} alt="Logo" className={classes.imageStyle}/>
             );
         }

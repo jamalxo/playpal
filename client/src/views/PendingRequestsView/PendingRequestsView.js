@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import UserService from "../services/UserService";
-import Page from "../components/Page/Page";
-import {PendingRequest} from "../components/PendingRequest/PendingRequest";
+import UserService from "../../services/UserService";
+import Page from "../../components/Page/Page";
+import {PendingRequest} from "../../components/PendingRequest/PendingRequest";
 import Grid from "@material-ui/core/Grid";
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
-import {theme} from "../theme";
+import {theme} from "../../theme";
 import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import ProfileService from "../services/ProfileService";
-import RequestService from "../services/RequestService";
+import ProfileService from "../../services/ProfileService";
+import RequestService from "../../services/RequestService";
 
 const useStyles = (theme) => ({
     container: {
@@ -40,23 +39,22 @@ export function PendingRequestsView() {
         const fetchdata = async () => {
             const userprof = await ProfileService.getProfile(user.id)
             setPlayertype(userprof.usertype)
-            const newrequests = userprof.usertype ==="professional" ? userprof.pendingRequests : userprof.createdRequests
+            const newrequests = userprof.usertype === "professional" ? userprof.pendingRequests : userprof.createdRequests
             const newRequestsFetched = []
-            for(let i = 0; i < newrequests.length; i++)
-            {
+            for (let i = 0; i < newrequests.length; i++) {
                 let temp = await RequestService.getRequest(newrequests[i])
                 newRequestsFetched.push(temp)
             }
             setRequests(newRequestsFetched)
         }
         fetchdata()
-        }, []);
+    }, []);
 
     const classes = useStyles(theme);
     return (
         <Page>
             <MuiThemeProvider theme={theme}>
-                <div style={{paddingTop: '100px', backgroundColor:theme.palette.primary.dark}}>
+                <div style={{paddingTop: '100px', backgroundColor: theme.palette.primary.dark}}>
                     <Grid
                         container
                         direction="column"
@@ -69,7 +67,8 @@ export function PendingRequestsView() {
                         <Grid item className="PendingOfferList">
                             {
 
-                                requests.map((item, index) => <PendingRequest request={item} index={index} playertype={playertype} key={index}/>)
+                                requests.map((item, index) => <PendingRequest request={item} index={index}
+                                                                              playertype={playertype} key={index}/>)
                             }
                         </Grid>
                     </Grid>

@@ -4,7 +4,6 @@ import Page from "../../components/Page/Page";
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {PendingRequest} from "../../components/PendingRequest/PendingRequest";
 import {UpcomingGame} from "../../components/UpcomingGame/UpcomingGame";
 import UserService from "../../services/UserService";
 import ProfileService from "../../services/ProfileService";
@@ -37,8 +36,7 @@ export function UpcomingGamesView() {
             const profile = await ProfileService.getProfile(user.id)
             const gameIds = profile.upcomingGames
             const newRequestsFetched = []
-            for(let i = 0; i < gameIds.length; i++)
-            {
+            for (let i = 0; i < gameIds.length; i++) {
                 let temp = await RequestService.getRequest(gameIds[i])
                 newRequestsFetched.push(temp)
             }
@@ -46,13 +44,13 @@ export function UpcomingGamesView() {
         }
 
         fetchdata()
-    },[])
+    }, [])
 
     const classes = useStyles(theme)
     return (
         <Page>
             <MuiThemeProvider theme={theme}>
-                <div style={{paddingTop: '100px', backgroundColor:theme.palette.primary.dark}}>
+                <div style={{paddingTop: '100px', backgroundColor: theme.palette.primary.dark}}>
                     <Grid
                         container
                         direction="column"
