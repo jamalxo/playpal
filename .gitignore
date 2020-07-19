@@ -3,6 +3,8 @@
 /npm-debug.log
 /config/config.js
 
+/dump
+
 
 # Logs
 logs
