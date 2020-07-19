@@ -18,7 +18,9 @@ import Verified from "../../resources/verified_gamer.png";
 
 const useStyles = (theme) => ({
     root: {
-        background: theme.palette.primary.light
+        background: theme.palette.primary.light,
+        display: "flex",
+        width: '100%'
     },
     star: {
         height: 60,
@@ -34,7 +36,9 @@ const useStyles = (theme) => ({
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        width: 200,
+        height: 200
     },
     about: {
         fontSize: 16
@@ -42,7 +46,14 @@ const useStyles = (theme) => ({
     imageStyle: {
         height: 30,
         width: 30,
-    }
+    },
+    divider: {
+        backgroundColor: theme.palette.primary.contrastText
+    },
+    profilePicture: {
+        width: 150,
+        height: 150
+    },
 });
 
 class ProfileCard extends React.Component {
@@ -93,7 +104,7 @@ class ProfileCard extends React.Component {
                         <Grid container spacing={2}>
                             <Grid item xs={4} className={classes.picture}>
                                 <Avatar
-                                    className="profilePicture"
+                                    className={classes.profilePicture}
                                     alt={this.props.profile.username}
                                     title={this.props.profile.username}
                                     src={this.props.profile.profileImage}/>

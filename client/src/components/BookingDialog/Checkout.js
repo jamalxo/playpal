@@ -81,7 +81,6 @@ export default function Checkout(props) {
                     <Button onClick={props.handleClose} className={classes.button}>
                         OK
                     </Button>
-
                 </Grid>
             </React.Fragment>
     ):(

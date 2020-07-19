@@ -53,4 +53,24 @@ export default class UserService {
     static isAuthenticated() {
         return !!window.localStorage['jwtToken'];
     }
+
+    static updateAvailability(id, avalArray) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${UserService.baseURL()}/availability/${id}`, avalArray, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static updateServer(id, server) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${UserService.baseURL()}/server/${id}`, server, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
 }

@@ -16,6 +16,7 @@ import Order from "../../resources/einkaufswagen.svg";
 import Match from "../../resources/herz-new.svg";
 import Trophy from "../../resources/trophaee.svg";
 import New from "../../resources/neu.svg";
+import Like from "../../resources/like.svg";
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -155,7 +156,7 @@ class HomePageView extends React.Component {
                         <Grid item xs={12} className={classes.image}/>
 
                         {/*INTRO*/}
-                        <Grid item xs={4} container direction="column" spacing={2} justify="center"
+                        <Grid item xs={3} container direction="column" spacing={2} justify="center"
                               alignItems="center">
                             <img src={Search} alt="Logo" className={classes.imageStyle}/>
                             <Typography variant="h5" className={classes.headerInfo}>
@@ -165,7 +166,7 @@ class HomePageView extends React.Component {
                                 Search through over 1000+ offers
                             </Typography>
                         </Grid>
-                        <Grid item xs={4} container direction="column" spacing={2} justify="center"
+                        <Grid item xs={3} container direction="column" spacing={2} justify="center"
                               alignItems="center">
                             <img src={Order} alt="Logo" className={classes.imageStyle}/>
                             <Typography variant="h5" className={classes.headerInfo}>
@@ -175,7 +176,17 @@ class HomePageView extends React.Component {
                                 Decide on your favourite person to play with
                             </Typography>
                         </Grid>
-                        <Grid item xs={4} container direction="column" spacing={2} justify="center"
+                        <Grid item xs={3} container direction="column" spacing={2} justify="center"
+                              alignItems="center">
+                            <img src={Like} alt="Logo" className={classes.imageStyle}/>
+                            <Typography variant="h5" className={classes.headerInfo}>
+                                WAIT FOR ACCEPT
+                            </Typography>
+                            <Typography variant="subtitle1" className={classes.headerInfo}>
+                                Professional Players still have to accept you request to play with them
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={3} container direction="column" spacing={2} justify="center"
                               alignItems="center">
                             <img src={Match} alt="Logo" className={classes.imageStyle}/>
                             <Typography variant="h5" className={classes.headerInfo}>
@@ -188,7 +199,7 @@ class HomePageView extends React.Component {
                         {/*INTRO*/}
 
                         <Paper elevation={3} className={classes.paper}>
-                            <Grid  xs={12}  container
+                            <Grid container
                                   direction="column"
                                   justify="center"
                                   alignItems="center">
@@ -206,7 +217,7 @@ class HomePageView extends React.Component {
                         </Paper>
 
                         <Paper elevation={3} className={classes.paper}>
-                            <Grid xs={12}  container
+                            <Grid container
                                   direction="column"
                                   justify="center"
                                   alignItems="center">

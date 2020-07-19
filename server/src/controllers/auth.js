@@ -60,7 +60,6 @@ const register = async (req,res) => {
         error: 'Bad Request',
         message: 'The request body must contain a email property'
     });
-
     const user = {
         username: req.body.username,
         password: bcrypt.hashSync(req.body.password, 8),
@@ -69,7 +68,9 @@ const register = async (req,res) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         description: req.body.description,
-        profileImage: "http://localhost:3000/" + req.file.path
+        profileImage: "http://localhost:3000/" + req.file.path,
+        availability: JSON.parse(req.body.availability),
+        server: req.body.server
     };
 
     try {
@@ -135,9 +136,9 @@ const getProfiles = async (req, res) => {
             .populate({
                 path: 'offers',
                 model: 'Offer',
-                select: 'price game server availability'
+                select: 'owner price game server availability'
             });
-        console.log(users);
+        // console.log(users);
 
         return res.status(200).json(users);
     } catch(err) {
@@ -163,7 +164,7 @@ const getProfile = async (req, res) => {
             .populate({
                 path: 'offers',
                 model: 'Offer',
-                select: 'price game server availability'
+                select: 'owner price game server availability'
             });
         if (!user) return res.status(404).json({
             error: 'Not Found',
@@ -178,6 +179,51 @@ const getProfile = async (req, res) => {
         });
     }
 };
+
+
+const updateAvailability = async (req, res) => {
+    try{
+        UserModel.findById(req.params.id, function(err, user) {
+            if (err) return console.log("err");
+            if (!user) return console.log("no user");
+
+            user.availability = req.body;
+            user.save(function(err) {
+                if (err) return console.log('err availability');
+            });
+            return res.status(200).json(user.availability);
+        });
+
+    } catch(err) {
+        return res.status(500).json({
+            error: 'Internal server error',
+            message: err.message
+        });
+    }
+}
+
+const updateServer = async (req, res) => {
+    console.log(req.body);
+    try{
+        UserModel.findById(req.params.id, function(err, user) {
+            if (err) return console.log("err");
+            if (!user) return console.log("no user");
+
+            user.server = req.body.server;
+            user.save(function(err) {
+                if (err) return console.log('err server');
+            });
+            return res.status(200).json(user.server);
+        });
+
+    } catch(err) {
+        return res.status(500).json({
+            error: 'Internal server error',
+            message: err.message
+        });
+    }
+}
+
 const addPendingOffer = async (req, res) => {
     try{
         UserModel.findByIdAndUpdate(
@@ -248,4 +294,6 @@ module.exports = {
     addRequestedOffer,
     removeRequestedOffer,
     removePendingOffer,
+    updateAvailability,
+    updateServer
 };

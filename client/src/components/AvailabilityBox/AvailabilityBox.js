@@ -10,6 +10,12 @@ import {theme} from "../../theme";
 import Availability from "../../resources/availability.png";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
+import Tooltip from "@material-ui/core/Tooltip";
+import Verified from "../../resources/verified_gamer.png";
+import UserService from "../../services/UserService";
+import Times from "../AvailabilityBox/Times";
+import ReviewService from "../../services/ReviewService";
 
 
 const useStyles = (theme) => ({
@@ -35,14 +41,80 @@ const useStyles = (theme) => ({
     },
     times: {
         paddingLeft: 30,
-        paddingTop: 20
-    }
+        paddingTop: 20,
+        paddingBottom: 20
+    },
+    divider: {
+        backgroundColor: theme.palette.primary.contrastText
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+        backgroundColor: theme.palette.primary.lighter,
+        color: theme.palette.primary.contrastText
+    },
 });
 
 class AvailabilityBox extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            availability: this.props.profile.availability
+        }
+        this.timesChange = this.timesChange.bind(this);
+    }
+
+    displayAvailability() {
+        let avalArray = this.state.availability.filter(e => e.startTime !== undefined);
+        if (avalArray.length === 0) {
+            return (<Typography variant="body1" color={"inherit"}>No Availability Set!</Typography>);
+        } else {
+            return (
+                avalArray.map((aval, i) => <Typography variant="body1"
+                                                       color={'inherit'} key={i}>{this.displayTime(aval)}</Typography>)
+            );
+        }
+    }
+
+    displayTime(aval) {
+        if (aval.startTime !== undefined && aval.endTime !== undefined) {
+            let start = new Date(aval.startTime);
+            let end = new Date(aval.endTime);
+            return (
+                <span>{aval.day}: {start.getHours()}:{start.getMinutes() < 10 ? '0' + start.getMinutes() : start.getMinutes()} - {end.getHours()}:{end.getMinutes() < 10 ? '0' + end.getMinutes() : end.getMinutes()}</span>);
+        } else {
+            return null;
+        }
+    }
+
+    async timesChange(aval) {
+        console.log(aval);
+        let avalArray = aval;
+        for (var i = 0; i < 7; i++){
+            let avalEntry = {
+                startTime: avalArray[i].startTime,
+                endTime: avalArray[i].endTime,
+                away: avalArray[i].away,
+                day: avalArray[i].day,
+            }
+            avalArray[i] = avalEntry;
+        }
+        avalArray = avalArray.map((aval, i) => aval.startTime !== undefined ? aval : {});
+        console.log(avalArray);
+        let id = this.props.profile._id;
+        this.setState({
+            loading: true
+        });
+        try {
+            let ret = await UserService.updateAvailability(id, aval);
+            console.log(ret);
+            this.state.availability = ret;
+            this.setState({
+                loading: false
+            });
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     render() {
@@ -51,18 +123,16 @@ class AvailabilityBox extends React.Component {
             <MuiThemeProvider theme={theme}>
                 <Card key={this.props.key} className={classes.root}>
                     <Grid container className={classes.availabilityBox}>
-                        <Grid item xs={12} >
+                        <Grid item xs={12}>
                             <div className={classes.contentBox}>
-                                <img src={Availability} alt="Logo" className={classes.imageStyle}/>
+                                <Times onTimesChange={this.timesChange} aval={this.state.availability} user={this.props.profile._id}/>
                             </div>
                             <div className={classes.contentBox}>
                                 <Typography variant="h4" color={'inherit'}>Availability</Typography>
                             </div>
-                            <Divider orientation="horizontal" variant="fullWidth"/>
+                            <Divider orientation="horizontal" variant="fullWidth" className={classes.divider}/>
                             <div className={classes.times}>
-                                <Typography variant="body1" color={'inherit'}>1. Friday: 18:00 - 20:00</Typography>
-                                <Typography variant="body1" color={'inherit'}>2. Saturday: 18:00 - 20:00</Typography>
-                                <Typography variant="body1" color={'inherit'}>3. Sunday: 18:00 - 20:00</Typography>
+                                {this.displayAvailability()}
                             </div>
                         </Grid>
 

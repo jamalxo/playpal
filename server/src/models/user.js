@@ -78,7 +78,7 @@ const UserSchema = new mongoose.Schema({
             required: false,
         },
         day: {
-            type: [String],
+            type: String,
             required: false,
         },
         away: {
@@ -89,7 +89,11 @@ const UserSchema = new mongoose.Schema({
     upcomingGames:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Request'
-    }]
+    }],
+    server: {
+        type: String,
+        enum: ['Europe', 'USA', 'Asia', 'Russia', 'Australia', 'South Africa', 'South America'],
+    },
 
 });
 

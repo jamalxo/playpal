@@ -19,7 +19,7 @@ import Loading from "../../components/Loading";
 
 const useStyles = (theme) => ({
     container: {
-        paddingTop: '150px',
+        paddingTop: '100px',
     },
     headerFont: {
         fontWeight: '450',
